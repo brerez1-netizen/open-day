@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>מה הבניין הזה מסתיר — הדגמה</title>
+<style>
+  :root {
+    --paper:      #F1F2EE;
+    --surface:    #FBFBF9;
+    --sunk:       #E7E9E3;
+    --ink:        #1A1E1C;
+    --ink-soft:   #5D6663;
+    --ink-faint:  #8A928E;
+    --rule:       #C9CDC6;
+    --rule-soft:  #DFE2DC;
+    --mark:       #D6431B;
+    --mark-ink:   #FFFFFF;
+    --mark-soft:  #F6E2DA;
+    --good:       #2E6B4F;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:     #16191A;
+      --surface:   #1D2122;
+      --sunk:      #121516;
+      --ink:       #E8EAE6;
+      --ink-soft:  #9AA39F;
+      --ink-faint: #6E7874;
+      --rule:      #333A3B;
+      --rule-soft: #262B2C;
+      --mark:      #FF6636;
+      --mark-ink:  #14100E;
+      --mark-soft: #33201A;
+      --good:      #6FBF95;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:     #16191A;
+    --surface:   #1D2122;
+    --sunk:      #121516;
+    --ink:       #E8EAE6;
+    --ink-soft:  #9AA39F;
+    --ink-faint: #6E7874;
+    --rule:      #333A3B;
+    --rule-soft: #262B2C;
+    --mark:      #FF6636;
+    --mark-ink:  #14100E;
+    --mark-soft: #33201A;
+    --good:      #6FBF95;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--sunk);
+    color: var(--ink);
+    font-family: system-ui, "Segoe UI", "Arial Hebrew", Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+  }
+  .mono {
+    font-family: ui-monospace, "SF Mono", "Cascadia Mono", "Consolas", monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .phone {
+    max-width: 27rem;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: var(--paper);
+    border-inline: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ---------- chrome ---------- */
+  .demoflag {
+    background: var(--mark);
+    color: var(--mark-ink);
+    font-size: 0.7rem;
+    letter-spacing: 0.09em;
+    text-align: center;
+    padding: 0.4rem 0.8rem;
+    line-height: 1.4;
+  }
+  .bar {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.7rem 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .bar .who { font-size: 0.78rem; color: var(--ink-faint); letter-spacing: 0.06em; }
+  .pips { display: flex; gap: 0.3rem; }
+  .pip {
+    width: 1.5rem; height: 3px;
+    background: var(--rule);
+  }
+  .pip.on { background: var(--mark); }
+
+  main { flex: 1; padding: 1.4rem 1.1rem 3rem; }
+
+  /* ---------- type ---------- */
+  h1 {
+    font-size: 1.75rem; line-height: 1.18; font-weight: 650;
+    letter-spacing: -0.02em; margin: 0 0 0.5rem; text-wrap: balance;
+  }
+  h2 {
+    font-size: 1.3rem; line-height: 1.25; font-weight: 640;
+    letter-spacing: -0.015em; margin: 0 0 0.6rem; text-wrap: balance;
+  }
+  p { margin: 0 0 0.9rem; }
+  p:last-child { margin-bottom: 0; }
+  .sub { color: var(--ink-soft); }
+  .eyebrow {
+    font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--mark); margin-bottom: 0.55rem;
+  }
+  .where {
+    font-size: 0.82rem; color: var(--ink-faint);
+    border-inline-start: 2px solid var(--rule); padding-inline-start: 0.6rem;
+    margin-bottom: 1.1rem;
+  }
+
+  /* ---------- controls ---------- */
+  .dial {
+    background: var(--surface); border: 1px solid var(--rule);
+    padding: 1.1rem 1.1rem 1.2rem; margin: 1.1rem 0;
+  }
+  .dial + .dial { margin-top: 0.7rem; }
+  .dial label { display: block; font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 0.55rem; }
+  .readout { font-size: 2.5rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+  .readout .u { font-size: 0.95rem; font-weight: 500; color: var(--ink-faint); margin-inline-start: 0.35rem; letter-spacing: 0; }
+  input[type=range] {
+    width: 100%; margin: 0.9rem 0 0; accent-color: var(--mark);
+    height: 1.6rem;
+  }
+  .ends { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--ink-faint); }
+
+  button {
+    font: inherit; cursor: pointer; border: 1px solid var(--ink);
+    background: var(--ink); color: var(--paper);
+    padding: 0.85rem 1.2rem; width: 100%; font-weight: 600;
+    font-size: 1rem; margin-top: 1.2rem;
+  }
+  button.ghost { background: transparent; color: var(--ink); border-color: var(--rule); font-weight: 550; }
+  button.small { padding: 0.6rem 1rem; font-size: 0.9rem; margin-top: 0.7rem; }
+  button:focus-visible { outline: 2px solid var(--mark); outline-offset: 2px; }
+  button:hover { opacity: 0.88; }
+
+  /* ---------- reveal ---------- */
+  .reveal { animation: rise 0.4s ease both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .reveal { animation: none; } }
+
+  .verdict {
+    border: 1px solid var(--rule); border-inline-start: 3px solid var(--mark);
+    background: var(--surface); padding: 1rem 1.1rem; margin-bottom: 1rem;
+  }
+  .verdict .head { font-weight: 640; margin-bottom: 0.4rem; }
+  .verdict p { font-size: 0.96rem; }
+
+  .facts { list-style: none; margin: 0 0 1rem; padding: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+  .facts li {
+    display: grid; grid-template-columns: 3.6rem 1fr; gap: 0.75rem;
+    align-items: baseline; font-size: 0.95rem;
+    border-bottom: 1px solid var(--rule-soft); padding-bottom: 0.6rem;
+  }
+  .facts li:last-child { border-bottom: 0; }
+  .facts .k { font-size: 0.86rem; color: var(--mark); }
+
+  .unlock {
+    background: var(--mark-soft); border: 1px solid var(--rule);
+    padding: 1rem 1.1rem; margin-bottom: 1rem;
+  }
+  .unlock .tag { font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mark); margin-bottom: 0.35rem; }
+  .unlock h3 { margin: 0 0 0.35rem; font-size: 1.05rem; font-weight: 640; }
+  .unlock p { font-size: 0.94rem; }
+
+  /* ---------- bars ---------- */
+  .split { display: flex; flex-direction: column; gap: 0.5rem; margin: 1rem 0; }
+  .row { display: grid; grid-template-columns: 1fr 3.2rem; gap: 0.6rem; align-items: center; font-size: 0.88rem; }
+  .row .track { background: var(--sunk); height: 1.55rem; position: relative; overflow: hidden; }
+  .row .fill { position: absolute; inset-block: 0; inset-inline-start: 0; background: var(--rule); }
+  .row.hot .fill { background: var(--mark); }
+  .row .lab { position: absolute; inset-block: 0; inset-inline-start: 0.5rem; display: flex; align-items: center; white-space: nowrap; }
+  .row .pct { text-align: start; color: var(--ink-soft); font-size: 0.82rem; }
+
+  /* ---------- Q&A ---------- */
+  .qa { border-top: 1px solid var(--rule); }
+  details {
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  summary {
+    cursor: pointer; padding: 0.85rem 0.2rem; font-weight: 570; font-size: 0.98rem;
+    list-style: none; display: flex; gap: 0.7rem; align-items: baseline;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: "+"; color: var(--mark); font-weight: 600; }
+  details[open] summary::before { content: "–"; }
+  summary:focus-visible { outline: 2px solid var(--mark); outline-offset: -2px; }
+  details .body { padding: 0 0.2rem 1rem 1.6rem; font-size: 0.95rem; color: var(--ink-soft); }
+  details .body p { margin-bottom: 0.7rem; }
+  .missing {
+    display: inline-block; background: var(--mark-soft); color: var(--mark);
+    border: 1px dashed var(--mark); padding: 0.15rem 0.45rem; font-size: 0.76rem;
+    letter-spacing: 0.04em;
+  }
+
+  .score {
+    border: 1px solid var(--rule); background: var(--surface);
+    padding: 1.2rem 1.1rem; text-align: center; margin-bottom: 1.3rem;
+  }
+  .score .n { font-size: 3rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1; color: var(--mark); }
+  .score .l { font-size: 0.8rem; color: var(--ink-faint); letter-spacing: 0.08em; margin-top: 0.3rem; }
+
+  .form { background: var(--surface); border: 1px solid var(--rule); padding: 1.1rem; }
+  .form label { display: block; font-size: 0.82rem; color: var(--ink-soft); margin: 0.7rem 0 0.3rem; }
+  .form input[type=text], .form input[type=tel] {
+    width: 100%; font: inherit; font-size: 0.95rem; padding: 0.6rem 0.7rem;
+    border: 1px solid var(--rule); background: var(--paper); color: var(--ink);
+  }
+  .consent { display: grid; grid-template-columns: auto 1fr; gap: 0.6rem; align-items: start; font-size: 0.85rem; color: var(--ink-soft); margin-top: 0.9rem; }
+
+  .footnote { font-size: 0.82rem; color: var(--ink-faint); margin-top: 1.5rem; border-top: 1px solid var(--rule); padding-top: 0.9rem; }
+</style>
+</head>
+<body>
+
+
+<div class="phone" dir="rtl" lang="he">
+  <div class="demoflag mono">הדגמה · 4 מתוך 8 תחנות · במסלול האמיתי כל תחנה נפתחת בסריקת ברקוד במקומה בבניין</div>
+  <div class="bar">
+    <span class="who mono" id="crumb">מה הבניין הזה מסתיר</span>
+    <span class="pips" id="pips"></span>
+  </div>
+  <main id="view"></main>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var STATIONS = [
+    {
+      key: "eye",
+      name: "גובה העיניים",
+      where: "תחנה 1 · ליד סרט המידה בכניסה",
+      task: "עמוד צמוד לקיר וסמן את גובה העיניים שלך. כמה יצא?",
+      label: "גובה העיניים שלי",
+      unit: 'ס״מ',
+      min: 130, max: 195, start: 160, step: 1,
+      verdict: function (v) {
+        return {
+          head: "קו העין שלך: " + v + " ס״מ",
+          text: "כל בניין שהיית בו בחיים תוכנן סביב המספר הזה של מישהו אחר. מהרגע הזה הגוף שלך הוא הסרגל."
+        };
+      },
+      facts: function (v) {
+        var out = [];
+        out.push(["105", "גובה ידית דלת תקנית. נקבע לפי היד, לא לפי העין — ולכן הוא זהה לכולם."]);
+        out.push([
+          "210",
+          v >= 210 ? "גובה שילוט הכוונה. אתה קורא אותו ישר."
+                   : "גובה שילוט הכוונה. אתה מרים את הראש " + (210 - v) + " ס״מ כדי לקרוא אותו."
+        ]);
+        out.push([
+          "190",
+          v >= 190 ? "מדף עליון במטבח. אתה רואה מה מונח עליו."
+                   : "מדף עליון במטבח. אתה לא רואה מה מונח עליו — ולכן, בפועל, לא תשתמש בו."
+        ]);
+        return out;
+      },
+      unlock: {
+        course: "הנדסת אנוש",
+        text: "מקצוע רקע בתוכנית. זה בדיוק מה שהוא עושה: להתאים את המרחב למידות של גוף אמיתי, לפני שמדברים על צבע או על סגנון."
+      }
+    },
+
+    {
+      key: "corridor",
+      name: "המסדרון",
+      where: "תחנה 2 · במסדרון הראשי",
+      task: "מדוד את רוחב המסדרון בעקב־אצבע, ותרגם לסנטימטרים. כמה יצא?",
+      label: "רוחב המסדרון",
+      unit: 'ס״מ',
+      min: 80, max: 220, start: 130, step: 5,
+      verdict: function (v) {
+        if (v < 100) return { head: "צר", text: "שני אנשים עם תיקים לא חולפים כאן זה על פני זה בלי להסתובב. במבנה ציבור זה גם לא יעבור בהיתר." };
+        if (v < 120) return { head: "מינימלי", text: "עובר, ולא יותר מזה. ביום עמוס תרגיש את זה." };
+        if (v < 150) return { head: "רוחב עבודה נוח", text: "שני אנשים חולפים בלי לחשוב על זה. זה הטווח שרוב המסדרונות מכוונים אליו." };
+        return { head: "רחב", text: "נעים — וכל עשרה סנטימטרים כאן נלקחו מהחדרים משני הצדדים." };
+      },
+      facts: function (v) {
+        var m2 = (0.10 * 12).toFixed(1);
+        return [
+          ["12 מ׳", "אורך מסדרון ממוצע בקומת מגורים."],
+          ["+10 ס״מ", "הרחבה של עשרה סנטימטרים לאורך הזה = " + m2 + " מ״ר שיצאו מהחדרים."],
+          ["₪", "באזור ביקוש זה שווה עשרות אלפי שקלים. בגלל זה מסדרונות תמיד צרים — וזו החלטה כלכלית, לא אסתטית."]
+        ];
+      },
+      unlock: {
+        course: "תחיקת הבניה והבטיחות",
+        text: "מקצוע רקע בתוכנית. רוחב מסדרון הוא לא העדפה של מתכנן — הוא תנאי לקבלת היתר. רוב מה שנראה כמו טעם הוא בעצם חוק."
+      }
+    },
+
+    {
+      key: "stairs",
+      name: "המדרגות",
+      where: "תחנה 3 · בגרם המדרגות",
+      task: "מדוד מדרגה אחת: הרום הוא הגובה שאתה עולה, השלח הוא העומק שאתה דורך עליו.",
+      dual: true,
+      label: "רום (גובה)",
+      label2: "שלח (עומק)",
+      unit: 'ס״מ',
+      min: 12, max: 22, start: 17, step: 0.5,
+      min2: 20, max2: 36, start2: 28, step2: 1,
+      verdict: function (v, v2) {
+        var s = 2 * v + v2;
+        if (s >= 61 && s <= 65) return { head: "נוח — " + s.toFixed(1) + " ס״מ", text: "אתה עולה בגרם הזה בלי לחשוב עליו אפילו פעם אחת. זו כל המטרה." };
+        if (s < 61) return { head: "שטוח מדי — " + s.toFixed(1) + " ס״מ", text: "הצעד יוצא קצר וקטוע. תרגיש שאתה מדדה במקום לעלות." };
+        return { head: "תלול — " + s.toFixed(1) + " ס״מ", text: "בקומה הראשונה זה בסדר. בשלישית תרגיש את זה בשוקיים." };
+      },
+      facts: function () {
+        return [
+          ["2R+T", "שתי פעמים הרום ועוד השלח. הנוסחה הזו בת מאות שנים, והטווח הנוח הוא 61 עד 65 ס״מ."],
+          ["חוק", "הרום והשלח מוגבלים בתקנות. גרם שחורג מהן לא מקבל היתר, ומי שבנה אותו מפרק אותו על חשבונו."],
+          ["למה", "אף אחד לא מודד מדרגות כשהוא עולה. בדיוק בגלל זה מישהו חייב למדוד אותן לפני."]
+        ];
+      },
+      unlock: {
+        course: "תורת הבניה · סטטיקה ותכן מבנים",
+        text: "מקצועות התמחות בתוכנית. שני שלישים ממה שלומדים כאן הם דברים שאיש לא שם לב אליהם כשהם נכונים — ואי אפשר להתעלם מהם כשהם לא."
+      }
+    },
+
+    {
+      key: "money",
+      name: "המספר",
+      where: "תחנה 4 · שולחן הפרויקטים",
+      task: "דירת שלושה חדרים, 78 מ״ר, שיפוץ מלא: הריסה, חשמל, אינסטלציה, ריצוף, נגרות, אלומיניום וגמר. כמה זה עלה?",
+      label: "הניחוש שלי",
+      unit: "₪",
+      min: 60000, max: 700000, start: 250000, step: 10000,
+      answer: 410000,
+      verdict: function (v) {
+        var real = 410000;
+        var gap = Math.round(Math.abs(v - real) / real * 100);
+        if (gap <= 12) return { head: "410,000 ₪ — פספסת ב־" + gap + "%", text: "קרוב מאוד. רוב האנשים לא מגיעים לכאן, ואת ההפרש הזה משלמים בעלי דירות כל יום." };
+        if (v < real) return { head: "410,000 ₪ — הערכת בחסר ב־" + gap + "%", text: "זו הטעות הנפוצה, וזו בדיוק הסיבה שפרויקטים נתקעים באמצע. התקציב נגמר בשלב הגמר." };
+        return { head: "410,000 ₪ — הערכת ביתר ב־" + gap + "%", text: "עדיף לטעות לכיוון הזה. הוא פשוט כמעט לא קורה." };
+      },
+      split: [
+        ["הריסות ובנייה", 14],
+        ["חשמל ותקשורת", 11],
+        ["אינסטלציה", 9],
+        ["ריצוף וחיפוי", 17],
+        ["נגרות", 21],
+        ["אלומיניום", 8],
+        ["צבע וגמר", 8],
+        ["ניהול ופיקוח", 6],
+        ["עיצוב", 6]
+      ],
+      unlock: {
+        course: "בקרה וניהול בניה",
+        text: "מקצוע התמחות בתוכנית. שים לב מה קרה כאן: העיצוב הוא כשישה אחוזים מהתקציב. כל השאר הן החלטות טכניות שמישהו חייב לקבל נכון — וזה מה שלומדים כאן שנתיים וחצי."
+      }
+    }
+  ];
+
+  var state = { i: -1, phase: "task", vals: {}, score: 0, done: [] };
+  try {
+    var saved = JSON.parse(localStorage.getItem("cts-hunt-demo") || "null");
+    if (saved && typeof saved.i === "number") state = saved;
+  } catch (e) {}
+
+  function save() {
+    try { localStorage.setItem("cts-hunt-demo", JSON.stringify(state)); } catch (e) {}
+  }
+
+  var view = document.getElementById("view");
+  var pips = document.getElementById("pips");
+  var crumb = document.getElementById("crumb");
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function fmt(n) { return Number(n).toLocaleString("en-US"); }
+
+  function drawPips() {
+    var h = "";
+    for (var i = 0; i < STATIONS.length; i++) {
+      h += '<span class="pip' + (state.done.indexOf(i) > -1 ? " on" : "") + '"></span>';
+    }
+    pips.innerHTML = h;
+  }
+
+  function render() {
+    drawPips();
+    if (state.i < 0) return intro();
+    if (state.i >= STATIONS.length) return finish();
+    var st = STATIONS[state.i];
+    crumb.textContent = st.name;
+    if (state.phase === "task") task(st); else reveal(st);
+    window.scrollTo(0, 0);
+  }
+
+  function intro() {
+    crumb.textContent = "מה הבניין הזה מסתיר";
+    view.innerHTML =
+      '<div class="eyebrow mono">מכללת הנדסאים תל אביב</div>' +
+      '<h1>מה הבניין הזה מסתיר</h1>' +
+      '<p class="sub">מסלול קצר בתוך הבניין. שמונה תחנות, בערך חצי שעה, לבד או בזוג. אין שעת התחלה — מתחילים מתי שרוצים ומפסיקים באמצע בלי לאבד כלום.</p>' +
+      '<div class="verdict"><div class="head">אין כאן שאלה אחת של ידע.</div>' +
+      '<p>כל תחנה נפתרת בעיניים, ברגליים ובהיגיון. מי שלא יודע דבר על אדריכלות פותר את כולן — וזה לא צירוף מקרים, זה מה שהמקצוע באמת עושה.</p></div>' +
+      '<button id="go">התחל</button>' +
+      '<button class="ghost small" id="skipq">רק תגידו לי מה לומדים כאן</button>' +
+      '<p class="footnote">בהדגמה הזו אפשר לענות מכל מקום — פשוט תנחש. במסלול האמיתי כל תחנה נפתחת בסריקת ברקוד במקומה בבניין.</p>';
+    document.getElementById("go").onclick = function () { state.i = 0; state.phase = "task"; save(); render(); };
+    document.getElementById("skipq").onclick = function () { state.i = STATIONS.length; save(); render(); };
+  }
+
+  function task(st) {
+    var v = state.vals[st.key] !== undefined ? state.vals[st.key] : st.start;
+    var v2 = state.vals[st.key + "2"] !== undefined ? state.vals[st.key + "2"] : st.start2;
+    var money = st.unit === "₪";
+
+    var h =
+      '<div class="eyebrow mono">תחנה ' + (state.i + 1) + ' מתוך ' + STATIONS.length + '</div>' +
+      '<h2>' + esc(st.name) + '</h2>' +
+      '<div class="where">' + esc(st.where) + '</div>' +
+      '<p>' + esc(st.task) + '</p>' +
+      '<div class="dial">' +
+        '<label for="a">' + esc(st.label) + '</label>' +
+        '<div class="readout mono" id="ra">' + (money ? fmt(v) : v) + '<span class="u">' + st.unit + '</span></div>' +
+        '<input type="range" id="a" min="' + st.min + '" max="' + st.max + '" step="' + st.step + '" value="' + v + '" aria-label="' + esc(st.label) + '">' +
+        '<div class="ends mono"><span>' + (money ? fmt(st.min) : st.min) + '</span><span>' + (money ? fmt(st.max) : st.max) + '</span></div>' +
+      '</div>';
+
+    if (st.dual) {
+      h += '<div class="dial">' +
+        '<label for="b">' + esc(st.label2) + '</label>' +
+        '<div class="readout mono" id="rb">' + v2 + '<span class="u">' + st.unit + '</span></div>' +
+        '<input type="range" id="b" min="' + st.min2 + '" max="' + st.max2 + '" step="' + st.step2 + '" value="' + v2 + '" aria-label="' + esc(st.label2) + '">' +
+        '<div class="ends mono"><span>' + st.min2 + '</span><span>' + st.max2 + '</span></div>' +
+      '</div>';
+    }
+
+    h += '<button id="ok">זהו, בדוק</button>';
+    view.innerHTML = h;
+
+    var a = document.getElementById("a"), ra = document.getElementById("ra");
+    a.oninput = function () { ra.firstChild.nodeValue = money ? fmt(a.value) : a.value; };
+    if (st.dual) {
+      var b = document.getElementById("b"), rb = document.getElementById("rb");
+      b.oninput = function () { rb.firstChild.nodeValue = b.value; };
+    }
+    document.getElementById("ok").onclick = function () {
+      state.vals[st.key] = parseFloat(a.value);
+      if (st.dual) state.vals[st.key + "2"] = parseFloat(document.getElementById("b").value);
+      state.phase = "reveal";
+      if (state.done.indexOf(state.i) === -1) { state.done.push(state.i); state.score += 25; }
+      save(); render();
+    };
+  }
+
+  function reveal(st) {
+    var v = state.vals[st.key], v2 = state.vals[st.key + "2"];
+    var vd = st.verdict(v, v2);
+
+    var h = '<div class="reveal">' +
+      '<div class="eyebrow mono">מה שבאמת קורה כאן</div>' +
+      '<div class="verdict"><div class="head">' + esc(vd.head) + '</div><p>' + esc(vd.text) + '</p></div>';
+
+    if (st.facts) {
+      h += '<ul class="facts">';
+      st.facts(v, v2).forEach(function (f) {
+        h += '<li><span class="k mono">' + esc(f[0]) + '</span><span>' + esc(f[1]) + '</span></li>';
+      });
+      h += '</ul>';
+    }
+
+    if (st.split) {
+      h += '<div class="split">';
+      var max = Math.max.apply(null, st.split.map(function (r) { return r[1]; }));
+      st.split.forEach(function (r) {
+        var hot = r[0] === "עיצוב";
+        h += '<div class="row' + (hot ? " hot" : "") + '">' +
+          '<div class="track"><div class="fill" style="width:' + (r[1] / max * 100) + '%"></div>' +
+          '<div class="lab">' + esc(r[0]) + '</div></div>' +
+          '<div class="pct mono">' + r[1] + '%</div></div>';
+      });
+      h += '</div>';
+    }
+
+    h += '<div class="unlock"><div class="tag mono">נפתח לך</div>' +
+      '<h3>' + esc(st.unlock.course) + '</h3><p>' + esc(st.unlock.text) + '</p></div>' +
+      '<button id="next">' + (state.i === STATIONS.length - 1 ? "סיימתי את המסלול" : "לתחנה הבאה") + '</button>' +
+      '</div>';
+
+    view.innerHTML = h;
+    document.getElementById("next").onclick = function () {
+      state.i++; state.phase = "task"; save(); render();
+    };
+  }
+
+  function finish() {
+    crumb.textContent = "סיום";
+    var pct = Math.min(100, state.score);
+    view.innerHTML =
+      '<div class="score"><div class="n mono">' + pct + '</div><div class="l mono">נקודות</div></div>' +
+      '<h2>עכשיו השאלות שלא נעים לשאול</h2>' +
+      '<p class="sub">כל מה שלמטה כתוב במפורש, עם מספרים, בלי לשלוח אותך לשיחה עם נציג.</p>' +
+
+      '<div class="qa">' +
+        q("צריך לדעת לצייר?",
+          "<p>יש מבחן מיון באדריכלות וראיון אישי בכניסה — הם בודקים תפיסה מרחבית, לא כישרון ציור.</p>" +
+          "<p>את השרטוט עצמו לומדים כאן: יסודות המרחב, יישומי מחשב ושרטוט אדריכלי, תוכנות תלת־ממד. אף אחד לא נכנס לכאן כשהוא כבר יודע.</p>") +
+        q("כמה זמן זה לוקח?",
+          "<p><b>מסלול בוקר:</b> שנתיים וחצי, חמישה סמסטרים, ארבעה ימים בשבוע.</p>" +
+          "<p><b>מסלול ערב משולב:</b> שלוש שנים, שמונה סמסטרים כולל שני סמסטרי קיץ. שלושה אחר־צהריים־ערב ובוקר יום שישי, או ארבעה אחר־צהריים־ערב.</p>") +
+        q("אפשר לעבוד תוך כדי?",
+          "<p>זו בדיוק הסיבה שקיים מסלול הערב המשולב. הלימודים אחר הצהריים והערב, והמחיר הוא חצי שנה נוספת ושני סמסטרי קיץ.</p>") +
+        q("מה אני מקבל בסוף, בפועל?",
+          "<p>דיפלומת הנדסאי אדריכלות ועיצוב פנים מטעם מה\"ט, והרשמה בפנקס ההנדסאים.</p>" +
+          "<p>מה זה אומר מעשית: אתה רשאי לתכנן מבנים עד ארבע קומות, בגובה של עד 11.5 מטר. זו לא תעודת השתתפות — זו הסמכה עם סמכות חתימה.</p>") +
+        q("צריך בגרות מלאה?",
+          "<p>לא בהכרח. מתקבלים גם עם בגרות חלקית בציון 55 ומעלה עם שלוש יחידות מתמטיקה ושלוש יחידות אנגלית, עם תעודת מכינה טכנולוגית (660 שעות), או עם תעודת טכנאי מוסמך או תואר ראשון.</p>" +
+          "<p>בכל המסלולים נדרשים גם מבחן מיון וראיון.</p>") +
+        q("כמה זה עולה?",
+          "<p><span class=\"missing mono\">חסר — להשלמה מהמכללה</span></p>" +
+          "<p>כאן ייכנסו שכר הלימוד המלא, אפשרויות המלגות ופריסת התשלומים. זו השאלה הראשונה שכל מתעניין שואל, והתשובה הכי משתלמת היא לכתוב אותה במפורש.</p>") +
+        q("כמה מרוויח בוגר בשנה הראשונה?",
+          "<p><span class=\"missing mono\">חסר — להשלמה מהמכללה</span></p>" +
+          "<p>טווח שכר אמיתי, ומי מעסיק בוגרים: משרדי אדריכלים, יזמים, חברות ביצוע, עצמאים.</p>") +
+        q("אני בן 26. כולם יהיו בני 21?",
+          "<p><span class=\"missing mono\">חסר — להשלמה מהמכללה</span></p>" +
+          "<p>התפלגות הגילים בכיתה. אם רוב הכיתה היא אחרי צבא ואחרי טיול, זו אחת התשובות המרגיעות ביותר שאפשר לתת, והיא פשוט לא נאמרת היום.</p>") +
+        q("ומה עם AI? למה ללמוד את זה בכלל?",
+          "<p>בתוכנית יש קורס שנקרא אנגלית לאדריכלות + AI, אז השאלה לא מודחקת כאן.</p>" +
+          "<p>והתשובה הישרה: AI מייצר תמונה יפה של חלל תוך שניות. הוא לא יודע איפה עובר העמוד, מה מותר בהיתר, כמה עולה לעבור עם צנרת, ומי חותם על זה. כל מה שעברת עכשיו בארבע התחנות — זה החלק שהוא לא עושה.</p>") +
+      '</div>' +
+
+      '<h2 style="margin-top:2rem">רוצה שנמשיך?</h2>' +
+      '<div class="form">' +
+        '<label for="nm">שם</label><input type="text" id="nm" autocomplete="name">' +
+        '<label for="ph">טלפון</label><input type="tel" id="ph" autocomplete="tel">' +
+        '<div class="consent"><input type="checkbox" id="cs"><label for="cs" style="margin:0">אני מאשר/ת קבלת מידע על התוכנית מהמכללה. אפשר להסיר בכל רגע.</label></div>' +
+        '<button id="send">שלח</button>' +
+        '<p class="footnote" style="border:0;margin-top:0.8rem;padding:0">בהדגמה הטופס לא שולח לשום מקום.</p>' +
+      '</div>' +
+
+      '<button class="ghost small" id="again">התחל מהתחלה</button>' +
+      '<p class="footnote">ההדגמה מכילה ארבע תחנות מתוך שמונה. התכנים המקצועיים והמספרים בתחנת העלות הם דוגמה ויוחלפו בפרויקט אמיתי.</p>';
+
+    document.getElementById("send").onclick = function () {
+      this.textContent = "בהדגמה זה לא נשלח";
+      this.disabled = true;
+    };
+    document.getElementById("again").onclick = function () {
+      state = { i: -1, phase: "task", vals: {}, score: 0, done: [] };
+      save(); render();
+    };
+  }
+
+  function q(title, body) {
+    return '<details><summary>' + title + '</summary><div class="body">' + body + '</div></details>';
+  }
+
+  render();
+})();
+</script>
+
+</body>
+</html>

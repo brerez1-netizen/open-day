@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>מה הבניין הזה מסתיר — הצעה לפעילות ליום הפתוח</title>
+<style>
+  :root {
+    --paper:      #F1F2EE;
+    --surface:    #FBFBF9;
+    --ink:        #1A1E1C;
+    --ink-soft:   #5D6663;
+    --ink-faint:  #8A928E;
+    --rule:       #C9CDC6;
+    --rule-soft:  #DFE2DC;
+    --mark:       #D6431B;
+    --mark-soft:  #F6E2DA;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:     #16191A;
+      --surface:   #1D2122;
+      --ink:       #E8EAE6;
+      --ink-soft:  #9AA39F;
+      --ink-faint: #6E7874;
+      --rule:      #333A3B;
+      --rule-soft: #262B2C;
+      --mark:      #FF6636;
+      --mark-soft: #33201A;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:     #16191A;
+    --surface:   #1D2122;
+    --ink:       #E8EAE6;
+    --ink-soft:  #9AA39F;
+    --ink-faint: #6E7874;
+    --rule:      #333A3B;
+    --rule-soft: #262B2C;
+    --mark:      #FF6636;
+    --mark-soft: #33201A;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: system-ui, "Segoe UI", "Arial Hebrew", Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    margin: 0;
+    padding: 0;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .sheet {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding: clamp(1.25rem, 4vw, 3rem) clamp(1.1rem, 4vw, 2rem) 5rem;
+  }
+
+  .mono {
+    font-family: ui-monospace, "SF Mono", "Cascadia Mono", "Consolas", monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---- title block ---- */
+  .titleblock {
+    border: 1px solid var(--rule);
+    background: var(--surface);
+    margin-bottom: 2.75rem;
+  }
+  .titleblock-main {
+    padding: 1.35rem 1.25rem 1.15rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .titleblock-main h1 {
+    font-size: clamp(1.5rem, 5.2vw, 2.05rem);
+    line-height: 1.2;
+    font-weight: 650;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+    margin: 0 0 0.35rem;
+  }
+  .titleblock-main p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.97rem;
+  }
+  .fields {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .field {
+    padding: 0.7rem 1.25rem 0.8rem;
+    border-inline-start: 1px solid var(--rule-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .field:first-child { border-inline-start: 0; }
+  .field dt {
+    font-size: 0.66rem;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin: 0;
+  }
+  .field dd {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 550;
+  }
+
+  /* ---- sections ---- */
+  section { margin-bottom: 2.75rem; }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--mark);
+    margin-bottom: 0.9rem;
+  }
+  .eyebrow::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  h2 {
+    font-size: 1.28rem;
+    font-weight: 620;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    margin: 0 0 0.85rem;
+    text-wrap: balance;
+  }
+
+  p { margin: 0 0 1rem; }
+  p:last-child { margin-bottom: 0; }
+
+  .lede {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  .lede strong { font-weight: 620; }
+
+  /* ---- station rail ---- */
+  .route {
+    list-style: none;
+    margin: 0;
+    padding-inline-start: 1.25rem;
+    padding-block: 0;
+    border-inline-start: 1px solid var(--rule);
+  }
+  .station {
+    display: grid;
+    grid-template-columns: 2.1rem 1fr;
+    gap: 0 0.85rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .station:last-child { border-bottom: 0; }
+  .station .num {
+    font-size: 0.8rem;
+    color: var(--mark);
+    padding-top: 0.28rem;
+  }
+  .station h3 {
+    margin: 0 0 0.15rem;
+    font-size: 1rem;
+    font-weight: 620;
+  }
+  .station .does {
+    margin: 0 0 0.3rem;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+  .station .gets {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--ink);
+    padding-inline-start: 0.7rem;
+    border-inline-start: 2px solid var(--mark-soft);
+  }
+
+  /* ---- callout ---- */
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-inline-start: 3px solid var(--mark);
+    padding: 1.1rem 1.2rem;
+    margin: 1.25rem 0;
+  }
+  .callout h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.05rem;
+    font-weight: 640;
+  }
+  .callout p { font-size: 0.97rem; }
+
+  /* ---- lists ---- */
+  ul.plain {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  ul.plain li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.7rem;
+    align-items: start;
+    font-size: 0.98rem;
+  }
+  ul.plain li::before {
+    content: "";
+    width: 0.5rem;
+    height: 1px;
+    background: var(--mark);
+    margin-top: 0.85rem;
+  }
+
+  /* ---- schedule ---- */
+  .schedule {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--rule);
+    background: var(--surface);
+  }
+  .leg {
+    display: grid;
+    grid-template-columns: 5.5rem 1fr;
+    gap: 0.9rem;
+    padding: 0.8rem 1.1rem;
+    border-bottom: 1px solid var(--rule-soft);
+    align-items: baseline;
+  }
+  .leg:last-child { border-bottom: 0; }
+  .leg .when {
+    font-size: 0.82rem;
+    color: var(--mark);
+    white-space: nowrap;
+  }
+  .leg .what { font-size: 0.96rem; }
+
+  .note {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--rule);
+    padding-top: 1.1rem;
+    margin-top: 2.75rem;
+  }
+
+  strong { font-weight: 620; }
+
+  @media (max-width: 30rem) {
+    body { font-size: 16px; }
+    .fields { grid-template-columns: repeat(2, 1fr); }
+    .field:nth-child(3) { border-inline-start: 0; }
+    .field:nth-child(n+3) { border-top: 1px solid var(--rule-soft); }
+    .leg { grid-template-columns: 1fr; gap: 0.15rem; }
+  }
+</style>
+</head>
+<body>
+
+
+<div class="sheet" dir="rtl" lang="he">
+
+  <div class="titleblock">
+    <div class="titleblock-main">
+      <h1>מה הבניין הזה מסתיר</h1>
+      <p>הצעה לפעילות ליום הפתוח של מגמת אדריכלות ועיצוב פנים</p>
+    </div>
+    <dl class="fields">
+      <div class="field"><dt class="mono">תאריך יעד</dt><dd class="mono">3.9.2026</dd></div>
+      <div class="field"><dt class="mono">משך למבקר</dt><dd class="mono">25–35 דק׳</dd></div>
+      <div class="field"><dt class="mono">תחנות</dt><dd class="mono">8</dd></div>
+      <div class="field"><dt class="mono">פורמט</dt><dd>לבד או בזוג</dd></div>
+      <div class="field"><dt class="mono">איוש נדרש</dt><dd>ללא</dd></div>
+      <div class="field"><dt class="mono">מגיש</dt><dd>ארז ברוכי</dd></div>
+    </dl>
+  </div>
+
+  <section>
+    <p class="lede">מסלול קצר בתוך הבניין, שרץ מהטלפון של המבקר. הוא סורק ברקוד בכניסה, מקבל משימה, מוצא את התחנה הבאה, ובדרך עובר דרך כל מה שיש למגמה להראות. <strong>אין שעת התחלה, אין הרשמה מראש, ואין צורך באיוש</strong> — מי שנכנס לבד באמצע היום פשוט מתחיל.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow mono">למה דווקא זה</div>
+    <h2>הפורמט נגזר מהקהל, לא להפך</h2>
+    <p>מי שמגיע אלינו הוא בן 21–26 אחרי צבא, לא מעט מהם אחרי טיול ארוך, והוא מגיע לבד. הוא לא יישב בהרצאה ולא ייכנס לסדנה קבוצתית שמתחילה בשעה עגולה. הוא גם לא ישאל בקול את מה שבאמת מטריד אותו.</p>
+    <p>לכן הפעילות חייבת שלושה דברים: לרוץ ברצף בלי שעת התחלה, לעבוד באותה מידה אם יגיעו שלושה או שלושים, ולא ליפול אם אין מי שיעמוד שם. מסלול בטלפון עונה על שלושתם.</p>
+    <p>ויש לזה יתרון שני: זה מוציא אותו מהלובי. במקום לעמוד חמש דקות ליד דוכן וללכת, הוא עובר בעצמו דרך הסטודיו, הסדנה ועבודות הסטודנטים — ועושה את זה מרצונו.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow mono">המסלול</div>
+    <h2>שמונה תחנות, כל אחת נפתרת בעיניים ובגוף</h2>
+    <p>אין שאלת ידע אחת. מי שלא יודע דבר על אדריכלות פותר את כולן, וזה העיקרון שאסור להתפשר עליו — ברגע שמישהו מרגיש שהוא נבחן, הוא סוגר.</p>
+
+    <ol class="route">
+      <li class="station">
+        <span class="num mono">01</span>
+        <div>
+          <h3>גובה העיניים</h3>
+          <p class="does">מסמן את גובה העיניים שלו על סרט מידה בכניסה ומקליד את המספר.</p>
+          <p class="gets">מכאן והלאה הגוף שלו הוא הסרגל, והמספר חוזר בתחנות הבאות.</p>
+        </div>
+      </li>
+      <li class="station">
+        <span class="num mono">02</span>
+        <div>
+          <h3>המסדרון</h3>
+          <p class="does">מודד את רוחב המסדרון בעקב־אצבע. הטלפון ממיר לסנטימטרים.</p>
+          <p class="gets">מה התקן דורש, ומה קורה במסדרון שצר בעשרה סנטימטרים.</p>
+        </div>
+      </li>
+      <li class="station">
+        <span class="num mono">03</span>
+        <div>
+          <h3>איפה מישהו התפשר</h3>
+          <p class="does">מוצא בקומה מקום אחד שניכר בו שמישהו נאלץ להתפשר, ומסביר בשורה.</p>
+          <p class="gets">אין תשובה נכונה — אף אחד לא נכשל, וזו התחנה שמייצרת את התשובות הכי מעניינות.</p>
+        </div>
+      </li>
+      <li class="station">
+        <span class="num mono">04</span>
+        <div>
+          <h3>מאיפה מגיע האור</h3>
+          <p class="does">מזהה איפה דרום בלי להסתכל על החלונות — לפי צללים ולפי איפה אנשים בחרו לשבת.</p>
+          <p class="gets">כיוון הוא ההחלטה הראשונה בכל תוכנית, והיא לא עולה כלום.</p>
+        </div>
+      </li>
+      <li class="station">
+        <span class="num mono">05</span>
+        <div>
+          <h3>מה מאחורי הקיר</h3>
+          <p class="does">דופק על שני קירות בקומה ומוצא איזה מהם עונה חלול.</p>
+          <p class="gets">ההבדל בין קיר שאפשר להזיז בכמה מאות שקלים לבין קיר שאי אפשר להזיז בכלל.</p>
+        </div>
+      </li>
+      <li class="station">
+        <span class="num mono">06</span>
+        <div>
+          <h3>המדרגות</h3>
+          <p class="does">מודד רום ושלח של מדרגה אחת, ואז מנסה לעלות שתיים בבת אחת.</p>
+          <p class="gets">היחס בין רום לשלח הוא לא עניין של טעם. הוא חוק, ומישהו נתבע כשהוא לא נשמר.</p>
+        </div>
+      </li>
+      <li class="station">
+        <span class="num mono">07</span>
+        <div>
+          <h3>עבודות הסטודנטים</h3>
+          <p class="does">בוחר עבודה אחת שהיה רוצה שתהיה שלו.</p>
+          <p class="gets">ואז מגלה מי עשה אותה — וכמה זמן הוא למד כשעשה. הפער בינו לבין זה הוא שנה, לא עשור.</p>
+        </div>
+      </li>
+      <li class="station">
+        <span class="num mono">08</span>
+        <div>
+          <h3>המספר</h3>
+          <p class="does">מנחש כמה עלה פרויקט אמיתי, ואז מקבל את המספר והפירוק שלו.</p>
+          <p class="gets">כמה חשמל, כמה נגרות, כמה אישורים — ומי מרוויח מזה כמה. זו התשובה לשאלה שהוא באמת בא איתה.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <div class="eyebrow mono">שכבת המידע</div>
+    <h2>המידע הוא הפרס, לא התפריט</h2>
+    <p>אתר שמציג תפריט — "על המגמה", "סגל", "שכר לימוד" — נסגר תוך עשרים שניות, בדיוק כמו שנסגר היום. לכן המידע לא מוצג, אלא נפתח: כל תחנה שהוא מסיים נגמרת בעובדה אמיתית אחת על הלימודים אצלנו. אותו טקסט, סדר הפוך, אפקט אחר לגמרי.</p>
+
+    <div class="callout">
+      <h3>״שאלות שלא נעים לשאול״</h3>
+      <p>החלק שלדעתי יעשה את ההבדל הגדול ביותר. הקהל הזה לא ישאל בקול כמה זה עולה באמת, אם צריך לדעת לצייר, כמה מרוויח בוגר בשנה הראשונה, אם אפשר לעבוד תוך כדי הלימודים, או מה קורה למי שבן 26 וכולם סביבו בני 21.</p>
+      <p>כמעט כל מוסד בארץ מחביא את התשובות האלה מאחורי שיחה עם נציג הרשמה. לענות עליהן בכתב, עם מספרים ובלי התחמקות, זה מה שיבדל אותנו — וזה לא עולה כלום.</p>
+    </div>
+
+    <p>בנוסף, ואת זה אף מגמה אחרת בארץ לא יכולה להראות: <strong>פתיחת שיעור אמיתי אחד מכל אחד מהקורסים הדיגיטליים שכבר בנויים</strong> — שאלת היתר אמיתית מתחיקה, פרט בנייה אמיתי מתורת הבנייה, ומה בדיוק משרטטים בשבוע השישי באוטוקאד. זו התשובה הכנה ביותר ל״מה אני באמת אלמד״, והיא גם מגנה עלינו: מי שנרשם על בסיס הזה לא מגלה בפברואר שקנה מוצר אחר.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow mono">מה המגמה מקבלת</div>
+    <h2>לא יום בודד</h2>
+    <ul class="plain">
+      <li><span><strong>כל מבקר עובר בכל המגמה.</strong> המסלול מנותב דרך החללים והתכנים שאנחנו רוצים שיראו, במקום לקוות שיסתובבו.</span></li>
+      <li><span><strong>רשימת מתעניינים מסודרת</strong> עם הסכמה מפורשת, שעוברת אלייך — כולל מי סיים את המסלול ומי נטש באמצע, כלומר מי באמת מתעניין.</span></li>
+      <li><span><strong>הדבר ממשיך לעבוד אחרי היום.</strong> יש עשרה שבועות עד פתיחת השנה, וכל תוספת לאתר היא סיבה לגיטימית לחזור למי שהשאיר פרטים, במקום תזכורת שחוזרת על עצמה.</span></li>
+      <li><span><strong>נכס שנשאר.</strong> אותו מסלול משמש ביום הפתוח הבא, ואפשר לשלוח את הקישור גם למי שלא הגיע.</span></li>
+      <li><span><strong>מקום לזווית ה־AI שוורד העלתה.</strong> השאלה ״למה ללמוד את זה אם AI יעצב במקומי״ מטרידה כמעט כל מתעניין היום, ואפשר לענות עליה בתוך המסלול — תוכנית שנוצרה ב־AI ונראית מצוינת, ומה קורה לה ברגע שנוגעים בעמוד, בצנרת ובתקן.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="eyebrow mono">מה צריך מכם</div>
+    <h2>חמישה דברים</h2>
+    <ul class="plain">
+      <li><span><strong>סיור בבניין עם מטר ומצלמה</strong>, כשעה וחצי. את התחנות אי אפשר להמציא מהשולחן — הן טובות בדיוק במידה שהן ספציפיות למקום.</span></li>
+      <li><span><strong>אישור לתלות שמונה שלטים קטנים</strong> ולנתב מבקרים בין החללים.</span></li>
+      <li><span><strong>המידע הרשמי, כתוב ומאושר על ידכם</strong> — שכר לימוד, מלגות ופריסת תשלומים, הכרה בתעודה, מועד פתיחה ודאי, ונתוני תעסוקה של בוגרים. את החלק הזה אני לא כותב ולא מאשר.</span></li>
+      <li><span><strong>סטודנט משנה ב׳ ובוגר טרי שנוכחים בשטח.</strong> לבן 24 יש אמון מלא בבן 25 ופחות בסמכות. השאלה על פרנסה תיענה רק על ידם, וזה לא עולה כלום.</span></li>
+      <li><span><strong>מי שמחלק את כרטיס הפתיחה בכניסה.</strong> בלי זה אף אחד לא ידע שיש מסלול.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="eyebrow mono">לוח זמנים</div>
+    <div class="schedule">
+      <div class="leg"><span class="when mono">עד 18.8</span><span class="what">סיור בבניין וקיבוע שמונה התחנות</span></div>
+      <div class="leg"><span class="when mono">עד 24.8</span><span class="what">קבלת המידע הרשמי המאושר מכם</span></div>
+      <div class="leg"><span class="when mono">עד 28.8</span><span class="what">בנייה, הדפסת שילוט וריצת ניסיון בבניין</span></div>
+      <div class="leg"><span class="when mono">3.9</span><span class="what">יום פתוח</span></div>
+      <div class="leg"><span class="when mono">4.9 והלאה</span><span class="what">מעקב אחר המתעניינים, והוספת תכנים עד פתיחת השנה</span></div>
+      <div class="leg"><span class="when mono">18.11</span><span class="what">פתיחת שנת הלימודים</span></div>
+    </div>
+    <p style="margin-top:1rem">אם התאריך יוזז לאחרי החגים — מבחינתי מוטב. זה פותח חלון מעקב אמיתי עד נובמבר במקום חלון שנבלע בחגים, ומרווח גם את לוח ההכנה.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow mono">מה זה לא</div>
+    <h2>כדי שנתחיל מאותו מקום</h2>
+    <ul class="plain">
+      <li><span><strong>לא אפליקציה.</strong> אף אחד לא מתקין אפליקציה ליום פתוח. זה דף אינטרנט שנפתח מברקוד, בלי הרשמה, ועובד על סלולר בלי להסתמך על הרשת של המכללה.</span></li>
+      <li><span><strong>לא תלוי בחדר מחשבים ולא בציוד.</strong> אין מה שיכול להיתקע מול קהל.</span></li>
+      <li><span><strong>לא מחליף את השיחות האישיות</strong> — הוא מאפשר אותן. בזמן שהמסלול רץ בבניין, אני פנוי לשבת מול מתעניינים.</span></li>
+      <li><span><strong>לא נועד לרשום 30 איש.</strong> אם יגיעו חמישה, המסלול עובד בדיוק אותו דבר ואין אולם ריק שמשדר את המצב.</span></li>
+    </ul>
+  </section>
+
+  <p class="note">אשמח לעבור על זה יחד ולראות מה מתוכו מתאים לכם. אם הכיוון מקובל, הדבר היחיד שחוסם אותי כרגע הוא הסיור בבניין — משם אפשר להתחיל מיד.</p>
+
+</div>
+
+</body>
+</html>
