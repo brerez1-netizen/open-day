@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>מה הבניין הזה מסתיר — הדגמה</title>
+<title>מה הבניין הזה מסתיר</title>
 <style>
   :root {
     --paper:      #F1F2EE;
@@ -18,7 +18,6 @@
     --mark:       #D6431B;
     --mark-ink:   #FFFFFF;
     --mark-soft:  #F6E2DA;
-    --good:       #2E6B4F;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
@@ -33,7 +32,6 @@
       --mark:      #FF6636;
       --mark-ink:  #14100E;
       --mark-soft: #33201A;
-      --good:      #6FBF95;
     }
   }
   :root[data-theme="dark"] {
@@ -48,7 +46,6 @@
     --mark:      #FF6636;
     --mark-ink:  #14100E;
     --mark-soft: #33201A;
-    --good:      #6FBF95;
   }
 
   * { box-sizing: border-box; }
@@ -77,116 +74,90 @@
     flex-direction: column;
   }
 
-  /* ---------- chrome ---------- */
   .demoflag {
     background: var(--mark);
     color: var(--mark-ink);
     font-size: 0.7rem;
-    letter-spacing: 0.09em;
+    letter-spacing: 0.07em;
     text-align: center;
     padding: 0.4rem 0.8rem;
-    line-height: 1.4;
+    line-height: 1.45;
   }
   .bar {
-    position: sticky;
-    top: 0;
-    z-index: 5;
+    position: sticky; top: 0; z-index: 5;
     background: var(--paper);
     border-bottom: 1px solid var(--rule);
     padding: 0.7rem 1.1rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
   }
-  .bar .who { font-size: 0.78rem; color: var(--ink-faint); letter-spacing: 0.06em; }
-  .pips { display: flex; gap: 0.3rem; }
-  .pip {
-    width: 1.5rem; height: 3px;
-    background: var(--rule);
-  }
+  .bar .who { font-size: 0.78rem; color: var(--ink-faint); letter-spacing: 0.05em; }
+  .pips { display: flex; gap: 0.22rem; }
+  .pip { width: 0.85rem; height: 3px; background: var(--rule); }
   .pip.on { background: var(--mark); }
 
   main { flex: 1; padding: 1.4rem 1.1rem 3rem; }
 
-  /* ---------- type ---------- */
-  h1 {
-    font-size: 1.75rem; line-height: 1.18; font-weight: 650;
-    letter-spacing: -0.02em; margin: 0 0 0.5rem; text-wrap: balance;
-  }
-  h2 {
-    font-size: 1.3rem; line-height: 1.25; font-weight: 640;
-    letter-spacing: -0.015em; margin: 0 0 0.6rem; text-wrap: balance;
-  }
+  h1 { font-size: 1.75rem; line-height: 1.18; font-weight: 650; letter-spacing: -0.02em; margin: 0 0 0.5rem; text-wrap: balance; }
+  h2 { font-size: 1.3rem; line-height: 1.25; font-weight: 640; letter-spacing: -0.015em; margin: 0 0 0.6rem; text-wrap: balance; }
   p { margin: 0 0 0.9rem; }
   p:last-child { margin-bottom: 0; }
   .sub { color: var(--ink-soft); }
-  .eyebrow {
-    font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--mark); margin-bottom: 0.55rem;
-  }
-  .where {
-    font-size: 0.82rem; color: var(--ink-faint);
-    border-inline-start: 2px solid var(--rule); padding-inline-start: 0.6rem;
-    margin-bottom: 1.1rem;
-  }
+  .eyebrow { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mark); margin-bottom: 0.55rem; }
+  .where { font-size: 0.82rem; color: var(--ink-faint); border-inline-start: 2px solid var(--rule); padding-inline-start: 0.6rem; margin-bottom: 1.1rem; }
 
-  /* ---------- controls ---------- */
-  .dial {
-    background: var(--surface); border: 1px solid var(--rule);
-    padding: 1.1rem 1.1rem 1.2rem; margin: 1.1rem 0;
-  }
+  .dial { background: var(--surface); border: 1px solid var(--rule); padding: 1.1rem; margin: 1.1rem 0; }
   .dial + .dial { margin-top: 0.7rem; }
   .dial label { display: block; font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 0.55rem; }
   .readout { font-size: 2.5rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
   .readout .u { font-size: 0.95rem; font-weight: 500; color: var(--ink-faint); margin-inline-start: 0.35rem; letter-spacing: 0; }
-  input[type=range] {
-    width: 100%; margin: 0.9rem 0 0; accent-color: var(--mark);
-    height: 1.6rem;
-  }
+  input[type=range] { width: 100%; margin: 0.9rem 0 0; accent-color: var(--mark); height: 1.6rem; }
   .ends { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--ink-faint); }
 
-  button {
+  .opts { display: flex; flex-direction: column; gap: 0.5rem; margin: 1.1rem 0; }
+  .opt {
+    display: block; width: 100%; text-align: start;
+    background: var(--surface); border: 1px solid var(--rule); color: var(--ink);
+    padding: 0.85rem 1rem; font: inherit; font-size: 0.98rem; cursor: pointer;
+  }
+  .opt:hover { border-color: var(--mark); }
+  .opt:focus-visible { outline: 2px solid var(--mark); outline-offset: 2px; }
+  .opt .k { color: var(--mark); font-weight: 640; margin-inline-end: 0.55rem; }
+
+  textarea {
+    width: 100%; font: inherit; font-size: 1rem; padding: 0.8rem;
+    border: 1px solid var(--rule); background: var(--surface); color: var(--ink);
+    min-height: 6rem; resize: vertical; margin: 1.1rem 0 0;
+  }
+  textarea:focus-visible { outline: 2px solid var(--mark); outline-offset: 1px; }
+
+  button.go {
     font: inherit; cursor: pointer; border: 1px solid var(--ink);
     background: var(--ink); color: var(--paper);
-    padding: 0.85rem 1.2rem; width: 100%; font-weight: 600;
-    font-size: 1rem; margin-top: 1.2rem;
+    padding: 0.85rem 1.2rem; width: 100%; font-weight: 600; font-size: 1rem; margin-top: 1.2rem;
   }
   button.ghost { background: transparent; color: var(--ink); border-color: var(--rule); font-weight: 550; }
   button.small { padding: 0.6rem 1rem; font-size: 0.9rem; margin-top: 0.7rem; }
-  button:focus-visible { outline: 2px solid var(--mark); outline-offset: 2px; }
-  button:hover { opacity: 0.88; }
+  button.go:focus-visible { outline: 2px solid var(--mark); outline-offset: 2px; }
+  button.go:hover { opacity: 0.88; }
 
-  /* ---------- reveal ---------- */
-  .reveal { animation: rise 0.4s ease both; }
-  @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .reveal { animation: rise 0.35s ease both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: none; } }
   @media (prefers-reduced-motion: reduce) { .reveal { animation: none; } }
 
-  .verdict {
-    border: 1px solid var(--rule); border-inline-start: 3px solid var(--mark);
-    background: var(--surface); padding: 1rem 1.1rem; margin-bottom: 1rem;
-  }
+  .verdict { border: 1px solid var(--rule); border-inline-start: 3px solid var(--mark); background: var(--surface); padding: 1rem 1.1rem; margin-bottom: 1rem; }
   .verdict .head { font-weight: 640; margin-bottom: 0.4rem; }
   .verdict p { font-size: 0.96rem; }
 
   .facts { list-style: none; margin: 0 0 1rem; padding: 0; display: flex; flex-direction: column; gap: 0.6rem; }
-  .facts li {
-    display: grid; grid-template-columns: 3.6rem 1fr; gap: 0.75rem;
-    align-items: baseline; font-size: 0.95rem;
-    border-bottom: 1px solid var(--rule-soft); padding-bottom: 0.6rem;
-  }
+  .facts li { display: grid; grid-template-columns: 3.7rem 1fr; gap: 0.75rem; align-items: baseline; font-size: 0.95rem; border-bottom: 1px solid var(--rule-soft); padding-bottom: 0.6rem; }
   .facts li:last-child { border-bottom: 0; }
-  .facts .k { font-size: 0.86rem; color: var(--mark); }
+  .facts .k { font-size: 0.85rem; color: var(--mark); }
 
-  .unlock {
-    background: var(--mark-soft); border: 1px solid var(--rule);
-    padding: 1rem 1.1rem; margin-bottom: 1rem;
-  }
+  .unlock { background: var(--mark-soft); border: 1px solid var(--rule); padding: 1rem 1.1rem; margin-bottom: 1rem; }
   .unlock .tag { font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mark); margin-bottom: 0.35rem; }
   .unlock h3 { margin: 0 0 0.35rem; font-size: 1.05rem; font-weight: 640; }
   .unlock p { font-size: 0.94rem; }
 
-  /* ---------- bars ---------- */
   .split { display: flex; flex-direction: column; gap: 0.5rem; margin: 1rem 0; }
   .row { display: grid; grid-template-columns: 1fr 3.2rem; gap: 0.6rem; align-items: center; font-size: 0.88rem; }
   .row .track { background: var(--sunk); height: 1.55rem; position: relative; overflow: hidden; }
@@ -195,50 +166,40 @@
   .row .lab { position: absolute; inset-block: 0; inset-inline-start: 0.5rem; display: flex; align-items: center; white-space: nowrap; }
   .row .pct { text-align: start; color: var(--ink-soft); font-size: 0.82rem; }
 
-  /* ---------- Q&A ---------- */
   .qa { border-top: 1px solid var(--rule); }
-  details {
-    border-bottom: 1px solid var(--rule-soft);
-  }
-  summary {
-    cursor: pointer; padding: 0.85rem 0.2rem; font-weight: 570; font-size: 0.98rem;
-    list-style: none; display: flex; gap: 0.7rem; align-items: baseline;
-  }
+  details { border-bottom: 1px solid var(--rule-soft); }
+  summary { cursor: pointer; padding: 0.85rem 0.2rem; font-weight: 570; font-size: 0.98rem; list-style: none; display: flex; gap: 0.7rem; align-items: baseline; }
   summary::-webkit-details-marker { display: none; }
   summary::before { content: "+"; color: var(--mark); font-weight: 600; }
   details[open] summary::before { content: "–"; }
   summary:focus-visible { outline: 2px solid var(--mark); outline-offset: -2px; }
   details .body { padding: 0 0.2rem 1rem 1.6rem; font-size: 0.95rem; color: var(--ink-soft); }
   details .body p { margin-bottom: 0.7rem; }
-  .missing {
-    display: inline-block; background: var(--mark-soft); color: var(--mark);
-    border: 1px dashed var(--mark); padding: 0.15rem 0.45rem; font-size: 0.76rem;
-    letter-spacing: 0.04em;
-  }
+  details .body ul { margin: 0 0 0.7rem; padding-inline-start: 1.1rem; }
+  details .body li { margin-bottom: 0.3rem; }
+  .missing { display: inline-block; background: var(--mark-soft); color: var(--mark); border: 1px dashed var(--mark); padding: 0.15rem 0.45rem; font-size: 0.76rem; }
 
-  .score {
-    border: 1px solid var(--rule); background: var(--surface);
-    padding: 1.2rem 1.1rem; text-align: center; margin-bottom: 1.3rem;
-  }
+  .score { border: 1px solid var(--rule); background: var(--surface); padding: 1.2rem 1.1rem; text-align: center; margin-bottom: 1.3rem; }
   .score .n { font-size: 3rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1; color: var(--mark); }
   .score .l { font-size: 0.8rem; color: var(--ink-faint); letter-spacing: 0.08em; margin-top: 0.3rem; }
 
   .form { background: var(--surface); border: 1px solid var(--rule); padding: 1.1rem; }
   .form label { display: block; font-size: 0.82rem; color: var(--ink-soft); margin: 0.7rem 0 0.3rem; }
-  .form input[type=text], .form input[type=tel] {
-    width: 100%; font: inherit; font-size: 0.95rem; padding: 0.6rem 0.7rem;
-    border: 1px solid var(--rule); background: var(--paper); color: var(--ink);
-  }
+  .form input[type=text], .form input[type=tel] { width: 100%; font: inherit; font-size: 0.95rem; padding: 0.6rem 0.7rem; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); }
   .consent { display: grid; grid-template-columns: auto 1fr; gap: 0.6rem; align-items: start; font-size: 0.85rem; color: var(--ink-soft); margin-top: 0.9rem; }
+
+  .contact { border: 1px solid var(--rule); padding: 1rem 1.1rem; margin-top: 1.3rem; font-size: 0.93rem; }
+  .contact div { margin-bottom: 0.5rem; }
+  .contact div:last-child { margin-bottom: 0; }
+  .contact b { font-weight: 620; }
 
   .footnote { font-size: 0.82rem; color: var(--ink-faint); margin-top: 1.5rem; border-top: 1px solid var(--rule); padding-top: 0.9rem; }
 </style>
 </head>
 <body>
 
-
-<div class="phone" dir="rtl" lang="he">
-  <div class="demoflag mono">הדגמה · 4 מתוך 8 תחנות · במסלול האמיתי כל תחנה נפתחת בסריקת ברקוד במקומה בבניין</div>
+<div class="phone">
+  <div class="demoflag mono">גרסת עבודה · במסלול האמיתי כל תחנה נפתחת בסריקת ברקוד במקומה בבניין</div>
   <div class="bar">
     <span class="who mono" id="crumb">מה הבניין הזה מסתיר</span>
     <span class="pips" id="pips"></span>
@@ -250,79 +211,130 @@
 (function () {
   "use strict";
 
-  var STATIONS = [
+  var S = [
+    /* ---------------------------------------------------------- 1 */
     {
-      key: "eye",
-      name: "גובה העיניים",
+      type: "slider", key: "eye", name: "גובה העיניים",
       where: "תחנה 1 · ליד סרט המידה בכניסה",
       task: "עמוד צמוד לקיר וסמן את גובה העיניים שלך. כמה יצא?",
-      label: "גובה העיניים שלי",
-      unit: 'ס״מ',
+      label: "גובה העיניים שלי", unit: 'ס״מ',
       min: 130, max: 195, start: 160, step: 1,
       verdict: function (v) {
-        return {
-          head: "קו העין שלך: " + v + " ס״מ",
-          text: "כל בניין שהיית בו בחיים תוכנן סביב המספר הזה של מישהו אחר. מהרגע הזה הגוף שלך הוא הסרגל."
-        };
+        return { head: "קו העין שלך: " + v + " ס״מ",
+          text: "כל בניין שהיית בו אי פעם תוכנן סביב המספר הזה של מישהו אחר. מהרגע הזה הגוף שלך הוא הסרגל." };
       },
       facts: function (v) {
-        var out = [];
-        out.push(["105", "גובה ידית דלת תקנית. נקבע לפי היד, לא לפי העין — ולכן הוא זהה לכולם."]);
-        out.push([
-          "210",
-          v >= 210 ? "גובה שילוט הכוונה. אתה קורא אותו ישר."
-                   : "גובה שילוט הכוונה. אתה מרים את הראש " + (210 - v) + " ס״מ כדי לקרוא אותו."
-        ]);
-        out.push([
-          "190",
-          v >= 190 ? "מדף עליון במטבח. אתה רואה מה מונח עליו."
-                   : "מדף עליון במטבח. אתה לא רואה מה מונח עליו — ולכן, בפועל, לא תשתמש בו."
-        ]);
-        return out;
-      },
-      unlock: {
-        course: "הנדסת אנוש",
-        text: "מקצוע רקע בתוכנית. זה בדיוק מה שהוא עושה: להתאים את המרחב למידות של גוף אמיתי, לפני שמדברים על צבע או על סגנון."
-      }
-    },
-
-    {
-      key: "corridor",
-      name: "המסדרון",
-      where: "תחנה 2 · במסדרון הראשי",
-      task: "מדוד את רוחב המסדרון בעקב־אצבע, ותרגם לסנטימטרים. כמה יצא?",
-      label: "רוחב המסדרון",
-      unit: 'ס״מ',
-      min: 80, max: 220, start: 130, step: 5,
-      verdict: function (v) {
-        if (v < 100) return { head: "צר", text: "שני אנשים עם תיקים לא חולפים כאן זה על פני זה בלי להסתובב. במבנה ציבור זה גם לא יעבור בהיתר." };
-        if (v < 120) return { head: "מינימלי", text: "עובר, ולא יותר מזה. ביום עמוס תרגיש את זה." };
-        if (v < 150) return { head: "רוחב עבודה נוח", text: "שני אנשים חולפים בלי לחשוב על זה. זה הטווח שרוב המסדרונות מכוונים אליו." };
-        return { head: "רחב", text: "נעים — וכל עשרה סנטימטרים כאן נלקחו מהחדרים משני הצדדים." };
-      },
-      facts: function (v) {
-        var m2 = (0.10 * 12).toFixed(1);
         return [
-          ["12 מ׳", "אורך מסדרון ממוצע בקומת מגורים."],
-          ["+10 ס״מ", "הרחבה של עשרה סנטימטרים לאורך הזה = " + m2 + " מ״ר שיצאו מהחדרים."],
-          ["₪", "באזור ביקוש זה שווה עשרות אלפי שקלים. בגלל זה מסדרונות תמיד צרים — וזו החלטה כלכלית, לא אסתטית."]
+          ["105", "גובה ידית דלת תקנית. נקבע לפי היד, ולכן הוא זהה לכולם — נמוכים וגבוהים."],
+          ["210", v >= 210 ? "גובה שילוט הכוונה. אתה קורא אותו ישר."
+                           : "גובה שילוט הכוונה. אתה מרים את הראש " + (210 - v) + " ס״מ כדי לקרוא אותו."],
+          ["190", v >= 190 ? "מדף עליון במטבח. אתה רואה מה מונח עליו."
+                           : "מדף עליון במטבח. אתה לא רואה מה מונח עליו — ולכן, בפועל, לא תשתמש בו."]
         ];
       },
-      unlock: {
-        course: "תחיקת הבניה והבטיחות",
-        text: "מקצוע רקע בתוכנית. רוחב מסדרון הוא לא העדפה של מתכנן — הוא תנאי לקבלת היתר. רוב מה שנראה כמו טעם הוא בעצם חוק."
-      }
+      unlock: { course: "הנדסת אנוש", text: "מקצוע רקע בתוכנית. זה בדיוק מה שהוא עושה: להתאים את המרחב למידות של גוף אמיתי, לפני שמדברים על צבע או על סגנון." }
     },
 
+    /* ---------------------------------------------------------- 2 */
     {
-      key: "stairs",
-      name: "המדרגות",
-      where: "תחנה 3 · בגרם המדרגות",
-      task: "מדוד מדרגה אחת: הרום הוא הגובה שאתה עולה, השלח הוא העומק שאתה דורך עליו.",
-      dual: true,
-      label: "רום (גובה)",
-      label2: "שלח (עומק)",
-      unit: 'ס״מ',
+      type: "slider", key: "corridor", name: "המסדרון",
+      where: "תחנה 2 · במסדרון הראשי",
+      task: "מדוד את רוחב המסדרון בעקב־אצבע, ותרגם לסנטימטרים. כמה יצא?",
+      label: "רוחב המסדרון", unit: 'ס״מ',
+      min: 80, max: 220, start: 130, step: 5,
+      verdict: function (v) {
+        if (v < 100) return { head: "צר", text: "שני אנשים עם תיקים לא חולפים כאן זה על פני זה בלי להסתובב." };
+        if (v < 120) return { head: "מינימלי", text: "עובר, ולא יותר מזה. ביום עמוס תרגיש את זה." };
+        if (v < 150) return { head: "רוחב עבודה נוח", text: "שניים חולפים בלי לחשוב על זה. זה הטווח שרוב המסדרונות מכוונים אליו." };
+        return { head: "רחב", text: "נעים — וכל עשרה סנטימטרים כאן נלקחו מהחדרים שמשני הצדדים." };
+      },
+      facts: function () {
+        return [
+          ["12 מ׳", "אורך מסדרון ממוצע בקומת מגורים."],
+          ["+10 ס״מ", "הרחבה של עשרה סנטימטרים לאורך הזה מוציאה 1.2 מ״ר מהחדרים."],
+          ["₪", "באזור ביקוש זה שווה עשרות אלפי שקלים. בגלל זה מסדרונות תמיד צרים — זו החלטה כלכלית, לא אסתטית."]
+        ];
+      },
+      unlock: { course: "תחיקת הבניה והבטיחות", text: "מקצוע רקע בתוכנית. רוחב מסדרון הוא לא העדפה של מתכנן — הוא תנאי לקבלת היתר. הרבה ממה שנראה כמו טעם הוא בעצם חוק." }
+    },
+
+    /* ---------------------------------------------------------- 3 */
+    {
+      type: "text", key: "compromise", name: "איפה מישהו התפשר",
+      where: "תחנה 3 · בכל מקום בקומה",
+      task: "מצא מקום אחד בקומה הזאת שניכר בו שמישהו נאלץ להתפשר. צלם אותו לעצמך, וכתוב בשורה מה ראית.",
+      placeholder: "לדוגמה: צינור שעובר על הקיר במקום בתוכו…",
+      verdict: function () {
+        return { head: "אין כאן תשובה נכונה", text: "וזה לא ויתור — זו הנקודה. כל בניין הוא רצף פשרות בין מה שרצו, מה שמותר, מה שאפשר לבנות ומה שהיה תקציב עבורו." };
+      },
+      facts: function () {
+        return [
+          ["הכי נפוץ", "צנרת או תעלה שעוברת על הקיר במקום בתוכו — כי גילו אותה אחרי שהקירות כבר עמדו."],
+          ["אחריו", "דלת שנפתחת פחות ממה שתוכנן, שקע במקום מוזר, מזגן שתלוי מול חלון."],
+          ["השורה", "מקצוען הוא לא מי שלא מתפשר. הוא מי שיודע מראש איפה כדאי — ומה זה יעלה אם יגלו את זה מאוחר."]
+        ];
+      },
+      unlock: { course: "עקרונות התכנון האדריכלי", text: "מקצוע התמחות, ומרכז הסטודיו לתכנון. שם לומדים לקבל את ההחלטות האלה בזמן — על הנייר, כשהן עדיין עולות אפס." }
+    },
+
+    /* ---------------------------------------------------------- 4 */
+    {
+      type: "choice", key: "light", name: "מאיפה מגיע האור",
+      where: "תחנה 4 · ליד החלון הגדול",
+      task: "בלי מצפן ובלי טלפון: לאיזה כיוון פונה החלון הזה? תסתכל על הצללים, על הצד שמתחמם, ועל איפה אנשים בחרו לשבת.",
+      options: [
+        { v: "n", t: "צפון" }, { v: "s", t: "דרום" },
+        { v: "e", t: "מזרח" }, { v: "w", t: "מערב" }
+      ],
+      verdict: function (v) {
+        var m = {
+          n: ["צפון", "אור קבוע ורך לאורך כל היום, בלי שמש ישירה ובלי סנוור. בדיוק בגלל זה סטודיו לתכנון מנסים תמיד להפנות צפונה."],
+          s: ["דרום", "השמש גבוהה בקיץ ונמוכה בחורף. זה הכיוון היחיד שאפשר להצל עליו במדף אופקי פשוט — וזה חוסך מזגן."],
+          e: ["מזרח", "שמש בבוקר, ואז כלום. חדר שמתעורר מוקדם ומתקרר בצהריים."],
+          w: ["מערב", "השמש הנמוכה של אחר הצהריים. מסנוורת ומחממת יותר מכל כיוון אחר, והכי קשה להתגונן ממנה."]
+        }[v];
+        return { head: "ענית: " + m[0], text: m[1] };
+      },
+      facts: function () {
+        return [
+          ["הבדיקה", "צל קצר בצהריים = השמש מעליך, כלומר אתה מסתכל דרומה. צל ארוך שנמתח לכיוון אחד = בוקר או אחר צהריים."],
+          ["חינם", "כיוון הוא ההחלטה היחידה בתכנון שלא עולה שקל, ומשפיעה על חשבון החשמל של הבניין לכל אורך חייו."],
+          ["בבניין הזה", "תסתכל איפה הורידו וילונות ואיפה לא. מישהו כבר ענה על השאלה הזאת בשבילך."]
+        ];
+      },
+      unlock: { course: "תכנון אקלים ובניה ירוקה", text: "מקצוע התמחות בתוכנית, ואחד התפקידים שבוגר יכול לעסוק בהם כיועץ עצמאי." }
+    },
+
+    /* ---------------------------------------------------------- 5 */
+    {
+      type: "choice", key: "wall", name: "מה מאחורי הקיר",
+      where: "תחנה 5 · בין שתי הכיתות",
+      task: "לפני שאתה נוגע — נחש. איזה מהשניים יישמע חלול כשתדפוק עליו?",
+      options: [
+        { v: "inner", t: "הקיר שבין שתי הכיתות" },
+        { v: "outer", t: "הקיר החיצוני, מול החלון" }
+      ],
+      answer: "inner",
+      verdict: function (v) {
+        if (v === "inner") return { head: "נכון", text: "עכשיו תדפוק על שניהם ותשמע את ההבדל. הקיר הפנימי הוא בדרך כלל גבס על שלד מתכת — חלול. החיצוני הוא בלוק או בטון." };
+        return { head: "בדרך כלל הפוך", text: "תדפוק על שניהם ותשמע. הקיר החיצוני נושא ואוטם, ולכן הוא מסיבי. דווקא הפנימי הוא זה שחלול." };
+      },
+      facts: function () {
+        return [
+          ["גבס", "קיר פנים שאפשר להזיז בכמה מאות שקלים ובכמה ימים."],
+          ["בלוק", "קיר שהזזה שלו גוררת הריסה, פינוי פסולת, חשמל ואינסטלציה — פי עשרה ומעלה."],
+          ["בטון", "לא זז בכלל. הוא מחזיק את הבניין, וזו התשובה לשאלה ״אפשר לפתוח כאן את הקיר?״ ברוב הדירות."]
+        ];
+      },
+      unlock: { course: "חומרי בנין · פרטי בנין", text: "שני מקצועות התמחות בתוכנית. ההבדל בין שלושת הקירות האלה הוא ההבדל בין שיפוץ שנגמר בזמן לשיפוץ שנתקע." }
+    },
+
+    /* ---------------------------------------------------------- 6 */
+    {
+      type: "dual", key: "stairs", name: "המדרגות",
+      where: "תחנה 6 · בגרם המדרגות",
+      task: "מדוד מדרגה אחת. הרום הוא הגובה שאתה עולה, השלח הוא העומק שאתה דורך עליו.",
+      label: "רום (גובה)", label2: "שלח (עומק)", unit: 'ס״מ',
       min: 12, max: 22, start: 17, step: 0.5,
       min2: 20, max2: 36, start2: 28, step2: 1,
       verdict: function (v, v2) {
@@ -333,81 +345,82 @@
       },
       facts: function () {
         return [
-          ["2R+T", "שתי פעמים הרום ועוד השלח. הנוסחה הזו בת מאות שנים, והטווח הנוח הוא 61 עד 65 ס״מ."],
+          ["2R+T", "שתי פעמים הרום ועוד השלח. הכלל הזה בן מאות שנים, והטווח הנוח הוא 61 עד 65 ס״מ."],
           ["חוק", "הרום והשלח מוגבלים בתקנות. גרם שחורג מהן לא מקבל היתר, ומי שבנה אותו מפרק אותו על חשבונו."],
-          ["למה", "אף אחד לא מודד מדרגות כשהוא עולה. בדיוק בגלל זה מישהו חייב למדוד אותן לפני."]
+          ["למה", "אף אחד לא מודד מדרגות כשהוא עולה בהן. בדיוק בגלל זה מישהו חייב למדוד אותן לפני."]
         ];
       },
-      unlock: {
-        course: "תורת הבניה · סטטיקה ותכן מבנים",
-        text: "מקצועות התמחות בתוכנית. שני שלישים ממה שלומדים כאן הם דברים שאיש לא שם לב אליהם כשהם נכונים — ואי אפשר להתעלם מהם כשהם לא."
-      }
+      unlock: { course: "תורת הבניה · סטטיקה ותכן מבנים", text: "מקצועות התמחות בתוכנית. רוב מה שלומדים כאן הם דברים שאיש לא שם לב אליהם כשהם נכונים — ואי אפשר להתעלם מהם כשהם לא." }
     },
 
+    /* ---------------------------------------------------------- 7 */
     {
-      key: "money",
-      name: "המספר",
-      where: "תחנה 4 · שולחן הפרויקטים",
+      type: "choice", key: "works", name: "עבודות הסטודנטים",
+      where: "תחנה 7 · מול קיר העבודות",
+      task: "על הקיר שלוש עבודות, מסומנות א׳, ב׳ ו־ג׳. בחר אחת שהיית רוצה שתהיה שלך.",
+      options: [
+        { v: "a", t: "עבודה א׳" }, { v: "b", t: "עבודה ב׳" }, { v: "c", t: "עבודה ג׳" }
+      ],
+      verdict: function () {
+        return { head: "סמסטר א׳, שנה א׳", text: "שלוש העבודות שעל הקיר נעשו בקורס עקרונות התכנון האדריכלי, בסמסטר הראשון של השנה הראשונה. מי שעשה אותן לא ידע לשרטט שמונה חודשים קודם." };
+      },
+      facts: function () {
+        return [
+          ["1 סמסטר", "המרחק בינך לבין העבודה שבחרת."],
+          ["5 סמסטרים", "המרחק בינך לבין פרויקט גמר מלא — תכנון מפורט של מבנה אמיתי."],
+          ["ואז", "דיפלומת הנדסאי מטעם מה״ט, והרשמה בפנקס ההנדסאים."]
+        ];
+      },
+      unlock: { course: "מה עושים עם זה אחר כך", text: "תכנון במשרדי אדריכלות · פרקטיקה עצמאית · התמחות בעיצוב פנים · ועדות תכנון ברשויות המקומיות · ייעוץ אקלים ובנייה ירוקה · ייעוץ נגישות בבנייה ציבורית." }
+    },
+
+    /* ---------------------------------------------------------- 8 */
+    {
+      type: "slider", key: "money", name: "המספר",
+      where: "תחנה 8 · שולחן הפרויקטים",
       task: "דירת שלושה חדרים, 78 מ״ר, שיפוץ מלא: הריסה, חשמל, אינסטלציה, ריצוף, נגרות, אלומיניום וגמר. כמה זה עלה?",
-      label: "הניחוש שלי",
-      unit: "₪",
+      label: "הניחוש שלי", unit: "₪",
       min: 60000, max: 700000, start: 250000, step: 10000,
-      answer: 410000,
       verdict: function (v) {
-        var real = 410000;
-        var gap = Math.round(Math.abs(v - real) / real * 100);
+        var real = 410000, gap = Math.round(Math.abs(v - real) / real * 100);
         if (gap <= 12) return { head: "410,000 ₪ — פספסת ב־" + gap + "%", text: "קרוב מאוד. רוב האנשים לא מגיעים לכאן, ואת ההפרש הזה משלמים בעלי דירות כל יום." };
-        if (v < real) return { head: "410,000 ₪ — הערכת בחסר ב־" + gap + "%", text: "זו הטעות הנפוצה, וזו בדיוק הסיבה שפרויקטים נתקעים באמצע. התקציב נגמר בשלב הגמר." };
+        if (v < real) return { head: "410,000 ₪ — הערכת בחסר ב־" + gap + "%", text: "זו הטעות הנפוצה, וזו הסיבה שפרויקטים נתקעים באמצע. התקציב נגמר בשלב הגמר." };
         return { head: "410,000 ₪ — הערכת ביתר ב־" + gap + "%", text: "עדיף לטעות לכיוון הזה. הוא פשוט כמעט לא קורה." };
       },
       split: [
-        ["הריסות ובנייה", 14],
-        ["חשמל ותקשורת", 11],
-        ["אינסטלציה", 9],
-        ["ריצוף וחיפוי", 17],
-        ["נגרות", 21],
-        ["אלומיניום", 8],
-        ["צבע וגמר", 8],
-        ["ניהול ופיקוח", 6],
-        ["עיצוב", 6]
+        ["הריסות ובנייה", 14], ["חשמל ותקשורת", 11], ["אינסטלציה", 9],
+        ["ריצוף וחיפוי", 17], ["נגרות", 21], ["אלומיניום", 8],
+        ["צבע וגמר", 8], ["ניהול ופיקוח", 6], ["עיצוב", 6]
       ],
-      unlock: {
-        course: "בקרה וניהול בניה",
-        text: "מקצוע התמחות בתוכנית. שים לב מה קרה כאן: העיצוב הוא כשישה אחוזים מהתקציב. כל השאר הן החלטות טכניות שמישהו חייב לקבל נכון — וזה מה שלומדים כאן שנתיים וחצי."
-      }
+      unlock: { course: "בקרה וניהול בניה", text: "מקצוע התמחות בתוכנית. שים לב מה קרה כאן: העיצוב הוא כשישה אחוזים מהתקציב. כל השאר הן החלטות טכניות שמישהו חייב לקבל נכון." }
     }
   ];
 
-  var state = { i: -1, phase: "task", vals: {}, score: 0, done: [] };
+  var state = { i: -1, phase: "task", vals: {}, done: [] };
   try {
-    var saved = JSON.parse(localStorage.getItem("cts-hunt-demo") || "null");
+    var saved = JSON.parse(localStorage.getItem("cts-hunt-v2") || "null");
     if (saved && typeof saved.i === "number") state = saved;
   } catch (e) {}
+  function save() { try { localStorage.setItem("cts-hunt-v2", JSON.stringify(state)); } catch (e) {} }
 
-  function save() {
-    try { localStorage.setItem("cts-hunt-demo", JSON.stringify(state)); } catch (e) {}
-  }
-
-  var view = document.getElementById("view");
-  var pips = document.getElementById("pips");
-  var crumb = document.getElementById("crumb");
+  var view = document.getElementById("view"),
+      pips = document.getElementById("pips"),
+      crumb = document.getElementById("crumb");
 
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function fmt(n) { return Number(n).toLocaleString("en-US"); }
 
   function drawPips() {
     var h = "";
-    for (var i = 0; i < STATIONS.length; i++) {
-      h += '<span class="pip' + (state.done.indexOf(i) > -1 ? " on" : "") + '"></span>';
-    }
+    for (var i = 0; i < S.length; i++) h += '<span class="pip' + (state.done.indexOf(i) > -1 ? " on" : "") + '"></span>';
     pips.innerHTML = h;
   }
 
   function render() {
     drawPips();
     if (state.i < 0) return intro();
-    if (state.i >= STATIONS.length) return finish();
-    var st = STATIONS[state.i];
+    if (state.i >= S.length) return finish();
+    var st = S[state.i];
     crumb.textContent = st.name;
     if (state.phase === "task") task(st); else reveal(st);
     window.scrollTo(0, 0);
@@ -416,59 +429,87 @@
   function intro() {
     crumb.textContent = "מה הבניין הזה מסתיר";
     view.innerHTML =
-      '<div class="eyebrow mono">מכללת הנדסאים תל אביב</div>' +
+      '<div class="eyebrow mono">מכללת הנדסאים תל אביב · מגמת אדריכלות ועיצוב פנים</div>' +
       '<h1>מה הבניין הזה מסתיר</h1>' +
-      '<p class="sub">מסלול קצר בתוך הבניין. שמונה תחנות, בערך חצי שעה, לבד או בזוג. אין שעת התחלה — מתחילים מתי שרוצים ומפסיקים באמצע בלי לאבד כלום.</p>' +
-      '<div class="verdict"><div class="head">אין כאן שאלה אחת של ידע.</div>' +
-      '<p>כל תחנה נפתרת בעיניים, ברגליים ובהיגיון. מי שלא יודע דבר על אדריכלות פותר את כולן — וזה לא צירוף מקרים, זה מה שהמקצוע באמת עושה.</p></div>' +
-      '<button id="go">התחל</button>' +
-      '<button class="ghost small" id="skipq">רק תגידו לי מה לומדים כאן</button>' +
-      '<p class="footnote">בהדגמה הזו אפשר לענות מכל מקום — פשוט תנחש. במסלול האמיתי כל תחנה נפתחת בסריקת ברקוד במקומה בבניין.</p>';
+      '<p class="sub">שמונה תחנות בתוך הבניין, בערך חצי שעה, לבד או בזוג. אין שעת התחלה — מתחילים מתי שרוצים, מפסיקים באמצע, וחוזרים.</p>' +
+      '<div class="verdict"><div class="head">אין כאן אף שאלה של ידע.</div>' +
+      '<p>כל תחנה נפתרת בעיניים, ברגליים ובהיגיון. מי שלא יודע דבר על אדריכלות פותר את כולן — וזה לא צירוף מקרים. זה מה שהמקצוע באמת עושה.</p></div>' +
+      '<button class="go" id="go">התחל</button>' +
+      '<button class="go ghost small" id="skipq">רק תגידו לי מה לומדים כאן</button>' +
+      '<p class="footnote">כרגע זו גרסת עבודה — אפשר לענות מכל מקום, פשוט תנחש. במסלול האמיתי כל תחנה נפתחת בסריקת ברקוד במקומה בבניין.</p>';
     document.getElementById("go").onclick = function () { state.i = 0; state.phase = "task"; save(); render(); };
-    document.getElementById("skipq").onclick = function () { state.i = STATIONS.length; save(); render(); };
+    document.getElementById("skipq").onclick = function () { state.i = S.length; save(); render(); };
+  }
+
+  function shell(st, inner) {
+    return '<div class="eyebrow mono">תחנה ' + (state.i + 1) + ' מתוך ' + S.length + '</div>' +
+           '<h2>' + esc(st.name) + '</h2>' +
+           '<div class="where">' + esc(st.where) + '</div>' +
+           '<p>' + esc(st.task) + '</p>' + inner;
+  }
+
+  function commit(st, val, val2) {
+    state.vals[st.key] = val;
+    if (val2 !== undefined) state.vals[st.key + "2"] = val2;
+    state.phase = "reveal";
+    if (state.done.indexOf(state.i) === -1) state.done.push(state.i);
+    save(); render();
   }
 
   function task(st) {
-    var v = state.vals[st.key] !== undefined ? state.vals[st.key] : st.start;
-    var v2 = state.vals[st.key + "2"] !== undefined ? state.vals[st.key + "2"] : st.start2;
     var money = st.unit === "₪";
 
-    var h =
-      '<div class="eyebrow mono">תחנה ' + (state.i + 1) + ' מתוך ' + STATIONS.length + '</div>' +
-      '<h2>' + esc(st.name) + '</h2>' +
-      '<div class="where">' + esc(st.where) + '</div>' +
-      '<p>' + esc(st.task) + '</p>' +
-      '<div class="dial">' +
-        '<label for="a">' + esc(st.label) + '</label>' +
-        '<div class="readout mono" id="ra">' + (money ? fmt(v) : v) + '<span class="u">' + st.unit + '</span></div>' +
-        '<input type="range" id="a" min="' + st.min + '" max="' + st.max + '" step="' + st.step + '" value="' + v + '" aria-label="' + esc(st.label) + '">' +
-        '<div class="ends mono"><span>' + (money ? fmt(st.min) : st.min) + '</span><span>' + (money ? fmt(st.max) : st.max) + '</span></div>' +
-      '</div>';
+    if (st.type === "choice") {
+      var h = "<div class='opts'>";
+      st.options.forEach(function (o, n) {
+        h += '<button class="opt" data-v="' + o.v + '"><span class="k mono">' + String.fromCharCode(1488 + n) + '</span>' + esc(o.t) + '</button>';
+      });
+      h += "</div>";
+      view.innerHTML = shell(st, h);
+      Array.prototype.forEach.call(view.querySelectorAll(".opt"), function (b) {
+        b.onclick = function () { commit(st, b.getAttribute("data-v")); };
+      });
+      return;
+    }
 
-    if (st.dual) {
+    if (st.type === "text") {
+      view.innerHTML = shell(st,
+        '<textarea id="t" placeholder="' + esc(st.placeholder) + '" aria-label="מה ראית"></textarea>' +
+        '<button class="go" id="ok">זהו</button>');
+      document.getElementById("ok").onclick = function () {
+        commit(st, document.getElementById("t").value.trim());
+      };
+      return;
+    }
+
+    var v = state.vals[st.key] !== undefined ? state.vals[st.key] : st.start;
+    var v2 = state.vals[st.key + "2"] !== undefined ? state.vals[st.key + "2"] : st.start2;
+
+    var h = '<div class="dial">' +
+      '<label for="a">' + esc(st.label) + '</label>' +
+      '<div class="readout mono" id="ra">' + (money ? fmt(v) : v) + '<span class="u">' + st.unit + '</span></div>' +
+      '<input type="range" id="a" min="' + st.min + '" max="' + st.max + '" step="' + st.step + '" value="' + v + '" aria-label="' + esc(st.label) + '">' +
+      '<div class="ends mono"><span>' + (money ? fmt(st.min) : st.min) + '</span><span>' + (money ? fmt(st.max) : st.max) + '</span></div></div>';
+
+    if (st.type === "dual") {
       h += '<div class="dial">' +
         '<label for="b">' + esc(st.label2) + '</label>' +
         '<div class="readout mono" id="rb">' + v2 + '<span class="u">' + st.unit + '</span></div>' +
         '<input type="range" id="b" min="' + st.min2 + '" max="' + st.max2 + '" step="' + st.step2 + '" value="' + v2 + '" aria-label="' + esc(st.label2) + '">' +
-        '<div class="ends mono"><span>' + st.min2 + '</span><span>' + st.max2 + '</span></div>' +
-      '</div>';
+        '<div class="ends mono"><span>' + st.min2 + '</span><span>' + st.max2 + '</span></div></div>';
     }
 
-    h += '<button id="ok">זהו, בדוק</button>';
-    view.innerHTML = h;
+    h += '<button class="go" id="ok">זהו, בדוק</button>';
+    view.innerHTML = shell(st, h);
 
     var a = document.getElementById("a"), ra = document.getElementById("ra");
     a.oninput = function () { ra.firstChild.nodeValue = money ? fmt(a.value) : a.value; };
-    if (st.dual) {
+    if (st.type === "dual") {
       var b = document.getElementById("b"), rb = document.getElementById("rb");
       b.oninput = function () { rb.firstChild.nodeValue = b.value; };
     }
     document.getElementById("ok").onclick = function () {
-      state.vals[st.key] = parseFloat(a.value);
-      if (st.dual) state.vals[st.key + "2"] = parseFloat(document.getElementById("b").value);
-      state.phase = "reveal";
-      if (state.done.indexOf(state.i) === -1) { state.done.push(state.i); state.score += 25; }
-      save(); render();
+      commit(st, parseFloat(a.value), st.type === "dual" ? parseFloat(document.getElementById("b").value) : undefined);
     };
   }
 
@@ -476,8 +517,7 @@
     var v = state.vals[st.key], v2 = state.vals[st.key + "2"];
     var vd = st.verdict(v, v2);
 
-    var h = '<div class="reveal">' +
-      '<div class="eyebrow mono">מה שבאמת קורה כאן</div>' +
+    var h = '<div class="reveal"><div class="eyebrow mono">מה שבאמת קורה כאן</div>' +
       '<div class="verdict"><div class="head">' + esc(vd.head) + '</div><p>' + esc(vd.text) + '</p></div>';
 
     if (st.facts) {
@@ -493,60 +533,87 @@
       var max = Math.max.apply(null, st.split.map(function (r) { return r[1]; }));
       st.split.forEach(function (r) {
         var hot = r[0] === "עיצוב";
-        h += '<div class="row' + (hot ? " hot" : "") + '">' +
-          '<div class="track"><div class="fill" style="width:' + (r[1] / max * 100) + '%"></div>' +
+        h += '<div class="row' + (hot ? " hot" : "") + '"><div class="track">' +
+          '<div class="fill" style="width:' + (r[1] / max * 100) + '%"></div>' +
           '<div class="lab">' + esc(r[0]) + '</div></div>' +
           '<div class="pct mono">' + r[1] + '%</div></div>';
       });
       h += '</div>';
     }
 
-    h += '<div class="unlock"><div class="tag mono">נפתח לך</div>' +
-      '<h3>' + esc(st.unlock.course) + '</h3><p>' + esc(st.unlock.text) + '</p></div>' +
-      '<button id="next">' + (state.i === STATIONS.length - 1 ? "סיימתי את המסלול" : "לתחנה הבאה") + '</button>' +
-      '</div>';
+    h += '<div class="unlock"><div class="tag mono">נפתח לך</div><h3>' + esc(st.unlock.course) + '</h3>' +
+      '<p>' + esc(st.unlock.text) + '</p></div>' +
+      '<button class="go" id="next">' + (state.i === S.length - 1 ? "סיימתי את המסלול" : "לתחנה הבאה") + '</button></div>';
 
     view.innerHTML = h;
-    document.getElementById("next").onclick = function () {
-      state.i++; state.phase = "task"; save(); render();
-    };
+    document.getElementById("next").onclick = function () { state.i++; state.phase = "task"; save(); render(); };
+  }
+
+  function q(title, body) {
+    return '<details><summary>' + title + '</summary><div class="body">' + body + '</div></details>';
   }
 
   function finish() {
     crumb.textContent = "סיום";
-    var pct = Math.min(100, state.score);
     view.innerHTML =
-      '<div class="score"><div class="n mono">' + pct + '</div><div class="l mono">נקודות</div></div>' +
+      '<div class="score"><div class="n mono">' + state.done.length + '/' + S.length + '</div><div class="l mono">תחנות</div></div>' +
       '<h2>עכשיו השאלות שלא נעים לשאול</h2>' +
-      '<p class="sub">כל מה שלמטה כתוב במפורש, עם מספרים, בלי לשלוח אותך לשיחה עם נציג.</p>' +
+      '<p class="sub">הכל כתוב כאן במפורש, עם מספרים, בלי לשלוח אותך לשיחה עם נציג.</p>' +
 
       '<div class="qa">' +
         q("צריך לדעת לצייר?",
           "<p>יש מבחן מיון באדריכלות וראיון אישי בכניסה — הם בודקים תפיסה מרחבית, לא כישרון ציור.</p>" +
-          "<p>את השרטוט עצמו לומדים כאן: יסודות המרחב, יישומי מחשב ושרטוט אדריכלי, תוכנות תלת־ממד. אף אחד לא נכנס לכאן כשהוא כבר יודע.</p>") +
+          "<p>את השרטוט עצמו לומדים כאן: יסודות המרחב, שרטוט אדריכלי, תוכנות תלת־ממד. שלוש העבודות שראית על הקיר בתחנה 7 נעשו בסמסטר הראשון.</p>") +
+
         q("כמה זמן זה לוקח?",
           "<p><b>מסלול בוקר:</b> שנתיים וחצי, חמישה סמסטרים, ארבעה ימים בשבוע.</p>" +
-          "<p><b>מסלול ערב משולב:</b> שלוש שנים, שמונה סמסטרים כולל שני סמסטרי קיץ. שלושה אחר־צהריים־ערב ובוקר יום שישי, או ארבעה אחר־צהריים־ערב.</p>") +
+          "<p><b>מסלול ערב משולב:</b> שלוש שנים, שמונה סמסטרים כולל שני סמסטרי קיץ — שלושה אחר־צהריים־ערב ובוקר יום שישי, או ארבעה אחר־צהריים־ערב.</p>") +
+
         q("אפשר לעבוד תוך כדי?",
-          "<p>זו בדיוק הסיבה שקיים מסלול הערב המשולב. הלימודים אחר הצהריים והערב, והמחיר הוא חצי שנה נוספת ושני סמסטרי קיץ.</p>") +
+          "<p>זו בדיוק הסיבה שקיים מסלול הערב המשולב. המחיר הוא חצי שנה נוספת ושני סמסטרי קיץ.</p>") +
+
+        q("אני אחרי צבא. מה עם מילואים?",
+          "<p>למכללה יש מנגנון ולת״ם לסטודנטים שזומנו למילואים, דרך הדקנאט — יחד עם מלגות, טיפוח כישורי למידה והכוונה תעסוקתית.</p>" +
+          "<p><span class=\"missing mono\">להשלמה מהמכללה</span> הפירוט המדויק של ההתאמות והמלגות.</p>") +
+
         q("מה אני מקבל בסוף, בפועל?",
-          "<p>דיפלומת הנדסאי אדריכלות ועיצוב פנים מטעם מה\"ט, והרשמה בפנקס ההנדסאים.</p>" +
+          "<p>דיפלומת הנדסאי אדריכלות ועיצוב פנים מטעם מה״ט, והרשמה בפנקס ההנדסאים.</p>" +
           "<p>מה זה אומר מעשית: אתה רשאי לתכנן מבנים עד ארבע קומות, בגובה של עד 11.5 מטר. זו לא תעודת השתתפות — זו הסמכה עם סמכות חתימה.</p>") +
+
+        q("מה עושים עם זה אחר כך?",
+          "<ul>" +
+          "<li>תכנון במשרדי אדריכלות</li>" +
+          "<li>פרקטיקה עצמאית לתכנון אדריכלי</li>" +
+          "<li>התמחות בעיצוב פנים</li>" +
+          "<li>ועדות תכנון ברשויות המקומיות</li>" +
+          "<li>ייעוץ אקלים ובנייה ירוקה</li>" +
+          "<li>ייעוץ נגישות בבנייה ציבורית</li>" +
+          "</ul>") +
+
+        q("כמה זה קשה, באמת?",
+          "<p>לא נעים אבל עדיף שתדע: חייבים לעבור בציון חיובי את כל הקורסים כדי להתקדם לסמסטר הבא. ציון עובר בסטודיו לתכנון אדריכלי הוא 60, וכישלון במקצוע אחד עלול לעכב את המשך הלימודים.</p>" +
+          "<p>לפני פרויקט הגמר צריך לעמוד בבחינות הממלכתיות של מה״ט. המגמה מכוונת לממוצע מעל 85.</p>" +
+          "<p>אם זה נשמע לך רציני מדי — זה בדיוק מה שהופך את התעודה לשווה משהו.</p>") +
+
         q("צריך בגרות מלאה?",
           "<p>לא בהכרח. מתקבלים גם עם בגרות חלקית בציון 55 ומעלה עם שלוש יחידות מתמטיקה ושלוש יחידות אנגלית, עם תעודת מכינה טכנולוגית (660 שעות), או עם תעודת טכנאי מוסמך או תואר ראשון.</p>" +
-          "<p>בכל המסלולים נדרשים גם מבחן מיון וראיון.</p>") +
+          "<p>בכל המסלולים נדרשים גם מבחן מיון וראיון אישי.</p>") +
+
         q("כמה זה עולה?",
-          "<p><span class=\"missing mono\">חסר — להשלמה מהמכללה</span></p>" +
-          "<p>כאן ייכנסו שכר הלימוד המלא, אפשרויות המלגות ופריסת התשלומים. זו השאלה הראשונה שכל מתעניין שואל, והתשובה הכי משתלמת היא לכתוב אותה במפורש.</p>") +
+          "<p><span class=\"missing mono\">להשלמה מהמכללה</span></p>" +
+          "<p>שכר הלימוד המלא, המלגות ופריסת התשלומים. זו השאלה הראשונה שכל מתעניין שואל, והתשובה הכי משתלמת היא לכתוב אותה כאן במפורש.</p>") +
+
         q("כמה מרוויח בוגר בשנה הראשונה?",
-          "<p><span class=\"missing mono\">חסר — להשלמה מהמכללה</span></p>" +
-          "<p>טווח שכר אמיתי, ומי מעסיק בוגרים: משרדי אדריכלים, יזמים, חברות ביצוע, עצמאים.</p>") +
+          "<p><span class=\"missing mono\">להשלמה מהמכללה</span></p>" +
+          "<p>טווח שכר אמיתי, ומי מעסיק בוגרים.</p>") +
+
         q("אני בן 26. כולם יהיו בני 21?",
-          "<p><span class=\"missing mono\">חסר — להשלמה מהמכללה</span></p>" +
-          "<p>התפלגות הגילים בכיתה. אם רוב הכיתה היא אחרי צבא ואחרי טיול, זו אחת התשובות המרגיעות ביותר שאפשר לתת, והיא פשוט לא נאמרת היום.</p>") +
+          "<p><span class=\"missing mono\">להשלמה מהמכללה</span></p>" +
+          "<p>התפלגות הגילים בכיתה. אם רוב הכיתה היא אחרי צבא, זו אחת התשובות המרגיעות ביותר שאפשר לתת — והיא פשוט לא נאמרת היום.</p>") +
+
         q("ומה עם AI? למה ללמוד את זה בכלל?",
-          "<p>בתוכנית יש קורס שנקרא אנגלית לאדריכלות + AI, אז השאלה לא מודחקת כאן.</p>" +
-          "<p>והתשובה הישרה: AI מייצר תמונה יפה של חלל תוך שניות. הוא לא יודע איפה עובר העמוד, מה מותר בהיתר, כמה עולה לעבור עם צנרת, ומי חותם על זה. כל מה שעברת עכשיו בארבע התחנות — זה החלק שהוא לא עושה.</p>") +
+          "<p>בתוכנית יש קורס בשם אנגלית לאדריכלות + AI, אז השאלה לא מודחקת כאן.</p>" +
+          "<p>והתשובה הישרה: AI מייצר תמונה יפה של חלל תוך שניות. הוא לא יודע איפה עובר העמוד, מה מותר בהיתר, כמה עולה לעבור עם צנרת, ומי חותם על זה. כל מה שעברת עכשיו בשמונה התחנות — זה החלק שהוא לא עושה.</p>") +
       '</div>' +
 
       '<h2 style="margin-top:2rem">רוצה שנמשיך?</h2>' +
@@ -554,30 +621,26 @@
         '<label for="nm">שם</label><input type="text" id="nm" autocomplete="name">' +
         '<label for="ph">טלפון</label><input type="tel" id="ph" autocomplete="tel">' +
         '<div class="consent"><input type="checkbox" id="cs"><label for="cs" style="margin:0">אני מאשר/ת קבלת מידע על התוכנית מהמכללה. אפשר להסיר בכל רגע.</label></div>' +
-        '<button id="send">שלח</button>' +
-        '<p class="footnote" style="border:0;margin-top:0.8rem;padding:0">בהדגמה הטופס לא שולח לשום מקום.</p>' +
+        '<button class="go" id="send">שלח</button>' +
+        '<p class="footnote" style="border:0;margin-top:0.8rem;padding:0">בגרסה הזו הטופס לא שולח לשום מקום.</p>' +
       '</div>' +
 
-      '<button class="ghost small" id="again">התחל מהתחלה</button>' +
-      '<p class="footnote">ההדגמה מכילה ארבע תחנות מתוך שמונה. התכנים המקצועיים והמספרים בתחנת העלות הם דוגמה ויוחלפו בפרויקט אמיתי.</p>';
+      '<div class="contact">' +
+        '<div><b>ראש המגמה</b> · ד״ר אדר׳ איה פרי · aya@cts.org.il</div>' +
+        '<div><b>רכזת המגמה</b> · מורן גלברט · 03-7653111 · morang@cts.org.il</div>' +
+      '</div>' +
 
-    document.getElementById("send").onclick = function () {
-      this.textContent = "בהדגמה זה לא נשלח";
-      this.disabled = true;
-    };
+      '<button class="go ghost small" id="again">התחל מהתחלה</button>' +
+      '<p class="footnote">גרסת עבודה. מיקומי התחנות והמספרים בתחנת העלות ייקבעו סופית אחרי סיור בבניין.</p>';
+
+    document.getElementById("send").onclick = function () { this.textContent = "בגרסה הזו זה לא נשלח"; this.disabled = true; };
     document.getElementById("again").onclick = function () {
-      state = { i: -1, phase: "task", vals: {}, score: 0, done: [] };
-      save(); render();
+      state = { i: -1, phase: "task", vals: {}, done: [] }; save(); render();
     };
-  }
-
-  function q(title, body) {
-    return '<details><summary>' + title + '</summary><div class="body">' + body + '</div></details>';
   }
 
   render();
 })();
 </script>
-
 </body>
 </html>

@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>סיור קיבוע תחנות</title>
+<style>
+  :root {
+    --paper:#F1F2EE; --surface:#FBFBF9; --sunk:#E7E9E3;
+    --ink:#1A1E1C; --ink-soft:#5D6663; --ink-faint:#8A928E;
+    --rule:#C9CDC6; --rule-soft:#DFE2DC; --mark:#D6431B; --mark-ink:#FFF; --mark-soft:#F6E2DA;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:#16191A; --surface:#1D2122; --sunk:#121516;
+      --ink:#E8EAE6; --ink-soft:#9AA39F; --ink-faint:#6E7874;
+      --rule:#333A3B; --rule-soft:#262B2C; --mark:#FF6636; --mark-ink:#14100E; --mark-soft:#33201A;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:#16191A; --surface:#1D2122; --sunk:#121516;
+    --ink:#E8EAE6; --ink-soft:#9AA39F; --ink-faint:#6E7874;
+    --rule:#333A3B; --rule-soft:#262B2C; --mark:#FF6636; --mark-ink:#14100E; --mark-soft:#33201A;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin:0; background:var(--sunk); color:var(--ink);
+    font-family: system-ui, "Segoe UI", "Arial Hebrew", Arial, sans-serif;
+    font-size:17px; line-height:1.6; -webkit-text-size-adjust:100%;
+  }
+  .mono { font-family: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace; font-variant-numeric: tabular-nums; }
+  .sheet { max-width:30rem; margin:0 auto; min-height:100vh; background:var(--paper); border-inline:1px solid var(--rule); }
+  .top { background:var(--mark); color:var(--mark-ink); padding:1rem 1.1rem; }
+  .top h1 { margin:0 0 0.2rem; font-size:1.35rem; font-weight:650; letter-spacing:-0.015em; }
+  .top p { margin:0; font-size:0.86rem; opacity:0.92; }
+  main { padding:1.3rem 1.1rem 4rem; }
+
+  .lead { font-size:0.97rem; color:var(--ink-soft); margin:0 0 1.5rem; }
+
+  .card { border:1px solid var(--rule); background:var(--surface); margin-bottom:1.1rem; }
+  .card > .hd {
+    display:grid; grid-template-columns:auto 1fr auto; gap:0.7rem; align-items:center;
+    padding:0.8rem 0.95rem; border-bottom:1px solid var(--rule-soft);
+  }
+  .card .n { font-size:0.8rem; color:var(--mark); }
+  .card .nm { font-weight:640; font-size:1.02rem; }
+  .card .bd { padding:0.9rem 0.95rem; }
+  .card.ok { border-color:var(--mark); }
+  .card.ok .hd { background:var(--mark-soft); }
+
+  input[type=checkbox] { width:1.35rem; height:1.35rem; accent-color:var(--mark); }
+
+  dl { margin:0 0 0.9rem; }
+  dt { font-size:0.68rem; letter-spacing:0.11em; text-transform:uppercase; color:var(--mark); margin-bottom:0.2rem; }
+  dd { margin:0 0 0.75rem; font-size:0.94rem; }
+  dd:last-child { margin-bottom:0; }
+  dd ul { margin:0; padding-inline-start:1.05rem; }
+  dd li { margin-bottom:0.25rem; }
+  .fallback { color:var(--ink-soft); font-size:0.9rem; border-inline-start:2px solid var(--rule); padding-inline-start:0.6rem; }
+
+  label.f { display:block; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-faint); margin:0.8rem 0 0.25rem; }
+  input[type=text], textarea {
+    width:100%; font:inherit; font-size:0.95rem; padding:0.55rem 0.65rem;
+    border:1px solid var(--rule); background:var(--paper); color:var(--ink);
+  }
+  textarea { min-height:3.6rem; resize:vertical; }
+  input:focus-visible, textarea:focus-visible { outline:2px solid var(--mark); outline-offset:1px; }
+
+  h2 { font-size:1.1rem; font-weight:640; margin:2rem 0 0.8rem; letter-spacing:-0.01em; }
+  .asks { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:0.6rem; }
+  .asks li { display:grid; grid-template-columns:auto 1fr; gap:0.7rem; align-items:start; font-size:0.95rem;
+             border-bottom:1px solid var(--rule-soft); padding-bottom:0.6rem; }
+  .asks li::before { content:""; width:0.5rem; height:1px; background:var(--mark); margin-top:0.85rem; }
+
+  button {
+    font:inherit; cursor:pointer; width:100%; margin-top:1rem;
+    border:1px solid var(--ink); background:var(--ink); color:var(--paper);
+    padding:0.85rem 1.2rem; font-weight:600; font-size:1rem;
+  }
+  button.ghost { background:transparent; color:var(--ink); border-color:var(--rule); font-weight:550; padding:0.6rem 1rem; font-size:0.9rem; }
+  button:focus-visible { outline:2px solid var(--mark); outline-offset:2px; }
+  #out { margin-top:0.9rem; }
+  .note { font-size:0.83rem; color:var(--ink-faint); border-top:1px solid var(--rule); padding-top:0.9rem; margin-top:1.6rem; }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="top">
+    <h1>סיור קיבוע תחנות</h1>
+    <p class="mono">מכללת הנדסאים תל אביב · מגמת אדריכלות ועיצוב פנים</p>
+  </div>
+  <main>
+    <p class="lead">לכל תחנה: מה היא צריכה פיזית, מה למדוד, ומה לעשות אם הבניין לא מספק את זה. הכל נשמר בטלפון תוך כדי כתיבה. בסוף — כפתור שמעתיק את כל מה שמילאת לטקסט אחד לשליחה.</p>
+    <div id="cards"></div>
+
+    <h2>מה לסגור בסיור, מעבר לתחנות</h2>
+    <ul class="asks">
+      <li><span>מאיפה נכנסים ביום עצמו, ומי עומד שם ומחלק את כרטיס הפתיחה. בלי זה אין מסלול.</span></li>
+      <li><span>איפה יושב שולחן השיחות האישיות — קרוב מספיק כדי לראות אנשים עוברים, רחוק מספיק כדי לדבר.</span></li>
+      <li><span>אישור לתלות שמונה שלטי A5. מי מאשר, ומתי מותר לתלות.</span></li>
+      <li><span>קליטה סלולרית בכל נקודת תחנה — במיוחד בגרם המדרגות ובקומות הפנימיות.</span></li>
+      <li><span>איזה קיר מיועד לעבודות הסטודנטים ביום הפתוח, ומי מביא אותן.</span></li>
+      <li><span>האם יהיו סטודנטים ובוגרים בשטח, ובאילו שעות.</span></li>
+      <li><span>סדר התחנות: מסלול שמתחיל בכניסה ומסתיים ליד שולחן השיחות, לא ההפך.</span></li>
+      <li><span>בטיחות: לוודא שאף תחנה לא מציבה אנשים בגרם מדרגות פעיל או בנתיב מילוט.</span></li>
+    </ul>
+
+    <button id="copy">העתק הכל לטקסט</button>
+    <textarea id="out" placeholder="הטקסט יופיע כאן" aria-label="פלט"></textarea>
+    <button class="ghost" id="clear">נקה הכל</button>
+
+    <p class="note">אחרי הסיור — תשלח לי את הטקסט ואני מקבע את התחנות במשחק לפי מה שבאמת יש בבניין.</p>
+  </main>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var ST = [
+    { n: "גובה העיניים", need: "קיר חלק ליד הכניסה, בציר התנועה, שאפשר להדביק עליו סרט מידה אנכי עד 2 מ׳.",
+      measure: ["גובה תקרה במקום", "האם יש שקע/מפסק שיפריע לסרט", "כמה מטרים מהדלת"],
+      fallback: "אם אין קיר פנוי — עמוד נייד עם סרגל מודפס. עובד באותה מידה." },
+
+    { n: "המסדרון", need: "מסדרון פנימי עם רוחב אחיד לאורך לפחות 6 מ׳.",
+      measure: ["רוחב מדויק בס״מ", "אורך המסדרון", "גובה תקרה", "האם הרוחב משתנה לאורכו"],
+      fallback: "אם כל המסדרונות רחבים ואחידים — לעבור לפתח דלת ולמדוד את רוחב המעבר במקום." },
+
+    { n: "איפה מישהו התפשר", need: "לא צריך כלום פיזית. צריך רק שיהיה מה למצוא.",
+      measure: ["לצלם 3-4 פשרות שאתה מזהה בעצמך, כגיבוי לרמז", "לוודא שהן נגישות ולא בחדר נעול"],
+      fallback: "אין. זו התחנה הבטוחה ביותר — בכל בניין יש פשרות." },
+
+    { n: "מאיפה מגיע האור", need: "חלון גדול אחד, עם מספיק מקום לעמוד מולו.",
+      measure: ["הכיוון האמיתי (מצפן בטלפון)", "שעות שבהן נכנסת שמש ישירה", "האם יש וילון/הצללה ומי התקין"],
+      fallback: "אם כל החלונות לאותו כיוון — לבחור שני חלונות מנוגדים ולשאול איזה מהם מתחמם." },
+
+    { n: "מה מאחורי הקיר", need: "שני קירות סמוכים: אחד פנימי מגבס, אחד חיצוני מבלוק או בטון.",
+      measure: ["לדפוק ולאמת שההבדל באמת נשמע", "לסמן את שתי הנקודות המדויקות", "לוודא שזה לא קיר של כיתה פעילה"],
+      fallback: "אם הכל בנוי מבלוק — להחליף בקיר מול עמוד: מה זז ומה לא." },
+
+    { n: "המדרגות", need: "גרם מדרגות פנימי שאפשר לעמוד בתחילתו בלי לחסום מעבר.",
+      measure: ["רום בס״מ", "שלח בס״מ", "מספר מדרגות בגרם", "רוחב הגרם"],
+      fallback: "אם אין מקום לעמוד — להזיז את השלט לפודסט, ולבקש מהמבקר למדוד תוך כדי עלייה." },
+
+    { n: "עבודות הסטודנטים", need: "קיר תצוגה עם שלוש עבודות לפחות, מסומנות א׳ ב׳ ג׳.",
+      measure: ["איזה קיר", "אילו עבודות ומאיזה קורס וסמסטר", "מי מאשר להציג ומי תולה"],
+      fallback: "אם אין קיר — שלוש עבודות מודפסות A3 על כן. חשוב שיהיו אמיתיות ושיהיה כתוב מאיזה סמסטר." },
+
+    { n: "המספר", need: "שולחן בסוף המסלול, ליד שולחן השיחות האישיות.",
+      measure: ["איפה השולחן יעמוד", "האם יש חשמל בקרבת מקום", "כמה כיסאות"],
+      fallback: "אין. זו התחנה שלך, ואתה מביא אותה." }
+  ];
+
+  var KEY = "cts-sayur-v1";
+  var data = {};
+  try { data = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { data = {}; }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {} }
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+  var wrap = document.getElementById("cards");
+
+  ST.forEach(function (st, i) {
+    var d = data[i] || (data[i] = { ok: false, loc: "", meas: "", note: "" });
+
+    var card = document.createElement("section");
+    card.className = "card" + (d.ok ? " ok" : "");
+
+    var meas = st.measure.map(function (m) { return "<li>" + esc(m) + "</li>"; }).join("");
+
+    card.innerHTML =
+      '<div class="hd">' +
+        '<span class="n mono">0' + (i + 1) + '</span>' +
+        '<span class="nm">' + esc(st.n) + '</span>' +
+        '<input type="checkbox" aria-label="נקבע" ' + (d.ok ? "checked" : "") + '>' +
+      '</div>' +
+      '<div class="bd">' +
+        '<dl>' +
+          '<dt class="mono">מה התחנה צריכה</dt><dd>' + esc(st.need) + '</dd>' +
+          '<dt class="mono">מה למדוד ולרשום</dt><dd><ul>' + meas + '</ul></dd>' +
+          '<dt class="mono">אם אין בבניין</dt><dd class="fallback">' + esc(st.fallback) + '</dd>' +
+        '</dl>' +
+        '<label class="f">מיקום מדויק</label><input type="text" data-f="loc" value="' + esc(d.loc) + '">' +
+        '<label class="f">מדידות</label><input type="text" data-f="meas" value="' + esc(d.meas) + '">' +
+        '<label class="f">הערות</label><textarea data-f="note">' + esc(d.note) + '</textarea>' +
+      '</div>';
+
+    var cb = card.querySelector('input[type=checkbox]');
+    cb.onchange = function () { d.ok = cb.checked; card.classList.toggle("ok", cb.checked); save(); };
+
+    Array.prototype.forEach.call(card.querySelectorAll("[data-f]"), function (el) {
+      el.oninput = function () { d[el.getAttribute("data-f")] = el.value; save(); };
+    });
+
+    wrap.appendChild(card);
+  });
+
+  document.getElementById("copy").onclick = function () {
+    var lines = ["סיור קיבוע תחנות — מגמת אדריכלות ועיצוב פנים", ""];
+    ST.forEach(function (st, i) {
+      var d = data[i] || {};
+      lines.push((i + 1) + ". " + st.n + (d.ok ? "  [נקבע]" : "  [פתוח]"));
+      if (d.loc) lines.push("   מיקום: " + d.loc);
+      if (d.meas) lines.push("   מדידות: " + d.meas);
+      if (d.note) lines.push("   הערות: " + d.note);
+      lines.push("");
+    });
+    var txt = lines.join("\n");
+    var out = document.getElementById("out");
+    out.value = txt;
+    out.select();
+    if (navigator.clipboard) navigator.clipboard.writeText(txt).catch(function () {});
+    this.textContent = "הועתק";
+    var b = this;
+    setTimeout(function () { b.textContent = "העתק הכל לטקסט"; }, 2000);
+  };
+
+  document.getElementById("clear").onclick = function () {
+    if (!confirm("למחוק את כל מה שמילאת?")) return;
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    location.reload();
+  };
+})();
+</script>
+</body>
+</html>
