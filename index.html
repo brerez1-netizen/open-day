@@ -94,6 +94,16 @@
     padding: 0.75rem 1.1rem;
     display: flex; align-items: center; justify-content: space-between; gap: 1rem;
   }
+  .back {
+    font: inherit; font-size: 1.15rem; line-height: 1; cursor: pointer;
+    background: rgba(255,255,255,0.16); color: var(--head-ink);
+    border: 0; border-radius: 5px; width: 2rem; height: 2rem;
+    display: none; align-items: center; justify-content: center; flex: none;
+  }
+  .back.on { display: flex; }
+  .back:hover { background: rgba(255,255,255,0.3); }
+  .back:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
   .bar .who { font-size: 0.82rem; font-weight: 600; letter-spacing: 0.02em; }
   .pips { display: flex; gap: 0.24rem; }
   .pip { width: 0.85rem; height: 4px; background: rgba(255,255,255,0.34); border-radius: 2px; }
@@ -214,15 +224,22 @@
   .contact div:last-child { margin-bottom: 0; }
   .contact b { font-weight: 750; color: var(--mark); }
 
+  .msg { font-size:0.92rem; font-weight:600; margin:0.7rem 0 0; min-height:1.2em; }
+  .msg.ok  { color:var(--mark); }
+  .msg.bad { color:#B3261E; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .msg.bad { color:#FF9A8F; } }
+  :root[data-theme="dark"] .msg.bad { color:#FF9A8F; }
+
   .footnote { font-size: 0.82rem; color: var(--ink-faint); margin-top: 1.5rem; border-top: 1px solid var(--rule); padding-top: 0.9rem; }
 </style>
 </head>
 <body>
 
 <div class="phone">
-  <div class="demoflag">מהכניסה הראשית עד אולם שביט · 8 תחנות · בערך חצי שעה</div>
+  <div class="demoflag">מהכניסה הראשית עד אולם שביט · 7 תחנות · בערך חצי שעה</div>
   <div class="bar">
-    <span class="who mono" id="crumb">מה הבניין הזה מסתיר</span>
+    <button class="back" id="back" type="button" aria-label="חזרה לשלב הקודם">&#8594;</button>
+    <span class="who" id="crumb">מה הבניין הזה מסתיר</span>
     <span class="pips" id="pips"></span>
   </div>
   <main id="view"></main>
@@ -231,6 +248,12 @@
 <script>
 (function () {
   "use strict";
+
+  /* Where the closing form sends its data. Paste the Apps Script web-app URL
+     the college deploys (see apps-script.gs). While it is empty the form says
+     so plainly instead of pretending to have sent anything. */
+  var ENDPOINT = "";
+
 
   var S = [
     /* ---------------------------------------------------------- 1 */
@@ -397,31 +420,8 @@
         ];
       },
       unlock: { course: "מה עושים עם זה אחר כך", text: "תכנון במשרדי אדריכלות · פרקטיקה עצמאית · התמחות בעיצוב פנים · ועדות תכנון ברשויות המקומיות · ייעוץ אקלים ובנייה ירוקה · ייעוץ נגישות בבנייה ציבורית." }
-    },
-
-    /* ---------------------------------------------------------- 8 */
-    {
-      type: "slider", key: "systems", name: "מה מסתתר בתקרה",
-      where: "אולם שביט",
-      task: "עמוד באמצע האולם והרם את הראש. אל תמהר. כמה מערכות בניין שונות אתה מזהה בתקרה?",
-      label: "ספרתי", unit: "מערכות",
-      min: 1, max: 12, start: 4, step: 1,
-      verdict: function (v) {
-        if (v <= 3) return { head: "יש שם יותר", text: "כמעט כולם עונים בין שתיים לארבע. זה בדיוק העניין: התקרה היא החלק בבניין שאף אחד לא מסתכל עליו, והיא הצפופה ביותר." };
-        if (v <= 7) return { head: "עין טובה", text: "ראית יותר מהממוצע. עכשיו תסתכל שוב ותנסה למצוא עוד שתיים — הן שם." };
-        return { head: "מצוין", text: "אתה כבר מסתכל על תקרה כמו מי שצריך לתכנן אותה." };
-      },
-      facts: function () {
-        return [
-          ["תאורה", "לא רק גופים — גם מפסקים, מעגלים, ותאורת חירום שחייבת לעבוד כשהחשמל נופל."],
-          ["גילוי אש", "גלאי עשן, ולעיתים ספרינקלרים. המיקום שלהם נקבע בתקן, לא בשרטוט העיצובי."],
-          ["מיזוג", "מפוחים, תעלות ומפזרים. התעלה היא הדבר הכי עבה בתקרה, והיא זו שקובעת כמה נמוך יהיה הגבס."],
-          ["תקשורת", "רשת, רמקולים, כריזה, ולפעמים מקרן ומסך."],
-          ["מילוט", "שילוט מואר שמראה את הדרך החוצה. הוא חייב להיראות גם כשהחדר מלא עשן."]
-        ];
-      },
-      unlock: { course: "מערכות בניין בעיצוב הפנים", text: "מקצוע התמחות בתוכנית. כל מה שספרת עכשיו הוכרע לפני שסגרו את התקרה. מעצב שלא מכיר את המערכות מגלה אותן בדיוק ברגע שבו כבר אי אפשר להזיז אותן." }
     }
+
   ];
 
   var state = { i: -1, phase: "task", vals: {}, done: [] };
@@ -444,8 +444,20 @@
     pips.innerHTML = h;
   }
 
+  function goBack() {
+    if (state.i < 0) return;
+    if (state.i >= S.length) { state.i = S.length - 1; state.phase = "reveal"; }
+    else if (state.phase === "reveal") { state.phase = "task"; }
+    else if (state.i === 0) { state.i = -1; }
+    else { state.i -= 1; state.phase = "reveal"; }
+    save(); render();
+  }
+
+  document.getElementById("back").onclick = goBack;
+
   function render() {
     drawPips();
+    document.getElementById("back").classList.toggle("on", state.i >= 0);
     if (state.i < 0) return intro();
     if (state.i >= S.length) return finish();
     var st = S[state.i];
@@ -646,11 +658,16 @@
 
       '<h2 style="margin-top:2rem">רוצה שנמשיך?</h2>' +
       '<div class="form">' +
-        '<label for="nm">שם</label><input type="text" id="nm" autocomplete="name">' +
+        '<label for="nm">שם מלא</label><input type="text" id="nm" autocomplete="name">' +
         '<label for="ph">טלפון</label><input type="tel" id="ph" autocomplete="tel">' +
-        '<div class="consent"><input type="checkbox" id="cs"><label for="cs" style="margin:0">אני מאשר/ת קבלת מידע על התוכנית מהמכללה. אפשר להסיר בכל רגע.</label></div>' +
+        '<label for="em">אימייל (לא חובה)</label><input type="text" id="em" autocomplete="email" inputmode="email">' +
+        '<div class="consent"><input type="checkbox" id="cs">' +
+          '<label for="cs" style="margin:0">אני מאשר/ת שהמכללה תיצור איתי קשר בנוגע לתוכנית הלימודים.</label></div>' +
         '<button class="go" id="send">שלח</button>' +
-        '<p class="footnote" style="border:0;margin-top:0.8rem;padding:0">בגרסה הזו הטופס לא שולח לשום מקום.</p>' +
+        '<p class="msg" id="msg" role="status"></p>' +
+        '<p class="footnote" style="border:0;margin-top:0.8rem;padding:0">' +
+          'הפרטים נשמרים אצל מכללת הנדסאים תל אביב ומשמשים ליצירת קשר בנוגע ללימודים בלבד. ' +
+          'אפשר לבקש הסרה בכל רגע במייל aya@cts.org.il.</p>' +
       '</div>' +
 
       '<div class="contact">' +
@@ -659,9 +676,47 @@
       '</div>' +
 
       '<button class="go ghost small" id="again">התחל מהתחלה</button>' +
-      '<p class="footnote">גרסת עבודה. מיקומי התחנות והמספרים בתחנת העלות ייקבעו סופית אחרי סיור בבניין.</p>';
+      '<p class="footnote">מכללת הנדסאים תל אביב · מגמת אדריכלות ועיצוב פנים</p>';
 
-    document.getElementById("send").onclick = function () { this.textContent = "בגרסה הזו זה לא נשלח"; this.disabled = true; };
+    document.getElementById("send").onclick = function () {
+      var btn = this, msg = document.getElementById("msg");
+      var nm = document.getElementById("nm").value.trim();
+      var ph = document.getElementById("ph").value.trim();
+      var em = document.getElementById("em").value.trim();
+
+      msg.className = "msg";
+      if (!nm || !ph) { msg.textContent = "צריך שם וטלפון."; msg.classList.add("bad"); return; }
+      if (!document.getElementById("cs").checked) {
+        msg.textContent = "צריך לאשר יצירת קשר."; msg.classList.add("bad"); return;
+      }
+      if (!ENDPOINT) {
+        msg.textContent = "ההרשמה עדיין לא פתוחה כאן. גשו לשולחן באולם שביט ונרשום אתכם.";
+        msg.classList.add("bad"); return;
+      }
+
+      var answers = {};
+      S.forEach(function (st) {
+        if (state.vals[st.key] !== undefined) answers[st.name] = state.vals[st.key];
+      });
+
+      btn.disabled = true; btn.textContent = "שולח…";
+      fetch(ENDPOINT, {
+        method: "POST", mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          name: nm, phone: ph, email: em, consent: true,
+          consentText: "אני מאשר/ת שהמכללה תיצור איתי קשר בנוגע לתוכנית הלימודים.",
+          stationsDone: state.done.length, answers: answers, source: "מסלול יום פתוח"
+        })
+      }).then(function () {
+        btn.textContent = "נשלח";
+        msg.textContent = "תודה. נחזור אליכם."; msg.classList.add("ok");
+      }).catch(function () {
+        btn.disabled = false; btn.textContent = "שלח";
+        msg.textContent = "השליחה נכשלה. גשו לשולחן באולם שביט ונרשום אתכם.";
+        msg.classList.add("bad");
+      });
+    };
     document.getElementById("again").onclick = function () {
       state = { i: -1, phase: "task", vals: {}, done: [] }; save(); render();
     };
