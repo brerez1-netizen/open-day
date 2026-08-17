@@ -16,7 +16,18 @@
  * הערה: הכתובת אינה סודית, אבל היא גם לא מפורסמת. אין בקוד הדף שום מפתח.
  */
 
-var NOTIFY_EMAIL = '';   // למשל 'aya@cts.org.il'. ריק = בלי התראות.
+/**
+ * לאן נשלחת התראה על כל נרשם. אפשר כמה כתובות מופרדות בפסיק, למשל:
+ *   'aya@cts.org.il, morang@cts.org.il'
+ * ריק = בלי מיילים, רק שורה בגיליון.
+ *
+ * הערה: המייל יוצא מהחשבון שפרס את הסקריפט. המגבלה היומית היא 100 מיילים
+ * בחשבון פרטי ו-1500 בחשבון ארגוני — הרבה מעבר למה שיום פתוח מייצר.
+ *
+ * הגיליון נשאר גם אם שולחים מייל, והוא רשת הביטחון: מייל אחד שנמחק בטעות
+ * או נופל לספאם הוא ליד שאבד, ושורה בגיליון לא הולכת לשום מקום.
+ */
+var NOTIFY_EMAIL = '';
 var SHEET_NAME = 'מתעניינים';
 
 var HEADERS = [
@@ -96,20 +107,28 @@ function doPost(e) {
     ]);
 
     if (NOTIFY_EMAIL) {
-      MailApp.sendEmail({
-        to: NOTIFY_EMAIL,
-        subject: 'מתעניין חדש ביום הפתוח — ' + (d.name || ''),
-        body: [
-          'שם: ' + (d.name || ''),
-          'טלפון: ' + (d.phone || ''),
-          'אימייל: ' + (d.email || '—'),
-          'תחנות שהושלמו: ' + (d.stationsDone || 0),
-          '',
-          answers,
-          '',
-          'הרשומה נוספה לגיליון: ' + ss.getUrl()
-        ].join('\n')
-      });
+      var msg = {
+        to: NOTIFY_EMAIL.split(',').map(function (s) { return s.trim(); }).join(','),
+        subject: 'מתעניין חדש ביום הפתוח: ' + (d.name || 'ללא שם'),
+        htmlBody:
+          '<div dir="rtl" style="font-family:Arial,sans-serif;font-size:15px;line-height:1.6">' +
+          '<h2 style="margin:0 0 12px">' + (d.name || 'ללא שם') + '</h2>' +
+          '<p style="margin:0 0 4px"><b>טלפון:</b> <a href="tel:' + (d.phone || '') + '">' + (d.phone || '') + '</a></p>' +
+          (d.email ? '<p style="margin:0 0 4px"><b>אימייל:</b> ' + d.email + '</p>' : '') +
+          '<p style="margin:0 0 4px"><b>תחנות שהושלמו:</b> ' + (d.stationsDone || 0) + ' מתוך 7</p>' +
+          (answers ? '<p style="margin:12px 0 4px"><b>מה ענה במסלול:</b><br>' + answers + '</p>' : '') +
+          '<p style="margin:16px 0 0;color:#666;font-size:13px">אישר יצירת קשר. ' +
+          'הרשומה נשמרה גם <a href="' + ss.getUrl() + '">בגיליון</a>.</p></div>'
+      };
+      // the photo travels with the mail, so it is readable even without Drive access
+      if (d.photo && d.photo.indexOf('base64,') > 0) {
+        try {
+          msg.attachments = [Utilities.newBlob(
+            Utilities.base64Decode(d.photo.split('base64,')[1]), 'image/jpeg',
+            'הפשרה שצילם.jpg')];
+        } catch (e) { console.error(e); }
+      }
+      MailApp.sendEmail(msg);
     }
 
     return ContentService.createTextOutput('ok');
