@@ -39,23 +39,13 @@
   .station .top { display:flex; align-items:center; justify-content:space-between; }
   .station .num { font-size:36mm; line-height:0.85; font-weight:800; color:var(--yellow);
     -webkit-text-stroke:1.1mm var(--ink); letter-spacing:-0.04em; }
-  .station h2 { font-size:17mm; line-height:1.04; font-weight:800; letter-spacing:-0.03em; margin:7mm 0 0; }
+  .station h2 { font-size:26mm; line-height:1.02; font-weight:800; letter-spacing:-0.035em;
+    margin:auto 0; text-align:center; }
   .station .where { display:inline-block; align-self:flex-start; background:var(--teal); color:#fff;
     font-weight:700; font-size:5mm; padding:2mm 4mm; border-radius:2mm; margin:5mm 0 0; }
   .station .task { font-size:7mm; line-height:1.5; margin:8mm 0 0; font-weight:500; }
-  .station .tail { margin-top:auto; text-align:center; font-weight:800; font-size:5.2mm;
+  .station .tail { text-align:center; font-weight:800; font-size:5.2mm;
     background:var(--yellow); padding:3mm; border-radius:2mm; }
-  .station.withruler { padding-inline-end:36mm; }
-  .rulernote { position:absolute; inset-inline-end:3mm; bottom:20mm; writing-mode:vertical-rl;
-    font-size:4.2mm; font-weight:700; color:var(--teal); }
-
-  .ruler { position:absolute; inset-inline-end:17mm; width:14mm; border-inline-end:0.7mm solid var(--ink); }
-  .ruler i { position:absolute; inset-inline-end:0; height:0.35mm; background:var(--ink); display:block; }
-  .ruler i.t1 { width:3.5mm; }
-  .ruler i.t5 { width:7mm; }
-  .ruler i.t10 { width:13mm; height:0.6mm; background:var(--teal); }
-  .ruler b { position:absolute; inset-inline-end:15mm; transform:translateY(-50%);
-    font-size:3.6mm; font-weight:800; color:var(--teal); }
 
   .way { align-items:center; justify-content:center; text-align:center; }
   .way .arrow { font-size:105mm; line-height:0.8; color:var(--teal); transition:transform .15s; }
@@ -78,7 +68,8 @@
   <ul>
     <li>הברקוד מופיע רק בשלט הפתיחה. סורקים פעם אחת, וכל השאר עובד מהנייד.</li>
     <li>בשלטי ההכוונה — לחצו על החץ בכיוון הנכון לפני ההדפסה. הבחירה נשמרת.</li>
-    <li>בשלט המדרגות מודפס סרגל בגודל אמיתי. הדפיסו ב-100% בלי "התאם לעמוד", ובדקו עם סרגל שהמרווח בין שני מספרים הוא בדיוק סנטימטר.</li>
+    <li>שלטי התחנות נושאים רק מספר וכותרת — ההוראות מגיעות מהנייד.</li>
+    <li>בתחנת המדרגות משאירים סרט מדידה בשטח.</li>
     <li>הדפסה: A4 לאורך, ללא שוליים, "הדפס רקעים" מסומן.</li>
   </ul>
   <button type="button" onclick="window.print()">הדפסה</button>
@@ -103,10 +94,7 @@
     <div class="num">01</div>
   </div>
   <h2>גובה העיניים</h2>
-  <div class="where">הקיר משמאל לעמדת השומר</div>
-  <p class="task">עמוד צמוד לסרגל שעל הקיר וסמן את גובה העיניים שלך. כמה יצא?</p>
-  
-  <div class="tail">התחנה כבר פתוחה אצלכם בנייד</div>
+  <div class="tail">ההוראות כבר אצלכם בנייד</div>
 </section>
 
 <section class="sign station">
@@ -115,10 +103,7 @@
     <div class="num">02</div>
   </div>
   <h2>מסדרון הכניסה</h2>
-  <div class="where">מסדרון הכניסה</div>
-  <p class="task">מדוד את רוחב המסדרון בעקב־אצבע, ותרגם לסנטימטרים. כמה יצא?</p>
-  
-  <div class="tail">התחנה כבר פתוחה אצלכם בנייד</div>
+  <div class="tail">ההוראות כבר אצלכם בנייד</div>
 </section>
 
 <section class="sign station">
@@ -127,10 +112,7 @@
     <div class="num">03</div>
   </div>
   <h2>איפה מישהו התפשר</h2>
-  <div class="where">בדרך מהמסדרון אל החצר</div>
-  <p class="task">מצא מקום אחד שבו ניכר שמישהו נאלץ להתפשר. צלם אותו, וכתוב בשורה מה ראית.</p>
-  
-  <div class="tail">התחנה כבר פתוחה אצלכם בנייד</div>
+  <div class="tail">ההוראות כבר אצלכם בנייד</div>
 </section>
 
 <section class="sign station">
@@ -139,22 +121,16 @@
     <div class="num">04</div>
   </div>
   <h2>איפה הצפון</h2>
-  <div class="where">במרכז החצר, עם הפנים לקיר האפור של המעליות</div>
-  <p class="task">עמוד במרכז החצר והסתכל ישר על הקיר האפור של המעליות. בלי מצפן: איפה הצפון?</p>
-  
-  <div class="tail">התחנה כבר פתוחה אצלכם בנייד</div>
+  <div class="tail">ההוראות כבר אצלכם בנייד</div>
 </section>
 
-<section class="sign station withruler">
+<section class="sign station">
   <div class="top">
     <img class="logo sm" src="data:image/png;base64,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" alt="">
     <div class="num">05</div>
   </div>
   <h2>המדרגות לפאטיו</h2>
-  <div class="where">גרם המדרגות היורד לפאטיו</div>
-  <p class="task">מדוד מדרגה אחת עם הסרגל שמודפס על השלט. הרום הוא הגובה שאתה עולה, השלח הוא העומק שאתה דורך עליו.</p>
-  <div class="ruler" style="top:20mm;height:270mm"><i class="t10" style="top:0mm"></i><i class="t1" style="top:1mm"></i><i class="t1" style="top:2mm"></i><i class="t1" style="top:3mm"></i><i class="t1" style="top:4mm"></i><i class="t5" style="top:5mm"></i><i class="t1" style="top:6mm"></i><i class="t1" style="top:7mm"></i><i class="t1" style="top:8mm"></i><i class="t1" style="top:9mm"></i><i class="t10" style="top:10mm"></i><b style="top:10mm">1</b><i class="t1" style="top:11mm"></i><i class="t1" style="top:12mm"></i><i class="t1" style="top:13mm"></i><i class="t1" style="top:14mm"></i><i class="t5" style="top:15mm"></i><i class="t1" style="top:16mm"></i><i class="t1" style="top:17mm"></i><i class="t1" style="top:18mm"></i><i class="t1" style="top:19mm"></i><i class="t10" style="top:20mm"></i><b style="top:20mm">2</b><i class="t1" style="top:21mm"></i><i class="t1" style="top:22mm"></i><i class="t1" style="top:23mm"></i><i class="t1" style="top:24mm"></i><i class="t5" style="top:25mm"></i><i class="t1" style="top:26mm"></i><i class="t1" style="top:27mm"></i><i class="t1" style="top:28mm"></i><i class="t1" style="top:29mm"></i><i class="t10" style="top:30mm"></i><b style="top:30mm">3</b><i class="t1" style="top:31mm"></i><i class="t1" style="top:32mm"></i><i class="t1" style="top:33mm"></i><i class="t1" style="top:34mm"></i><i class="t5" style="top:35mm"></i><i class="t1" style="top:36mm"></i><i class="t1" style="top:37mm"></i><i class="t1" style="top:38mm"></i><i class="t1" style="top:39mm"></i><i class="t10" style="top:40mm"></i><b style="top:40mm">4</b><i class="t1" style="top:41mm"></i><i class="t1" style="top:42mm"></i><i class="t1" style="top:43mm"></i><i class="t1" style="top:44mm"></i><i class="t5" style="top:45mm"></i><i class="t1" style="top:46mm"></i><i class="t1" style="top:47mm"></i><i class="t1" style="top:48mm"></i><i class="t1" style="top:49mm"></i><i class="t10" style="top:50mm"></i><b style="top:50mm">5</b><i class="t1" style="top:51mm"></i><i class="t1" style="top:52mm"></i><i class="t1" style="top:53mm"></i><i class="t1" style="top:54mm"></i><i class="t5" style="top:55mm"></i><i class="t1" style="top:56mm"></i><i class="t1" style="top:57mm"></i><i class="t1" style="top:58mm"></i><i class="t1" style="top:59mm"></i><i class="t10" style="top:60mm"></i><b style="top:60mm">6</b><i class="t1" style="top:61mm"></i><i class="t1" style="top:62mm"></i><i class="t1" style="top:63mm"></i><i class="t1" style="top:64mm"></i><i class="t5" style="top:65mm"></i><i class="t1" style="top:66mm"></i><i class="t1" style="top:67mm"></i><i class="t1" style="top:68mm"></i><i class="t1" style="top:69mm"></i><i class="t10" style="top:70mm"></i><b style="top:70mm">7</b><i class="t1" style="top:71mm"></i><i class="t1" style="top:72mm"></i><i class="t1" style="top:73mm"></i><i class="t1" style="top:74mm"></i><i class="t5" style="top:75mm"></i><i class="t1" style="top:76mm"></i><i class="t1" style="top:77mm"></i><i class="t1" style="top:78mm"></i><i class="t1" style="top:79mm"></i><i class="t10" style="top:80mm"></i><b style="top:80mm">8</b><i class="t1" style="top:81mm"></i><i class="t1" style="top:82mm"></i><i class="t1" style="top:83mm"></i><i class="t1" style="top:84mm"></i><i class="t5" style="top:85mm"></i><i class="t1" style="top:86mm"></i><i class="t1" style="top:87mm"></i><i class="t1" style="top:88mm"></i><i class="t1" style="top:89mm"></i><i class="t10" style="top:90mm"></i><b style="top:90mm">9</b><i class="t1" style="top:91mm"></i><i class="t1" style="top:92mm"></i><i class="t1" style="top:93mm"></i><i class="t1" style="top:94mm"></i><i class="t5" style="top:95mm"></i><i class="t1" style="top:96mm"></i><i class="t1" style="top:97mm"></i><i class="t1" style="top:98mm"></i><i class="t1" style="top:99mm"></i><i class="t10" style="top:100mm"></i><b style="top:100mm">10</b><i class="t1" style="top:101mm"></i><i class="t1" style="top:102mm"></i><i class="t1" style="top:103mm"></i><i class="t1" style="top:104mm"></i><i class="t5" style="top:105mm"></i><i class="t1" style="top:106mm"></i><i class="t1" style="top:107mm"></i><i class="t1" style="top:108mm"></i><i class="t1" style="top:109mm"></i><i class="t10" style="top:110mm"></i><b style="top:110mm">11</b><i class="t1" style="top:111mm"></i><i class="t1" style="top:112mm"></i><i class="t1" style="top:113mm"></i><i class="t1" style="top:114mm"></i><i class="t5" style="top:115mm"></i><i class="t1" style="top:116mm"></i><i class="t1" style="top:117mm"></i><i class="t1" style="top:118mm"></i><i class="t1" style="top:119mm"></i><i class="t10" style="top:120mm"></i><b style="top:120mm">12</b><i class="t1" style="top:121mm"></i><i class="t1" style="top:122mm"></i><i class="t1" style="top:123mm"></i><i class="t1" style="top:124mm"></i><i class="t5" style="top:125mm"></i><i class="t1" style="top:126mm"></i><i class="t1" style="top:127mm"></i><i class="t1" style="top:128mm"></i><i class="t1" style="top:129mm"></i><i class="t10" style="top:130mm"></i><b style="top:130mm">13</b><i class="t1" style="top:131mm"></i><i class="t1" style="top:132mm"></i><i class="t1" style="top:133mm"></i><i class="t1" style="top:134mm"></i><i class="t5" style="top:135mm"></i><i class="t1" style="top:136mm"></i><i class="t1" style="top:137mm"></i><i class="t1" style="top:138mm"></i><i class="t1" style="top:139mm"></i><i class="t10" style="top:140mm"></i><b style="top:140mm">14</b><i class="t1" style="top:141mm"></i><i class="t1" style="top:142mm"></i><i class="t1" style="top:143mm"></i><i class="t1" style="top:144mm"></i><i class="t5" style="top:145mm"></i><i class="t1" style="top:146mm"></i><i class="t1" style="top:147mm"></i><i class="t1" style="top:148mm"></i><i class="t1" style="top:149mm"></i><i class="t10" style="top:150mm"></i><b style="top:150mm">15</b><i class="t1" style="top:151mm"></i><i class="t1" style="top:152mm"></i><i class="t1" style="top:153mm"></i><i class="t1" style="top:154mm"></i><i class="t5" style="top:155mm"></i><i class="t1" style="top:156mm"></i><i class="t1" style="top:157mm"></i><i class="t1" style="top:158mm"></i><i class="t1" style="top:159mm"></i><i class="t10" style="top:160mm"></i><b style="top:160mm">16</b><i class="t1" style="top:161mm"></i><i class="t1" style="top:162mm"></i><i class="t1" style="top:163mm"></i><i class="t1" style="top:164mm"></i><i class="t5" style="top:165mm"></i><i class="t1" style="top:166mm"></i><i class="t1" style="top:167mm"></i><i class="t1" style="top:168mm"></i><i class="t1" style="top:169mm"></i><i class="t10" style="top:170mm"></i><b style="top:170mm">17</b><i class="t1" style="top:171mm"></i><i class="t1" style="top:172mm"></i><i class="t1" style="top:173mm"></i><i class="t1" style="top:174mm"></i><i class="t5" style="top:175mm"></i><i class="t1" style="top:176mm"></i><i class="t1" style="top:177mm"></i><i class="t1" style="top:178mm"></i><i class="t1" style="top:179mm"></i><i class="t10" style="top:180mm"></i><b style="top:180mm">18</b><i class="t1" style="top:181mm"></i><i class="t1" style="top:182mm"></i><i class="t1" style="top:183mm"></i><i class="t1" style="top:184mm"></i><i class="t5" style="top:185mm"></i><i class="t1" style="top:186mm"></i><i class="t1" style="top:187mm"></i><i class="t1" style="top:188mm"></i><i class="t1" style="top:189mm"></i><i class="t10" style="top:190mm"></i><b style="top:190mm">19</b><i class="t1" style="top:191mm"></i><i class="t1" style="top:192mm"></i><i class="t1" style="top:193mm"></i><i class="t1" style="top:194mm"></i><i class="t5" style="top:195mm"></i><i class="t1" style="top:196mm"></i><i class="t1" style="top:197mm"></i><i class="t1" style="top:198mm"></i><i class="t1" style="top:199mm"></i><i class="t10" style="top:200mm"></i><b style="top:200mm">20</b><i class="t1" style="top:201mm"></i><i class="t1" style="top:202mm"></i><i class="t1" style="top:203mm"></i><i class="t1" style="top:204mm"></i><i class="t5" style="top:205mm"></i><i class="t1" style="top:206mm"></i><i class="t1" style="top:207mm"></i><i class="t1" style="top:208mm"></i><i class="t1" style="top:209mm"></i><i class="t10" style="top:210mm"></i><b style="top:210mm">21</b><i class="t1" style="top:211mm"></i><i class="t1" style="top:212mm"></i><i class="t1" style="top:213mm"></i><i class="t1" style="top:214mm"></i><i class="t5" style="top:215mm"></i><i class="t1" style="top:216mm"></i><i class="t1" style="top:217mm"></i><i class="t1" style="top:218mm"></i><i class="t1" style="top:219mm"></i><i class="t10" style="top:220mm"></i><b style="top:220mm">22</b><i class="t1" style="top:221mm"></i><i class="t1" style="top:222mm"></i><i class="t1" style="top:223mm"></i><i class="t1" style="top:224mm"></i><i class="t5" style="top:225mm"></i><i class="t1" style="top:226mm"></i><i class="t1" style="top:227mm"></i><i class="t1" style="top:228mm"></i><i class="t1" style="top:229mm"></i><i class="t10" style="top:230mm"></i><b style="top:230mm">23</b><i class="t1" style="top:231mm"></i><i class="t1" style="top:232mm"></i><i class="t1" style="top:233mm"></i><i class="t1" style="top:234mm"></i><i class="t5" style="top:235mm"></i><i class="t1" style="top:236mm"></i><i class="t1" style="top:237mm"></i><i class="t1" style="top:238mm"></i><i class="t1" style="top:239mm"></i><i class="t10" style="top:240mm"></i><b style="top:240mm">24</b><i class="t1" style="top:241mm"></i><i class="t1" style="top:242mm"></i><i class="t1" style="top:243mm"></i><i class="t1" style="top:244mm"></i><i class="t5" style="top:245mm"></i><i class="t1" style="top:246mm"></i><i class="t1" style="top:247mm"></i><i class="t1" style="top:248mm"></i><i class="t1" style="top:249mm"></i><i class="t10" style="top:250mm"></i><b style="top:250mm">25</b><i class="t1" style="top:251mm"></i><i class="t1" style="top:252mm"></i><i class="t1" style="top:253mm"></i><i class="t1" style="top:254mm"></i><i class="t5" style="top:255mm"></i><i class="t1" style="top:256mm"></i><i class="t1" style="top:257mm"></i><i class="t1" style="top:258mm"></i><i class="t1" style="top:259mm"></i><i class="t10" style="top:260mm"></i><b style="top:260mm">26</b><i class="t1" style="top:261mm"></i><i class="t1" style="top:262mm"></i><i class="t1" style="top:263mm"></i><i class="t1" style="top:264mm"></i><i class="t5" style="top:265mm"></i><i class="t1" style="top:266mm"></i><i class="t1" style="top:267mm"></i><i class="t1" style="top:268mm"></i><i class="t1" style="top:269mm"></i><i class="t10" style="top:270mm"></i><b style="top:270mm">27</b></div><div class="rulernote">מדדו עם הסרגל שבשוליים</div>
-  <div class="tail">התחנה כבר פתוחה אצלכם בנייד</div>
+  <div class="tail">ההוראות כבר אצלכם בנייד</div>
 </section>
 
 <section class="sign station">
@@ -163,10 +139,7 @@
     <div class="num">06</div>
   </div>
   <h2>לזהות חומר ביד</h2>
-  <div class="where">הארון הצהוב ליד אולם שביט</div>
-  <p class="task">בארון יש דוגמאות חומרים. בחר שלוש, וכתוב לכל אחת למה דווקא היא.</p>
-  
-  <div class="tail">התחנה כבר פתוחה אצלכם בנייד</div>
+  <div class="tail">ההוראות כבר אצלכם בנייד</div>
 </section>
 
 <section class="sign station">
@@ -175,10 +148,7 @@
     <div class="num">07</div>
   </div>
   <h2>עבודות הסטודנטים</h2>
-  <div class="where">קיר העבודות באולם שביט</div>
-  <p class="task">על הקיר עבודות של סטודנטים מהמגמה, ולכל אחת מספר. בחר אחת שהיית רוצה שתהיה שלך, והקלד את המספר שלה.</p>
-  
-  <div class="tail">התחנה כבר פתוחה אצלכם בנייד</div>
+  <div class="tail">ההוראות כבר אצלכם בנייד</div>
 </section>
 
 <section class="sign way" data-dir="0">
