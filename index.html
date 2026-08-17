@@ -6,46 +6,59 @@
 <meta name="color-scheme" content="light dark">
 <title>מה הבניין הזה מסתיר</title>
 <style>
+  /* מכללת הנדסאים תל אביב — טורקיז, צהוב, שחור */
   :root {
-    --paper:      #F1F2EE;
-    --surface:    #FBFBF9;
-    --sunk:       #E7E9E3;
-    --ink:        #1A1E1C;
-    --ink-soft:   #5D6663;
-    --ink-faint:  #8A928E;
-    --rule:       #C9CDC6;
-    --rule-soft:  #DFE2DC;
-    --mark:       #D6431B;
+    --paper:      #FFFFFF;
+    --surface:    #F3FAFA;
+    --sunk:       #DCEFEF;
+    --ink:        #0F1E1E;
+    --ink-soft:   #485C5C;
+    --ink-faint:  #7B8E8E;
+    --rule:       #BCDCDC;
+    --rule-soft:  #DCEDED;
+    --mark:       #00807F;
     --mark-ink:   #FFFFFF;
-    --mark-soft:  #F6E2DA;
+    --mark-soft:  #E2F4F4;
+    --accent:     #F5D800;
+    --accent-ink: #1A1600;
+    --head-bg:    #009C9C;
+    --head-ink:   #FFFFFF;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --paper:     #16191A;
-      --surface:   #1D2122;
-      --sunk:      #121516;
-      --ink:       #E8EAE6;
-      --ink-soft:  #9AA39F;
-      --ink-faint: #6E7874;
-      --rule:      #333A3B;
-      --rule-soft: #262B2C;
-      --mark:      #FF6636;
-      --mark-ink:  #14100E;
-      --mark-soft: #33201A;
+      --paper:      #0E1918;
+      --surface:    #142423;
+      --sunk:       #081110;
+      --ink:        #E4F2F1;
+      --ink-soft:   #9AB3B2;
+      --ink-faint:  #6C8584;
+      --rule:       #2B3F3E;
+      --rule-soft:  #1B2C2B;
+      --mark:       #2ED3D0;
+      --mark-ink:   #05100F;
+      --mark-soft:  #10302F;
+      --accent:     #FFE23D;
+      --accent-ink: #1A1600;
+      --head-bg:    #00706F;
+      --head-ink:   #FFFFFF;
     }
   }
   :root[data-theme="dark"] {
-    --paper:     #16191A;
-    --surface:   #1D2122;
-    --sunk:      #121516;
-    --ink:       #E8EAE6;
-    --ink-soft:  #9AA39F;
-    --ink-faint: #6E7874;
-    --rule:      #333A3B;
-    --rule-soft: #262B2C;
-    --mark:      #FF6636;
-    --mark-ink:  #14100E;
-    --mark-soft: #33201A;
+    --paper:      #0E1918;
+    --surface:    #142423;
+    --sunk:       #081110;
+    --ink:        #E4F2F1;
+    --ink-soft:   #9AB3B2;
+    --ink-faint:  #6C8584;
+    --rule:       #2B3F3E;
+    --rule-soft:  #1B2C2B;
+    --mark:       #2ED3D0;
+    --mark-ink:   #05100F;
+    --mark-soft:  #10302F;
+    --accent:     #FFE23D;
+    --accent-ink: #1A1600;
+    --head-bg:    #00706F;
+    --head-ink:   #FFFFFF;
   }
 
   * { box-sizing: border-box; }
@@ -55,8 +68,7 @@
     background: var(--sunk);
     color: var(--ink);
     font-family: system-ui, "Segoe UI", "Arial Hebrew", Arial, sans-serif;
-    font-size: 17px;
-    line-height: 1.6;
+    font-size: 17px; line-height: 1.6;
     -webkit-text-size-adjust: 100%;
   }
   .mono {
@@ -65,133 +77,142 @@
   }
 
   .phone {
-    max-width: 27rem;
-    margin: 0 auto;
-    min-height: 100vh;
+    max-width: 27rem; margin: 0 auto; min-height: 100vh;
     background: var(--paper);
-    border-inline: 1px solid var(--rule);
-    display: flex;
-    flex-direction: column;
+    display: flex; flex-direction: column;
+    box-shadow: 0 0 0 1px var(--rule);
   }
 
   .demoflag {
-    background: var(--mark);
-    color: var(--mark-ink);
-    font-size: 0.7rem;
-    letter-spacing: 0.07em;
-    text-align: center;
-    padding: 0.4rem 0.8rem;
-    line-height: 1.45;
+    background: var(--accent); color: var(--accent-ink);
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em;
+    text-align: center; padding: 0.45rem 0.8rem; line-height: 1.45;
   }
   .bar {
     position: sticky; top: 0; z-index: 5;
-    background: var(--paper);
-    border-bottom: 1px solid var(--rule);
-    padding: 0.7rem 1.1rem;
+    background: var(--head-bg); color: var(--head-ink);
+    padding: 0.75rem 1.1rem;
     display: flex; align-items: center; justify-content: space-between; gap: 1rem;
   }
-  .bar .who { font-size: 0.78rem; color: var(--ink-faint); letter-spacing: 0.05em; }
-  .pips { display: flex; gap: 0.22rem; }
-  .pip { width: 0.85rem; height: 3px; background: var(--rule); }
-  .pip.on { background: var(--mark); }
+  .bar .who { font-size: 0.82rem; font-weight: 600; letter-spacing: 0.02em; }
+  .pips { display: flex; gap: 0.24rem; }
+  .pip { width: 0.85rem; height: 4px; background: rgba(255,255,255,0.34); border-radius: 2px; }
+  .pip.on { background: var(--accent); }
 
   main { flex: 1; padding: 1.4rem 1.1rem 3rem; }
 
-  h1 { font-size: 1.75rem; line-height: 1.18; font-weight: 650; letter-spacing: -0.02em; margin: 0 0 0.5rem; text-wrap: balance; }
-  h2 { font-size: 1.3rem; line-height: 1.25; font-weight: 640; letter-spacing: -0.015em; margin: 0 0 0.6rem; text-wrap: balance; }
+  h1 { font-size: 1.8rem; line-height: 1.16; font-weight: 750; letter-spacing: -0.025em; margin: 0 0 0.5rem; text-wrap: balance; }
+  h2 { font-size: 1.32rem; line-height: 1.24; font-weight: 700; letter-spacing: -0.018em; margin: 0 0 0.6rem; text-wrap: balance; }
   p { margin: 0 0 0.9rem; }
   p:last-child { margin-bottom: 0; }
   .sub { color: var(--ink-soft); }
-  .eyebrow { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mark); margin-bottom: 0.55rem; }
-  .where { font-size: 0.82rem; color: var(--ink-faint); border-inline-start: 2px solid var(--rule); padding-inline-start: 0.6rem; margin-bottom: 1.1rem; }
 
-  .dial { background: var(--surface); border: 1px solid var(--rule); padding: 1.1rem; margin: 1.1rem 0; }
+  .eyebrow {
+    display: inline-block;
+    background: var(--mark); color: var(--mark-ink);
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+    padding: 0.22rem 0.55rem; border-radius: 3px; margin-bottom: 0.7rem;
+  }
+  .where {
+    font-size: 0.84rem; color: var(--ink-soft);
+    border-inline-start: 3px solid var(--accent);
+    padding-inline-start: 0.6rem; margin-bottom: 1.1rem;
+  }
+
+  .dial { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 1.1rem; margin: 1.1rem 0; }
   .dial + .dial { margin-top: 0.7rem; }
   .dial label { display: block; font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 0.55rem; }
-  .readout { font-size: 2.5rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
-  .readout .u { font-size: 0.95rem; font-weight: 500; color: var(--ink-faint); margin-inline-start: 0.35rem; letter-spacing: 0; }
-  input[type=range] { width: 100%; margin: 0.9rem 0 0; accent-color: var(--mark); height: 1.6rem; }
+  .readout { font-size: 2.6rem; font-weight: 750; letter-spacing: -0.035em; line-height: 1; color: var(--mark); }
+  .readout .u { font-size: 0.95rem; font-weight: 600; color: var(--ink-faint); margin-inline-start: 0.35rem; letter-spacing: 0; }
+  input[type=range] { width: 100%; margin: 0.9rem 0 0; accent-color: var(--mark); height: 1.7rem; }
   .ends { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--ink-faint); }
 
-  .opts { display: flex; flex-direction: column; gap: 0.5rem; margin: 1.1rem 0; }
+  .opts { display: flex; flex-direction: column; gap: 0.55rem; margin: 1.1rem 0; }
   .opt {
     display: block; width: 100%; text-align: start;
-    background: var(--surface); border: 1px solid var(--rule); color: var(--ink);
-    padding: 0.85rem 1rem; font: inherit; font-size: 0.98rem; cursor: pointer;
+    background: var(--surface); border: 1.5px solid var(--rule); border-radius: 6px;
+    color: var(--ink); padding: 0.9rem 1rem; font: inherit; font-size: 0.98rem; cursor: pointer;
   }
-  .opt:hover { border-color: var(--mark); }
-  .opt:focus-visible { outline: 2px solid var(--mark); outline-offset: 2px; }
-  .opt .k { color: var(--mark); font-weight: 640; margin-inline-end: 0.55rem; }
+  .opt:hover { border-color: var(--mark); background: var(--mark-soft); }
+  .opt:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .opt .k {
+    display: inline-block; background: var(--accent); color: var(--accent-ink);
+    font-weight: 800; width: 1.5rem; height: 1.5rem; line-height: 1.5rem;
+    text-align: center; border-radius: 4px; margin-inline-end: 0.6rem;
+  }
 
   textarea {
     width: 100%; font: inherit; font-size: 1rem; padding: 0.8rem;
-    border: 1px solid var(--rule); background: var(--surface); color: var(--ink);
+    border: 1.5px solid var(--rule); border-radius: 6px;
+    background: var(--surface); color: var(--ink);
     min-height: 6rem; resize: vertical; margin: 1.1rem 0 0;
   }
-  textarea:focus-visible { outline: 2px solid var(--mark); outline-offset: 1px; }
+  textarea:focus-visible { outline: 3px solid var(--accent); outline-offset: 1px; }
 
   button.go {
-    font: inherit; cursor: pointer; border: 1px solid var(--ink);
-    background: var(--ink); color: var(--paper);
-    padding: 0.85rem 1.2rem; width: 100%; font-weight: 600; font-size: 1rem; margin-top: 1.2rem;
+    font: inherit; cursor: pointer; border: 0; border-radius: 6px;
+    background: var(--mark); color: var(--mark-ink);
+    padding: 0.95rem 1.2rem; width: 100%; font-weight: 700; font-size: 1.02rem; margin-top: 1.2rem;
   }
-  button.ghost { background: transparent; color: var(--ink); border-color: var(--rule); font-weight: 550; }
-  button.small { padding: 0.6rem 1rem; font-size: 0.9rem; margin-top: 0.7rem; }
-  button.go:focus-visible { outline: 2px solid var(--mark); outline-offset: 2px; }
-  button.go:hover { opacity: 0.88; }
+  button.ghost { background: transparent; color: var(--mark); border: 1.5px solid var(--rule); font-weight: 600; }
+  button.small { padding: 0.65rem 1rem; font-size: 0.92rem; margin-top: 0.7rem; }
+  button.go:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  button.go:hover { filter: brightness(1.08); }
 
   .reveal { animation: rise 0.35s ease both; }
   @keyframes rise { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: none; } }
   @media (prefers-reduced-motion: reduce) { .reveal { animation: none; } }
 
-  .verdict { border: 1px solid var(--rule); border-inline-start: 3px solid var(--mark); background: var(--surface); padding: 1rem 1.1rem; margin-bottom: 1rem; }
-  .verdict .head { font-weight: 640; margin-bottom: 0.4rem; }
+  .verdict {
+    background: var(--mark-soft); border-radius: 6px;
+    border-inline-start: 5px solid var(--mark);
+    padding: 1rem 1.1rem; margin-bottom: 1rem;
+  }
+  .verdict .head { font-weight: 750; margin-bottom: 0.4rem; color: var(--mark); font-size: 1.05rem; }
   .verdict p { font-size: 0.96rem; }
 
   .facts { list-style: none; margin: 0 0 1rem; padding: 0; display: flex; flex-direction: column; gap: 0.6rem; }
-  .facts li { display: grid; grid-template-columns: 3.7rem 1fr; gap: 0.75rem; align-items: baseline; font-size: 0.95rem; border-bottom: 1px solid var(--rule-soft); padding-bottom: 0.6rem; }
+  .facts li { display: grid; grid-template-columns: 4rem 1fr; gap: 0.75rem; align-items: baseline; font-size: 0.95rem; border-bottom: 1px solid var(--rule-soft); padding-bottom: 0.6rem; }
   .facts li:last-child { border-bottom: 0; }
-  .facts .k { font-size: 0.85rem; color: var(--mark); }
+  .facts .k {
+    font-size: 0.82rem; font-weight: 700; color: var(--accent-ink);
+    background: var(--accent); border-radius: 3px; padding: 0.15rem 0.35rem; text-align: center;
+  }
 
-  .unlock { background: var(--mark-soft); border: 1px solid var(--rule); padding: 1rem 1.1rem; margin-bottom: 1rem; }
-  .unlock .tag { font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mark); margin-bottom: 0.35rem; }
-  .unlock h3 { margin: 0 0 0.35rem; font-size: 1.05rem; font-weight: 640; }
+  .unlock {
+    background: var(--accent); color: var(--accent-ink);
+    border-radius: 6px; padding: 1.05rem 1.1rem; margin-bottom: 1rem;
+  }
+  .unlock .tag { font-size: 0.66rem; font-weight: 800; letter-spacing: 0.14em; margin-bottom: 0.35rem; opacity: 0.72; }
+  .unlock h3 { margin: 0 0 0.35rem; font-size: 1.1rem; font-weight: 800; }
   .unlock p { font-size: 0.94rem; }
 
-  .split { display: flex; flex-direction: column; gap: 0.5rem; margin: 1rem 0; }
-  .row { display: grid; grid-template-columns: 1fr 3.2rem; gap: 0.6rem; align-items: center; font-size: 0.88rem; }
-  .row .track { background: var(--sunk); height: 1.55rem; position: relative; overflow: hidden; }
-  .row .fill { position: absolute; inset-block: 0; inset-inline-start: 0; background: var(--rule); }
-  .row.hot .fill { background: var(--mark); }
-  .row .lab { position: absolute; inset-block: 0; inset-inline-start: 0.5rem; display: flex; align-items: center; white-space: nowrap; }
-  .row .pct { text-align: start; color: var(--ink-soft); font-size: 0.82rem; }
-
-  .qa { border-top: 1px solid var(--rule); }
+  .qa { border-top: 2px solid var(--mark); }
   details { border-bottom: 1px solid var(--rule-soft); }
-  summary { cursor: pointer; padding: 0.85rem 0.2rem; font-weight: 570; font-size: 0.98rem; list-style: none; display: flex; gap: 0.7rem; align-items: baseline; }
+  summary { cursor: pointer; padding: 0.85rem 0.2rem; font-weight: 650; font-size: 0.98rem; list-style: none; display: flex; gap: 0.7rem; align-items: baseline; }
   summary::-webkit-details-marker { display: none; }
-  summary::before { content: "+"; color: var(--mark); font-weight: 600; }
+  summary::before { content: "+"; color: var(--mark); font-weight: 800; }
   details[open] summary::before { content: "–"; }
-  summary:focus-visible { outline: 2px solid var(--mark); outline-offset: -2px; }
+  summary:focus-visible { outline: 3px solid var(--accent); outline-offset: -2px; }
   details .body { padding: 0 0.2rem 1rem 1.6rem; font-size: 0.95rem; color: var(--ink-soft); }
   details .body p { margin-bottom: 0.7rem; }
   details .body ul { margin: 0 0 0.7rem; padding-inline-start: 1.1rem; }
   details .body li { margin-bottom: 0.3rem; }
-  .missing { display: inline-block; background: var(--mark-soft); color: var(--mark); border: 1px dashed var(--mark); padding: 0.15rem 0.45rem; font-size: 0.76rem; }
+  .missing { display: inline-block; background: var(--accent); color: var(--accent-ink); font-weight: 700; padding: 0.15rem 0.45rem; border-radius: 3px; font-size: 0.76rem; }
 
-  .score { border: 1px solid var(--rule); background: var(--surface); padding: 1.2rem 1.1rem; text-align: center; margin-bottom: 1.3rem; }
-  .score .n { font-size: 3rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1; color: var(--mark); }
-  .score .l { font-size: 0.8rem; color: var(--ink-faint); letter-spacing: 0.08em; margin-top: 0.3rem; }
+  .score { background: var(--mark); color: var(--mark-ink); border-radius: 8px; padding: 1.3rem 1.1rem; text-align: center; margin-bottom: 1.3rem; }
+  .score .n { font-size: 3.1rem; font-weight: 800; letter-spacing: -0.04em; line-height: 1; color: var(--accent); }
+  .score .l { font-size: 0.8rem; letter-spacing: 0.1em; margin-top: 0.35rem; opacity: 0.9; }
 
-  .form { background: var(--surface); border: 1px solid var(--rule); padding: 1.1rem; }
+  .form { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 1.1rem; }
   .form label { display: block; font-size: 0.82rem; color: var(--ink-soft); margin: 0.7rem 0 0.3rem; }
-  .form input[type=text], .form input[type=tel] { width: 100%; font: inherit; font-size: 0.95rem; padding: 0.6rem 0.7rem; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); }
+  .form input[type=text], .form input[type=tel] { width: 100%; font: inherit; font-size: 0.95rem; padding: 0.65rem 0.7rem; border: 1.5px solid var(--rule); border-radius: 5px; background: var(--paper); color: var(--ink); }
   .consent { display: grid; grid-template-columns: auto 1fr; gap: 0.6rem; align-items: start; font-size: 0.85rem; color: var(--ink-soft); margin-top: 0.9rem; }
 
-  .contact { border: 1px solid var(--rule); padding: 1rem 1.1rem; margin-top: 1.3rem; font-size: 0.93rem; }
+  .contact { background: var(--mark-soft); border-radius: 6px; padding: 1rem 1.1rem; margin-top: 1.3rem; font-size: 0.93rem; }
   .contact div { margin-bottom: 0.5rem; }
   .contact div:last-child { margin-bottom: 0; }
-  .contact b { font-weight: 620; }
+  .contact b { font-weight: 750; color: var(--mark); }
 
   .footnote { font-size: 0.82rem; color: var(--ink-faint); margin-top: 1.5rem; border-top: 1px solid var(--rule); padding-top: 0.9rem; }
 </style>
@@ -199,7 +220,7 @@
 <body>
 
 <div class="phone">
-  <div class="demoflag mono">גרסת עבודה · במסלול האמיתי כל תחנה נפתחת בסריקת ברקוד במקומה בבניין</div>
+  <div class="demoflag">מהכניסה הראשית עד אולם שביט · 8 תחנות · בערך חצי שעה</div>
   <div class="bar">
     <span class="who mono" id="crumb">מה הבניין הזה מסתיר</span>
     <span class="pips" id="pips"></span>
@@ -215,7 +236,7 @@
     /* ---------------------------------------------------------- 1 */
     {
       type: "slider", key: "eye", name: "גובה העיניים",
-      where: "תחנה 1 · ליד סרט המידה בכניסה",
+      where: "הקיר משמאל לעמדת השומר",
       task: "עמוד צמוד לקיר וסמן את גובה העיניים שלך. כמה יצא?",
       label: "גובה העיניים שלי", unit: 'ס״מ',
       min: 130, max: 195, start: 160, step: 1,
@@ -225,9 +246,8 @@
       },
       facts: function (v) {
         return [
+          ["280", "גובה התקרה כאן, בכניסה. " + (280 - v) + " ס״מ מעל קו העין שלך — וזה מה שגורם לכניסה להרגיש פתוחה."],
           ["105", "גובה ידית דלת תקנית. נקבע לפי היד, ולכן הוא זהה לכולם — נמוכים וגבוהים."],
-          ["210", v >= 210 ? "גובה שילוט הכוונה. אתה קורא אותו ישר."
-                           : "גובה שילוט הכוונה. אתה מרים את הראש " + (210 - v) + " ס״מ כדי לקרוא אותו."],
           ["190", v >= 190 ? "מדף עליון במטבח. אתה רואה מה מונח עליו."
                            : "מדף עליון במטבח. אתה לא רואה מה מונח עליו — ולכן, בפועל, לא תשתמש בו."]
         ];
@@ -237,22 +257,22 @@
 
     /* ---------------------------------------------------------- 2 */
     {
-      type: "slider", key: "corridor", name: "המסדרון",
-      where: "תחנה 2 · במסדרון הראשי",
+      type: "slider", key: "corridor", name: "מסדרון הכניסה",
+      where: "מסדרון הכניסה",
       task: "מדוד את רוחב המסדרון בעקב־אצבע, ותרגם לסנטימטרים. כמה יצא?",
       label: "רוחב המסדרון", unit: 'ס״מ',
-      min: 80, max: 220, start: 130, step: 5,
+      min: 90, max: 320, start: 160, step: 5,
       verdict: function (v) {
-        if (v < 100) return { head: "צר", text: "שני אנשים עם תיקים לא חולפים כאן זה על פני זה בלי להסתובב." };
-        if (v < 120) return { head: "מינימלי", text: "עובר, ולא יותר מזה. ביום עמוס תרגיש את זה." };
-        if (v < 150) return { head: "רוחב עבודה נוח", text: "שניים חולפים בלי לחשוב על זה. זה הטווח שרוב המסדרונות מכוונים אליו." };
-        return { head: "רחב", text: "נעים — וכל עשרה סנטימטרים כאן נלקחו מהחדרים שמשני הצדדים." };
+        var real = 252, gap = Math.abs(v - real);
+        if (gap <= 20) return { head: "252 ס״מ — קלעת", text: "רוב האנשים מעריכים הרבה פחות. אנחנו לא מודדים מרחקים בעיניים כמעט אף פעם." };
+        if (v < real) return { head: "252 ס״מ — הערכת בחסר", text: "כמעט כולם. המוח שלנו משווה למסדרון של דירה, וכאן הוא כפול ממנו." };
+        return { head: "252 ס״מ — הערכת ביתר", text: "המסדרון באמת מרגיש רחב, ויש לזה סיבה." };
       },
       facts: function () {
         return [
-          ["12 מ׳", "אורך מסדרון ממוצע בקומת מגורים."],
-          ["+10 ס״מ", "הרחבה של עשרה סנטימטרים לאורך הזה מוציאה 1.2 מ״ר מהחדרים."],
-          ["₪", "באזור ביקוש זה שווה עשרות אלפי שקלים. בגלל זה מסדרונות תמיד צרים — זו החלטה כלכלית, לא אסתטית."]
+          ["110", "רוחב מסדרון טיפוסי בדירה. כאן יותר מכפול."],
+          ["למה", "זה מבנה ציבור. הרוחב נקבע לפי כמה אנשים צריכים לפנות אותו בחירום, ולפי כיסא גלגלים שצריך להסתובב בו — לא לפי נוחות."],
+          ["340", "גובה התקרה כאן, לעומת 280 בכניסה. שים לב שהרגשת את ההבדל לפני שידעת את המספר."]
         ];
       },
       unlock: { course: "תחיקת הבניה והבטיחות", text: "מקצוע רקע בתוכנית. רוחב מסדרון הוא לא העדפה של מתכנן — הוא תנאי לקבלת היתר. הרבה ממה שנראה כמו טעם הוא בעצם חוק." }
@@ -261,16 +281,16 @@
     /* ---------------------------------------------------------- 3 */
     {
       type: "text", key: "compromise", name: "איפה מישהו התפשר",
-      where: "תחנה 3 · בכל מקום בקומה",
-      task: "מצא מקום אחד בקומה הזאת שניכר בו שמישהו נאלץ להתפשר. צלם אותו לעצמך, וכתוב בשורה מה ראית.",
-      placeholder: "לדוגמה: צינור שעובר על הקיר במקום בתוכו…",
+      where: "באזור המדרגות והפאטיו",
+      task: "הסתכל סביב: הקירוי מעל המדרגות, המפגש שלו עם הקיר, הצנרת, המבנה היביל בפאטיו. מצא מקום אחד שניכר בו שמישהו נאלץ להתפשר, וכתוב בשורה מה ראית.",
+      placeholder: "לדוגמה: הקירוי לא נפגש נקי עם הקיר…",
       verdict: function () {
-        return { head: "אין כאן תשובה נכונה", text: "וזה לא ויתור — זו הנקודה. כל בניין הוא רצף פשרות בין מה שרצו, מה שמותר, מה שאפשר לבנות ומה שהיה תקציב עבורו." };
+        return { head: "אין כאן תשובה נכונה", text: "וזה לא ויתור — זו הנקודה. כל בניין הוא רצף פשרות בין מה שרצו, מה שמותר, מה שאפשר לבנות ומה שהיה עליו תקציב." };
       },
       facts: function () {
         return [
-          ["הכי נפוץ", "צנרת או תעלה שעוברת על הקיר במקום בתוכו — כי גילו אותה אחרי שהקירות כבר עמדו."],
-          ["אחריו", "דלת שנפתחת פחות ממה שתוכנן, שקע במקום מוזר, מזגן שתלוי מול חלון."],
+          ["הכי נפוץ", "אלמנט שנוסף אחרי שהבניין כבר עמד — קירוי, צנרת או מזגן. הוא כמעט לעולם לא נפגש נקי עם מה שהיה קודם."],
+          ["למה", "בשלב התכנון זה היה קו על נייר. בשטח מתגלה שהקיר לא ישר, שהצינור עובר, ושאין תקציב לפרק ולהתחיל מחדש."],
           ["השורה", "מקצוען הוא לא מי שלא מתפשר. הוא מי שיודע מראש איפה כדאי — ומה זה יעלה אם יגלו את זה מאוחר."]
         ];
       },
@@ -280,8 +300,8 @@
     /* ---------------------------------------------------------- 4 */
     {
       type: "choice", key: "light", name: "מאיפה מגיע האור",
-      where: "תחנה 4 · ליד החלון הגדול",
-      task: "בלי מצפן ובלי טלפון: לאיזה כיוון פונה החלון הזה? תסתכל על הצללים, על הצד שמתחמם, ועל איפה אנשים בחרו לשבת.",
+      where: "הפתח הפונה לפאטיו",
+      task: "הסתכל על החצר. מול העין קיר האפור של פיר המעליות. לאיזה כיוון פונה הפתח שאתה עומד בו? תסתכל על הצללים בחצר, על הצד שמתחמם, ועל איפה בחרו לפרוס את השמשיות.",
       options: [
         { v: "n", t: "צפון" }, { v: "s", t: "דרום" },
         { v: "e", t: "מזרח" }, { v: "w", t: "מערב" }
@@ -290,73 +310,78 @@
         var m = {
           n: ["צפון", "אור קבוע ורך לאורך כל היום, בלי שמש ישירה ובלי סנוור. בדיוק בגלל זה סטודיו לתכנון מנסים תמיד להפנות צפונה."],
           s: ["דרום", "השמש גבוהה בקיץ ונמוכה בחורף. זה הכיוון היחיד שאפשר להצל עליו במדף אופקי פשוט — וזה חוסך מזגן."],
-          e: ["מזרח", "שמש בבוקר, ואז כלום. חדר שמתעורר מוקדם ומתקרר בצהריים."],
+          e: ["מזרח", "שמש בבוקר, ואז כלום. חלל שמתעורר מוקדם ומתקרר בצהריים."],
           w: ["מערב", "השמש הנמוכה של אחר הצהריים. מסנוורת ומחממת יותר מכל כיוון אחר, והכי קשה להתגונן ממנה."]
         }[v];
         return { head: "ענית: " + m[0], text: m[1] };
       },
       facts: function () {
         return [
-          ["הבדיקה", "צל קצר בצהריים = השמש מעליך, כלומר אתה מסתכל דרומה. צל ארוך שנמתח לכיוון אחד = בוקר או אחר צהריים."],
-          ["חינם", "כיוון הוא ההחלטה היחידה בתכנון שלא עולה שקל, ומשפיעה על חשבון החשמל של הבניין לכל אורך חייו."],
-          ["בבניין הזה", "תסתכל איפה הורידו וילונות ואיפה לא. מישהו כבר ענה על השאלה הזאת בשבילך."]
+          ["עכשיו בדוק", "פתח את המצפן בטלפון ותראה אם צדקת. אם טעית — זה הרבה יותר מעניין, כי עכשיו יש לך סיבה לשאול למה זה הרגיש אחרת."],
+          ["הבדיקה בלי טלפון", "צל קצר בצהריים = השמש מעליך, כלומר אתה מסתכל דרומה. צל ארוך שנמתח לצד אחד = בוקר או אחר צהריים."],
+          ["בחצר הזאת", "השמשיות והישיבה לא פרוסות באקראי. מישהו כבר גילה איפה נעים לשבת בשתיים בצהריים — וזה הסימן הכי טוב לכיוון."]
         ];
       },
-      unlock: { course: "תכנון אקלים ובניה ירוקה", text: "מקצוע התמחות בתוכנית, ואחד התפקידים שבוגר יכול לעסוק בהם כיועץ עצמאי." }
+      unlock: { course: "תכנון אקלים ובניה ירוקה", text: "מקצוע התמחות בתוכנית, ואחד התפקידים שבוגר יכול לעסוק בהם כיועץ עצמאי. כיוון הוא ההחלטה היחידה בתכנון שלא עולה שקל, ומשפיעה על חשבון החשמל של הבניין לכל אורך חייו." }
     },
 
     /* ---------------------------------------------------------- 5 */
     {
-      type: "choice", key: "wall", name: "מה מאחורי הקיר",
-      where: "תחנה 5 · בין שתי הכיתות",
-      task: "לפני שאתה נוגע — נחש. איזה מהשניים יישמע חלול כשתדפוק עליו?",
-      options: [
-        { v: "inner", t: "הקיר שבין שתי הכיתות" },
-        { v: "outer", t: "הקיר החיצוני, מול החלון" }
-      ],
-      answer: "inner",
-      verdict: function (v) {
-        if (v === "inner") return { head: "נכון", text: "עכשיו תדפוק על שניהם ותשמע את ההבדל. הקיר הפנימי הוא בדרך כלל גבס על שלד מתכת — חלול. החיצוני הוא בלוק או בטון." };
-        return { head: "בדרך כלל הפוך", text: "תדפוק על שניהם ותשמע. הקיר החיצוני נושא ואוטם, ולכן הוא מסיבי. דווקא הפנימי הוא זה שחלול." };
-      },
-      facts: function () {
-        return [
-          ["גבס", "קיר פנים שאפשר להזיז בכמה מאות שקלים ובכמה ימים."],
-          ["בלוק", "קיר שהזזה שלו גוררת הריסה, פינוי פסולת, חשמל ואינסטלציה — פי עשרה ומעלה."],
-          ["בטון", "לא זז בכלל. הוא מחזיק את הבניין, וזו התשובה לשאלה ״אפשר לפתוח כאן את הקיר?״ ברוב הדירות."]
-        ];
-      },
-      unlock: { course: "חומרי בנין · פרטי בנין", text: "שני מקצועות התמחות בתוכנית. ההבדל בין שלושת הקירות האלה הוא ההבדל בין שיפוץ שנגמר בזמן לשיפוץ שנתקע." }
-    },
-
-    /* ---------------------------------------------------------- 6 */
-    {
-      type: "dual", key: "stairs", name: "המדרגות",
-      where: "תחנה 6 · בגרם המדרגות",
+      type: "dual", key: "stairs", name: "המדרגות לפאטיו",
+      where: "גרם המדרגות היורד לפאטיו",
       task: "מדוד מדרגה אחת. הרום הוא הגובה שאתה עולה, השלח הוא העומק שאתה דורך עליו.",
       label: "רום (גובה)", label2: "שלח (עומק)", unit: 'ס״מ',
       min: 12, max: 22, start: 17, step: 0.5,
       min2: 20, max2: 36, start2: 28, step2: 1,
       verdict: function (v, v2) {
         var s = 2 * v + v2;
-        if (s >= 61 && s <= 65) return { head: "נוח — " + s.toFixed(1) + " ס״מ", text: "אתה עולה בגרם הזה בלי לחשוב עליו אפילו פעם אחת. זו כל המטרה." };
-        if (s < 61) return { head: "שטוח מדי — " + s.toFixed(1) + " ס״מ", text: "הצעד יוצא קצר וקטוע. תרגיש שאתה מדדה במקום לעלות." };
-        return { head: "תלול — " + s.toFixed(1) + " ס״מ", text: "בקומה הראשונה זה בסדר. בשלישית תרגיש את זה בשוקיים." };
+        if (s >= 61 && s <= 65) return { head: "לפי הנוסחה: " + s.toFixed(1) + " ס״מ, בטווח הנוח", text: "אתה עולה בגרם כזה בלי לחשוב עליו אפילו פעם אחת." };
+        if (s < 61) return { head: "לפי הנוסחה: " + s.toFixed(1) + " ס״מ, שטוח", text: "הצעד יוצא קצר וקטוע. תרגיש שאתה מדדה במקום לעלות." };
+        return { head: "לפי הנוסחה: " + s.toFixed(1) + " ס״מ, תלול", text: "בקומה הראשונה זה בסדר. בשלישית תרגיש את זה בשוקיים." };
       },
       facts: function () {
         return [
-          ["2R+T", "שתי פעמים הרום ועוד השלח. הכלל הזה בן מאות שנים, והטווח הנוח הוא 61 עד 65 ס״מ."],
-          ["חוק", "הרום והשלח מוגבלים בתקנות. גרם שחורג מהן לא מקבל היתר, ומי שבנה אותו מפרק אותו על חשבונו."],
-          ["למה", "אף אחד לא מודד מדרגות כשהוא עולה בהן. בדיוק בגלל זה מישהו חייב למדוד אותן לפני."]
+          ["16 / 26", "המידות האמיתיות של הגרם הזה. מציבים בנוסחה: 2×16+26 = 58 ס״מ."],
+          ["58", "מתחת לטווח הנוח שהוא 61 עד 65. הגרם הזה שטוח מהמומלץ — ועכשיו, כשאתה יורד בו, אתה תרגיש את זה."],
+          ["למה", "מדרגות חוץ נעשות לרוב שטוחות בכוונה: הן רטובות בחורף, והצעד הארוך בטוח יותר. כל מספר כאן הוא הכרעה, לא מקריות."]
         ];
       },
       unlock: { course: "תורת הבניה · סטטיקה ותכן מבנים", text: "מקצועות התמחות בתוכנית. רוב מה שלומדים כאן הם דברים שאיש לא שם לב אליהם כשהם נכונים — ואי אפשר להתעלם מהם כשהם לא." }
     },
 
+    /* ---------------------------------------------------------- 6 */
+    {
+      type: "choice", key: "materials", name: "לזהות חומר ביד",
+      where: "הארון הצהוב ליד אולם שביט",
+      task: "בארון יש דוגמאות חומרים. קח שלוש ביד ומצא: אחת שאפשר לשרוט בציפורן, אחת שקרה למגע, ואחת שקלה בהרבה ממה שהיא נראית. מה מכל השלושה הפתיע אותך יותר?",
+      options: [
+        { v: "scratch", t: "כמה קל היה לשרוט" },
+        { v: "cold", t: "כמה קרה הייתה אחת מהן" },
+        { v: "light", t: "כמה קלה הייתה אחת מהן" }
+      ],
+      verdict: function (v) {
+        var m = {
+          scratch: ["השריטה", "אם ציפורן שורטת אותו, גם מפתח, גם כיסא, גם מזוודה. זה החומר שייראה מעולה בהדמיה ומרוט אחרי שנתיים במסדרון."],
+          cold: ["הקור", "החומר לא קר. הוא מוליך את החום מכף היד שלך במהירות. אותו חומר בדיוק על רצפה בחורף מרגיש בלתי נסבל, ובקיץ מושלם."],
+          light: ["המשקל", "קל פירושו נקבובי, כלומר יש בו אוויר. אוויר הוא בידוד מצוין ואויב של חוזק. זה החומר שקל להרים לקומה שלישית ואי אפשר לתלות עליו כלום."]
+        }[v];
+        return { head: m[0], text: m[1] };
+      },
+      facts: function () {
+        return [
+          ["קשיות", "קובעת איפה החומר ישרוד — רצפה, קיר מסדרון, או מדף שאף אחד לא נוגע בו."],
+          ["מוליכות", "קובעת אם יהיה נעים לגעת בו, וכמה תעבוד המערכת שמחממת או מקררת את החדר."],
+          ["צפיפות", "קובעת מי נושא את מי. חומר קל לא מחזיק כלום, וחומר כבד דורש שמשהו יחזיק אותו."],
+          ["השורה", "שלוש שאלות שאפשר לענות עליהן ביד, לפני שפותחים קטלוג ולפני שמסתכלים על צבע."]
+        ];
+      },
+      unlock: { course: "חומרי בנין · פרטי בנין", text: "שני מקצועות התמחות בתוכנית. ההבדל בין החומר הנכון לחומר היפה הוא ההבדל בין פרויקט שנראה טוב ביום המסירה לפרויקט שנראה טוב אחרי חמש שנים." }
+    },
+
     /* ---------------------------------------------------------- 7 */
     {
       type: "choice", key: "works", name: "עבודות הסטודנטים",
-      where: "תחנה 7 · מול קיר העבודות",
+      where: "קיר העבודות באולם שביט",
       task: "על הקיר שלוש עבודות, מסומנות א׳, ב׳ ו־ג׳. בחר אחת שהיית רוצה שתהיה שלך.",
       options: [
         { v: "a", t: "עבודה א׳" }, { v: "b", t: "עבודה ב׳" }, { v: "c", t: "עבודה ג׳" }
@@ -376,23 +401,26 @@
 
     /* ---------------------------------------------------------- 8 */
     {
-      type: "slider", key: "money", name: "המספר",
-      where: "תחנה 8 · שולחן הפרויקטים",
-      task: "דירת שלושה חדרים, 78 מ״ר, שיפוץ מלא: הריסה, חשמל, אינסטלציה, ריצוף, נגרות, אלומיניום וגמר. כמה זה עלה?",
-      label: "הניחוש שלי", unit: "₪",
-      min: 60000, max: 700000, start: 250000, step: 10000,
+      type: "slider", key: "systems", name: "מה מסתתר בתקרה",
+      where: "אולם שביט",
+      task: "עמוד באמצע האולם והרם את הראש. אל תמהר. כמה מערכות בניין שונות אתה מזהה בתקרה?",
+      label: "ספרתי", unit: "מערכות",
+      min: 1, max: 12, start: 4, step: 1,
       verdict: function (v) {
-        var real = 410000, gap = Math.round(Math.abs(v - real) / real * 100);
-        if (gap <= 12) return { head: "410,000 ₪ — פספסת ב־" + gap + "%", text: "קרוב מאוד. רוב האנשים לא מגיעים לכאן, ואת ההפרש הזה משלמים בעלי דירות כל יום." };
-        if (v < real) return { head: "410,000 ₪ — הערכת בחסר ב־" + gap + "%", text: "זו הטעות הנפוצה, וזו הסיבה שפרויקטים נתקעים באמצע. התקציב נגמר בשלב הגמר." };
-        return { head: "410,000 ₪ — הערכת ביתר ב־" + gap + "%", text: "עדיף לטעות לכיוון הזה. הוא פשוט כמעט לא קורה." };
+        if (v <= 3) return { head: "יש שם יותר", text: "כמעט כולם עונים בין שתיים לארבע. זה בדיוק העניין: התקרה היא החלק בבניין שאף אחד לא מסתכל עליו, והיא הצפופה ביותר." };
+        if (v <= 7) return { head: "עין טובה", text: "ראית יותר מהממוצע. עכשיו תסתכל שוב ותנסה למצוא עוד שתיים — הן שם." };
+        return { head: "מצוין", text: "אתה כבר מסתכל על תקרה כמו מי שצריך לתכנן אותה." };
       },
-      split: [
-        ["הריסות ובנייה", 14], ["חשמל ותקשורת", 11], ["אינסטלציה", 9],
-        ["ריצוף וחיפוי", 17], ["נגרות", 21], ["אלומיניום", 8],
-        ["צבע וגמר", 8], ["ניהול ופיקוח", 6], ["עיצוב", 6]
-      ],
-      unlock: { course: "בקרה וניהול בניה", text: "מקצוע התמחות בתוכנית. שים לב מה קרה כאן: העיצוב הוא כשישה אחוזים מהתקציב. כל השאר הן החלטות טכניות שמישהו חייב לקבל נכון." }
+      facts: function () {
+        return [
+          ["תאורה", "לא רק גופים — גם מפסקים, מעגלים, ותאורת חירום שחייבת לעבוד כשהחשמל נופל."],
+          ["גילוי אש", "גלאי עשן, ולעיתים ספרינקלרים. המיקום שלהם נקבע בתקן, לא בשרטוט העיצובי."],
+          ["מיזוג", "מפוחים, תעלות ומפזרים. התעלה היא הדבר הכי עבה בתקרה, והיא זו שקובעת כמה נמוך יהיה הגבס."],
+          ["תקשורת", "רשת, רמקולים, כריזה, ולפעמים מקרן ומסך."],
+          ["מילוט", "שילוט מואר שמראה את הדרך החוצה. הוא חייב להיראות גם כשהחדר מלא עשן."]
+        ];
+      },
+      unlock: { course: "מערכות בניין בעיצוב הפנים", text: "מקצוע התמחות בתוכנית. כל מה שספרת עכשיו הוכרע לפני שסגרו את התקרה. מעצב שלא מכיר את המערכות מגלה אותן בדיוק ברגע שבו כבר אי אפשר להזיז אותן." }
     }
   ];
 
@@ -601,7 +629,7 @@
 
         q("כמה זה עולה?",
           "<p><span class=\"missing mono\">להשלמה מהמכללה</span></p>" +
-          "<p>שכר הלימוד המלא, המלגות ופריסת התשלומים. זו השאלה הראשונה שכל מתעניין שואל, והתשובה הכי משתלמת היא לכתוב אותה כאן במפורש.</p>") +
+          "<p>שכר הלימוד, המלגות ופריסת התשלומים נמסרים על ידי מדור ההרשמה של המכללה — לא על ידי המגמה. השאירו פרטים למטה ויחזרו אליכם עם המספרים המדויקים.</p>") +
 
         q("כמה מרוויח בוגר בשנה הראשונה?",
           "<p><span class=\"missing mono\">להשלמה מהמכללה</span></p>" +
@@ -637,6 +665,12 @@
     document.getElementById("again").onclick = function () {
       state = { i: -1, phase: "task", vals: {}, done: [] }; save(); render();
     };
+  }
+
+  var deep = (location.search + location.hash).match(/[?&#]s=(\d+)/);
+  if (deep) {
+    var k = parseInt(deep[1], 10) - 1;
+    if (k >= 0 && k < S.length) { state.i = k; state.phase = "task"; save(); }
   }
 
   render();
