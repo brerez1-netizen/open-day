@@ -7,7 +7,8 @@
 | `index.html` | [/](https://brerez1-netizen.github.io/open-day/) | המסלול עצמו — 7 תחנות מהכניסה הראשית עד אולם שביט |
 | `shilut.html` | [/shilut](https://brerez1-netizen.github.io/open-day/shilut) | שילוט A4 להדפסה: שלט פתיחה עם הברקוד, שלטי תחנות, ושלטי הכוונה |
 | `hatzaa.html` | [/hatzaa](https://brerez1-netizen.github.io/open-day/hatzaa) | מסמך ההצעה לראש המגמה |
-| `sargel.html` | [/sargel](https://brerez1-netizen.github.io/open-day/sargel) | סרגל מדידה 100–250 ס״מ לתחנת גובה העיניים, שישה דפים ב-1:1 |
+| `sargel-print.pdf` | — | סרגל הקיר כקובץ אחד לבית דפוס: 200×1580 מ״מ, 1:1 |
+| `sargel.html` | [/sargel](https://brerez1-netizen.github.io/open-day/sargel) | אותו סרגל בשישה דפי A4, לגיבוי אם מדפיסים במשרד |
 | `sayur.html` | [/sayur](https://brerez1-netizen.github.io/open-day/sayur) | דף שטח לקיבוע מיקומי התחנות (שימש בסיור ההכנה) |
 | `tv.html` | [/tv](https://brerez1-netizen.github.io/open-day/tv) | שקופית למסכי הלובי — מתאימה את עצמה למסך לרוחב או לאורך |
 | `tv-*.png` | — | אותה שקופית כתמונה: 1920×1080, 3840×2160 ו-1080×1920 |
