@@ -28,8 +28,26 @@ var HEADERS = [
   'נוסח ההסכמה',
   'תחנות שהושלמו',
   'תשובות במסלול',
+  'צילום מתחנת הפשרות',
   'מקור'
 ];
+
+/** שומר את הצילום מתחנת הפשרות בתיקייה בדרייב ומחזיר קישור. */
+function savePhoto(dataUrl, who) {
+  if (!dataUrl || dataUrl.indexOf('base64,') < 0) return '';
+  try {
+    var folders = DriveApp.getFoldersByName('צילומים — יום פתוח');
+    var folder = folders.hasNext() ? folders.next()
+                                   : DriveApp.createFolder('צילומים — יום פתוח');
+    var bytes = Utilities.base64Decode(dataUrl.split('base64,')[1]);
+    var blob = Utilities.newBlob(bytes, 'image/jpeg',
+      (who || 'ללא שם') + ' ' + Utilities.formatDate(new Date(), 'Asia/Jerusalem', 'yyyy-MM-dd HH-mm-ss') + '.jpg');
+    return folder.createFile(blob).getUrl();
+  } catch (err) {
+    console.error(err);
+    return '';
+  }
+}
 
 /** מריצים פעם אחת אחרי ההדבקה: יוצר את הגיליון ואת שורת הכותרות. */
 function setup() {
@@ -73,6 +91,7 @@ function doPost(e) {
       d.consentText || '',
       d.stationsDone || 0,
       answers,
+      savePhoto(d.photo, d.name),
       d.source || ''
     ]);
 

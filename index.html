@@ -224,6 +224,30 @@
   .contact div:last-child { margin-bottom: 0; }
   .contact b { font-weight: 750; color: var(--mark); }
 
+  .shoot {
+    display: flex; flex-direction: column; align-items: center; gap: 0.15rem;
+    background: var(--mark); color: var(--mark-ink); border-radius: 6px;
+    padding: 1.1rem; margin: 1.1rem 0 0; cursor: pointer; font-weight: 700; font-size: 1.05rem;
+  }
+  .shoot small { font-weight: 500; opacity: 0.85; font-size: 0.8rem; }
+  .shotimg { display: block; width: 100%; border-radius: 6px; margin-top: 0.7rem; }
+
+  .flds { display: flex; flex-direction: column; gap: 0.9rem; margin: 1.1rem 0 0; }
+  .fld label { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.35rem; }
+  .fld input {
+    width: 100%; font: inherit; font-size: 0.98rem; padding: 0.7rem;
+    border: 1.5px solid var(--rule); border-radius: 6px;
+    background: var(--surface); color: var(--ink);
+  }
+  .fld input:focus-visible { outline: 3px solid var(--accent); outline-offset: 1px; }
+
+  .bignum {
+    width: 100%; font: inherit; font-size: 2.4rem; font-weight: 750; text-align: center;
+    padding: 0.5rem; border: 1.5px solid var(--rule); border-radius: 6px;
+    background: var(--paper); color: var(--mark);
+  }
+  .bignum:focus-visible { outline: 3px solid var(--accent); outline-offset: 1px; }
+
   .msg { font-size:0.92rem; font-weight:600; margin:0.7rem 0 0; min-height:1.2em; }
   .msg.ok  { color:var(--mark); }
   .msg.bad { color:#B3261E; }
@@ -236,7 +260,7 @@
 <body>
 
 <div class="phone">
-  <div class="demoflag">מהכניסה הראשית עד אולם שביט · 7 תחנות · בערך חצי שעה</div>
+  <div class="demoflag">סורקים פעם אחת בכניסה · כל השאר עובד מהנייד</div>
   <div class="bar">
     <button class="back" id="back" type="button" aria-label="חזרה לשלב הקודם">&#8594;</button>
     <span class="who" id="crumb">מה הבניין הזה מסתיר</span>
@@ -260,9 +284,9 @@
     {
       type: "slider", key: "eye", name: "גובה העיניים",
       where: "הקיר משמאל לעמדת השומר",
-      task: "עמוד צמוד לקיר וסמן את גובה העיניים שלך. כמה יצא?",
+      task: "עמוד צמוד לסרגל שעל הקיר וסמן את גובה העיניים שלך. כמה יצא?",
       label: "גובה העיניים שלי", unit: 'ס״מ',
-      min: 130, max: 195, start: 160, step: 1,
+      min: 100, max: 250, start: 160, step: 1,
       verdict: function (v) {
         return { head: "קו העין שלך: " + v + " ס״מ",
           text: "כל בניין שהיית בו אי פעם תוכנן סביב המספר הזה של מישהו אחר. מהרגע הזה הגוף שלך הוא הסרגל." };
@@ -287,8 +311,8 @@
       min: 90, max: 320, start: 160, step: 5,
       verdict: function (v) {
         var real = 252, gap = Math.abs(v - real);
-        if (gap <= 20) return { head: "252 ס״מ — קלעת", text: "רוב האנשים מעריכים הרבה פחות. אנחנו לא מודדים מרחקים בעיניים כמעט אף פעם." };
-        if (v < real) return { head: "252 ס״מ — הערכת בחסר", text: "כמעט כולם. המוח שלנו משווה למסדרון של דירה, וכאן הוא כפול ממנו." };
+        if (gap <= 20) return { head: "252 ס״מ — קלעת", text: "רוב האנשים מעריכים הרבה פחות. אנחנו כמעט אף פעם לא מודדים מרחקים בעיניים." };
+        if (v < real) return { head: "252 ס״מ — הערכת בחסר", text: "כמעט כולם. המוח שלנו משווה למסדרון של דירה, וכאן הוא יותר מכפול ממנו." };
         return { head: "252 ס״מ — הערכת ביתר", text: "המסדרון באמת מרגיש רחב, ויש לזה סיבה." };
       },
       facts: function () {
@@ -303,17 +327,17 @@
 
     /* ---------------------------------------------------------- 3 */
     {
-      type: "text", key: "compromise", name: "איפה מישהו התפשר",
-      where: "באזור המדרגות והפאטיו",
-      task: "הסתכל סביב: הקירוי מעל המדרגות, המפגש שלו עם הקיר, הצנרת, המבנה היביל בפאטיו. מצא מקום אחד שניכר בו שמישהו נאלץ להתפשר, וכתוב בשורה מה ראית.",
-      placeholder: "לדוגמה: הקירוי לא נפגש נקי עם הקיר…",
+      type: "photo", key: "compromise", name: "איפה מישהו התפשר",
+      where: "בדרך מהמסדרון אל החצר",
+      task: "מצא מקום אחד שבו ניכר שמישהו נאלץ להתפשר. צלם אותו, וכתוב בשורה מה ראית.",
+      placeholder: "מה ראית שם…",
       verdict: function () {
         return { head: "אין כאן תשובה נכונה", text: "וזה לא ויתור — זו הנקודה. כל בניין הוא רצף פשרות בין מה שרצו, מה שמותר, מה שאפשר לבנות ומה שהיה עליו תקציב." };
       },
       facts: function () {
         return [
-          ["הכי נפוץ", "אלמנט שנוסף אחרי שהבניין כבר עמד — קירוי, צנרת או מזגן. הוא כמעט לעולם לא נפגש נקי עם מה שהיה קודם."],
-          ["למה", "בשלב התכנון זה היה קו על נייר. בשטח מתגלה שהקיר לא ישר, שהצינור עובר, ושאין תקציב לפרק ולהתחיל מחדש."],
+          ["הכי נפוץ", "אלמנט שנוסף אחרי שהבניין כבר עמד — קירוי, צנרת, מזגן. הוא כמעט לעולם לא נפגש נקי עם מה שהיה קודם."],
+          ["למה", "בתכנון זה היה קו על נייר. בשטח מתגלה שהקיר לא ישר, שהצינור עובר, ושאין תקציב לפרק ולהתחיל מחדש."],
           ["השורה", "מקצוען הוא לא מי שלא מתפשר. הוא מי שיודע מראש איפה כדאי — ומה זה יעלה אם יגלו את זה מאוחר."]
         ];
       },
@@ -322,27 +346,26 @@
 
     /* ---------------------------------------------------------- 4 */
     {
-      type: "choice", key: "light", name: "מאיפה מגיע האור",
-      where: "הפתח הפונה לפאטיו",
-      task: "הסתכל על החצר. מול העין קיר האפור של פיר המעליות. לאיזה כיוון פונה הפתח שאתה עומד בו? תסתכל על הצללים בחצר, על הצד שמתחמם, ועל איפה בחרו לפרוס את השמשיות.",
+      type: "choice", key: "light", name: "איפה הצפון",
+      where: "במרכז החצר, עם הפנים לקיר האפור של המעליות",
+      task: "עמוד במרכז החצר והסתכל ישר על הקיר האפור של המעליות. בלי מצפן: איפה הצפון?",
       options: [
-        { v: "n", t: "צפון" }, { v: "s", t: "דרום" },
-        { v: "e", t: "מזרח" }, { v: "w", t: "מערב" }
+        { v: "wall", t: "לכיוון הקיר האפור" },
+        { v: "back", t: "בגב שלך" },
+        { v: "right", t: "מימין לך" },
+        { v: "left", t: "משמאל לך" }
       ],
+      answer: "back",
       verdict: function (v) {
-        var m = {
-          n: ["צפון", "אור קבוע ורך לאורך כל היום, בלי שמש ישירה ובלי סנוור. בדיוק בגלל זה סטודיו לתכנון מנסים תמיד להפנות צפונה."],
-          s: ["דרום", "השמש גבוהה בקיץ ונמוכה בחורף. זה הכיוון היחיד שאפשר להצל עליו במדף אופקי פשוט — וזה חוסך מזגן."],
-          e: ["מזרח", "שמש בבוקר, ואז כלום. חלל שמתעורר מוקדם ומתקרר בצהריים."],
-          w: ["מערב", "השמש הנמוכה של אחר הצהריים. מסנוורת ומחממת יותר מכל כיוון אחר, והכי קשה להתגונן ממנה."]
-        }[v];
-        return { head: "ענית: " + m[0], text: m[1] };
+        if (v === "back") return { head: "נכון — הצפון בגב שלך", text: "כלומר אתה עומד עם הפנים לדרום. עכשיו פתח את המצפן בטלפון ותאמת." };
+        var m = { wall: "לכיוון הקיר", right: "מימין", left: "משמאל" }[v];
+        return { head: "לא " + m + " — הצפון בגב שלך", text: "אתה עומד עם הפנים לדרום. פתח את המצפן בטלפון ותראה. עכשיו השאלה המעניינת היא איך אפשר היה לדעת בלעדיו." };
       },
       facts: function () {
         return [
-          ["עכשיו בדוק", "פתח את המצפן בטלפון ותראה אם צדקת. אם טעית — זה הרבה יותר מעניין, כי עכשיו יש לך סיבה לשאול למה זה הרגיש אחרת."],
-          ["הבדיקה בלי טלפון", "צל קצר בצהריים = השמש מעליך, כלומר אתה מסתכל דרומה. צל ארוך שנמתח לצד אחד = בוקר או אחר צהריים."],
-          ["בחצר הזאת", "השמשיות והישיבה לא פרוסות באקראי. מישהו כבר גילה איפה נעים לשבת בשתיים בצהריים — וזה הסימן הכי טוב לכיוון."]
+          ["הצל", "בצהריים הצל הכי קצר, והוא מצביע צפונה. אם יש לך צל — יש לך מצפן."],
+          ["השמשיות", "מישהו כבר גילה איפה נעים לשבת בשתיים בצהריים. פריסת הישיבה בחצר היא הסימן הכי טוב לכיוון."],
+          ["למה אכפת", "החזית שאתה מסתכל עליה פונה לצפון, ולכן היא לא מקבלת שמש ישירה כמעט אף פעם. זה הכיוון שסטודיו לתכנון מחפשים — אור קבוע ורך בלי סנוור."]
         ];
       },
       unlock: { course: "תכנון אקלים ובניה ירוקה", text: "מקצוע התמחות בתוכנית, ואחד התפקידים שבוגר יכול לעסוק בהם כיועץ עצמאי. כיוון הוא ההחלטה היחידה בתכנון שלא עולה שקל, ומשפיעה על חשבון החשמל של הבניין לכל אורך חייו." }
@@ -351,16 +374,16 @@
     /* ---------------------------------------------------------- 5 */
     {
       type: "dual", key: "stairs", name: "המדרגות לפאטיו",
-      where: "גרם המדרגות היורד לפאטיו",
-      task: "מדוד מדרגה אחת. הרום הוא הגובה שאתה עולה, השלח הוא העומק שאתה דורך עליו.",
+      where: "גרם המדרגות היורד לפאטיו · השתמשו בסרגל שעל השלט",
+      task: "מדוד מדרגה אחת עם הסרגל שמודפס על השלט. הרום הוא הגובה שאתה עולה, השלח הוא העומק שאתה דורך עליו.",
       label: "רום (גובה)", label2: "שלח (עומק)", unit: 'ס״מ',
       min: 12, max: 22, start: 17, step: 0.5,
       min2: 20, max2: 36, start2: 28, step2: 1,
       verdict: function (v, v2) {
         var s = 2 * v + v2;
-        if (s >= 61 && s <= 65) return { head: "לפי הנוסחה: " + s.toFixed(1) + " ס״מ, בטווח הנוח", text: "אתה עולה בגרם כזה בלי לחשוב עליו אפילו פעם אחת." };
-        if (s < 61) return { head: "לפי הנוסחה: " + s.toFixed(1) + " ס״מ, שטוח", text: "הצעד יוצא קצר וקטוע. תרגיש שאתה מדדה במקום לעלות." };
-        return { head: "לפי הנוסחה: " + s.toFixed(1) + " ס״מ, תלול", text: "בקומה הראשונה זה בסדר. בשלישית תרגיש את זה בשוקיים." };
+        if (s >= 61 && s <= 65) return { head: "לפי הנוסחה: " + s.toFixed(1) + " ס״מ, בטווח הנוח", text: "גרם כזה עולים בלי לחשוב עליו אפילו פעם אחת." };
+        if (s < 61) return { head: "לפי הנוסחה: " + s.toFixed(1) + " ס״מ, שטוח", text: "הצעד יוצא ארוך ורדוד. מרגישים שמדדים במקום לרדת." };
+        return { head: "לפי הנוסחה: " + s.toFixed(1) + " ס״מ, תלול", text: "בקומה הראשונה זה בסדר. בשלישית מרגישים את זה בשוקיים." };
       },
       facts: function () {
         return [
@@ -374,27 +397,22 @@
 
     /* ---------------------------------------------------------- 6 */
     {
-      type: "choice", key: "materials", name: "לזהות חומר ביד",
+      type: "fields", key: "materials", name: "לזהות חומר ביד",
       where: "הארון הצהוב ליד אולם שביט",
-      task: "בארון יש דוגמאות חומרים. קח שלוש ביד ומצא: אחת שאפשר לשרוט בציפורן, אחת שקרה למגע, ואחת שקלה בהרבה ממה שהיא נראית. מה מכל השלושה הפתיע אותך יותר?",
-      options: [
-        { v: "scratch", t: "כמה קל היה לשרוט" },
-        { v: "cold", t: "כמה קרה הייתה אחת מהן" },
-        { v: "light", t: "כמה קלה הייתה אחת מהן" }
+      task: "בארון יש דוגמאות חומרים. בחר שלוש, וכתוב לכל אחת למה דווקא היא.",
+      fields: [
+        { k: "load", label: "חומר שנראה חזק מספיק לשאת עומסים", ph: "מה בחרת, ולמה" },
+        { k: "insu", label: "חומר שטוב לבידוד", ph: "מה בחרת, ולמה" },
+        { k: "floor", label: "חומר שיכול לשמש לריצוף", ph: "מה בחרת, ולמה" }
       ],
-      verdict: function (v) {
-        var m = {
-          scratch: ["השריטה", "אם ציפורן שורטת אותו, גם מפתח, גם כיסא, גם מזוודה. זה החומר שייראה מעולה בהדמיה ומרוט אחרי שנתיים במסדרון."],
-          cold: ["הקור", "החומר לא קר. הוא מוליך את החום מכף היד שלך במהירות. אותו חומר בדיוק על רצפה בחורף מרגיש בלתי נסבל, ובקיץ מושלם."],
-          light: ["המשקל", "קל פירושו נקבובי, כלומר יש בו אוויר. אוויר הוא בידוד מצוין ואויב של חוזק. זה החומר שקל להרים לקומה שלישית ואי אפשר לתלות עליו כלום."]
-        }[v];
-        return { head: m[0], text: m[1] };
+      verdict: function () {
+        return { head: "עכשיו תבדוק את עצמך", text: "כמעט תמיד מגלים שהחומר שנבחר לעומסים הוא הכבד, שהמבודד הוא הקל, ושחומר הריצוף הוא זה שהכי קשה לשרוט. זה לא צירוף מקרים." };
       },
       facts: function () {
         return [
-          ["קשיות", "קובעת איפה החומר ישרוד — רצפה, קיר מסדרון, או מדף שאף אחד לא נוגע בו."],
-          ["מוליכות", "קובעת אם יהיה נעים לגעת בו, וכמה תעבוד המערכת שמחממת או מקררת את החדר."],
-          ["צפיפות", "קובעת מי נושא את מי. חומר קל לא מחזיק כלום, וחומר כבד דורש שמשהו יחזיק אותו."],
+          ["עומסים", "צפיפות וקשיחות. חומר כבד ודחוס נושא, חומר קל לא. בטון וברזל מול גבס וקלקר."],
+          ["בידוד", "אוויר כלוא. ככל שיש בחומר יותר אוויר — הוא קל יותר, מבודד יותר, ונושא פחות. הבידוד והחוזק תמיד מתנגשים."],
+          ["ריצוף", "עמידות בשחיקה. עליו דורכים, גוררים כיסאות ושופכים. אם ציפורן שורטת אותו — הוא לא ישרוד מסדרון."],
           ["השורה", "שלוש שאלות שאפשר לענות עליהן ביד, לפני שפותחים קטלוג ולפני שמסתכלים על צבע."]
         ];
       },
@@ -403,25 +421,23 @@
 
     /* ---------------------------------------------------------- 7 */
     {
-      type: "choice", key: "works", name: "עבודות הסטודנטים",
+      type: "number", key: "works", name: "עבודות הסטודנטים",
       where: "קיר העבודות באולם שביט",
-      task: "על הקיר שלוש עבודות, מסומנות א׳, ב׳ ו־ג׳. בחר אחת שהיית רוצה שתהיה שלך.",
-      options: [
-        { v: "a", t: "עבודה א׳" }, { v: "b", t: "עבודה ב׳" }, { v: "c", t: "עבודה ג׳" }
-      ],
-      verdict: function () {
-        return { head: "סמסטר א׳, שנה א׳", text: "שלוש העבודות שעל הקיר נעשו בקורס עקרונות התכנון האדריכלי, בסמסטר הראשון של השנה הראשונה. מי שעשה אותן לא ידע לשרטט שמונה חודשים קודם." };
+      task: "על הקיר עבודות של סטודנטים מהמגמה, ולכל אחת מספר. בחר אחת שהיית רוצה שתהיה שלך, והקלד את המספר שלה.",
+      label: "מספר העבודה", unit: "",
+      min: 1, max: 99, start: 1,
+      verdict: function (v) {
+        return { head: "עבודה מספר " + v, text: "העבודות שעל הקיר נעשו בשנה הראשונה ללימודים. מי שעשה אותן לא ידע לשרטט שנה קודם." };
       },
       facts: function () {
         return [
-          ["1 סמסטר", "המרחק בינך לבין העבודה שבחרת."],
+          ["שנה", "המרחק בינך לבין העבודה שבחרת."],
           ["5 סמסטרים", "המרחק בינך לבין פרויקט גמר מלא — תכנון מפורט של מבנה אמיתי."],
           ["ואז", "דיפלומת הנדסאי מטעם מה״ט, והרשמה בפנקס ההנדסאים."]
         ];
       },
       unlock: { course: "מה עושים עם זה אחר כך", text: "תכנון במשרדי אדריכלות · פרקטיקה עצמאית · התמחות בעיצוב פנים · ועדות תכנון ברשויות המקומיות · ייעוץ אקלים ובנייה ירוקה · ייעוץ נגישות בבנייה ציבורית." }
     }
-
   ];
 
   var state = { i: -1, phase: "task", vals: {}, done: [] };
@@ -502,13 +518,52 @@
     if (st.type === "choice") {
       var h = "<div class='opts'>";
       st.options.forEach(function (o, n) {
-        h += '<button class="opt" data-v="' + o.v + '"><span class="k mono">' + String.fromCharCode(1488 + n) + '</span>' + esc(o.t) + '</button>';
+        h += '<button class="opt" data-v="' + o.v + '"><span class="k">' + String.fromCharCode(1488 + n) + '</span>' + esc(o.t) + '</button>';
       });
       h += "</div>";
       view.innerHTML = shell(st, h);
       Array.prototype.forEach.call(view.querySelectorAll(".opt"), function (b) {
         b.onclick = function () { commit(st, b.getAttribute("data-v")); };
       });
+      return;
+    }
+
+    if (st.type === "photo") {
+      view.innerHTML = shell(st,
+        '<label class="shoot" for="pic"><span>צלם</span><small>נפתחת המצלמה</small></label>' +
+        '<input type="file" id="pic" accept="image/*" capture="environment" hidden>' +
+        '<div id="prev"></div>' +
+        '<textarea id="t" placeholder="' + esc(st.placeholder) + '" aria-label="מה ראית"></textarea>' +
+        '<button class="go" id="ok">זהו</button>');
+      var pic = document.getElementById("pic"), prev = document.getElementById("prev");
+      pic.onchange = function () {
+        var f = pic.files && pic.files[0];
+        if (!f) return;
+        shrink(f, function (dataUrl) {
+          shot = dataUrl;
+          prev.innerHTML = '<img class="shotimg" alt="הצילום שלך" src="' + dataUrl + '">';
+        });
+      };
+      document.getElementById("ok").onclick = function () {
+        state.vals[st.key + "_img"] = shot || "";
+        commit(st, document.getElementById("t").value.trim());
+        shot = null;
+      };
+      return;
+    }
+
+    if (st.type === "fields") {
+      var f = "";
+      st.fields.forEach(function (fd, n) {
+        f += '<div class="fld"><label for="f' + n + '">' + esc(fd.label) + '</label>' +
+             '<input type="text" id="f' + n + '" placeholder="' + esc(fd.ph) + '"></div>';
+      });
+      view.innerHTML = shell(st, '<div class="flds">' + f + '</div><button class="go" id="ok">זהו</button>');
+      document.getElementById("ok").onclick = function () {
+        var out = {};
+        st.fields.forEach(function (fd, n) { out[fd.label] = document.getElementById("f" + n).value.trim(); });
+        commit(st, out);
+      };
       return;
     }
 
@@ -522,25 +577,38 @@
       return;
     }
 
+    if (st.type === "number") {
+      view.innerHTML = shell(st,
+        '<div class="dial"><label for="n">' + esc(st.label) + '</label>' +
+        '<input class="bignum" type="number" id="n" inputmode="numeric" min="' + st.min + '" max="' + st.max + '" value="' + st.start + '"></div>' +
+        '<button class="go" id="ok">זהו</button>');
+      document.getElementById("ok").onclick = function () {
+        var n = parseInt(document.getElementById("n").value, 10);
+        if (isNaN(n)) n = st.start;
+        commit(st, Math.min(st.max, Math.max(st.min, n)));
+      };
+      return;
+    }
+
     var v = state.vals[st.key] !== undefined ? state.vals[st.key] : st.start;
     var v2 = state.vals[st.key + "2"] !== undefined ? state.vals[st.key + "2"] : st.start2;
 
-    var h = '<div class="dial">' +
+    var h2 = '<div class="dial">' +
       '<label for="a">' + esc(st.label) + '</label>' +
       '<div class="readout mono" id="ra">' + (money ? fmt(v) : v) + '<span class="u">' + st.unit + '</span></div>' +
       '<input type="range" id="a" min="' + st.min + '" max="' + st.max + '" step="' + st.step + '" value="' + v + '" aria-label="' + esc(st.label) + '">' +
       '<div class="ends mono"><span>' + (money ? fmt(st.min) : st.min) + '</span><span>' + (money ? fmt(st.max) : st.max) + '</span></div></div>';
 
     if (st.type === "dual") {
-      h += '<div class="dial">' +
+      h2 += '<div class="dial">' +
         '<label for="b">' + esc(st.label2) + '</label>' +
         '<div class="readout mono" id="rb">' + v2 + '<span class="u">' + st.unit + '</span></div>' +
         '<input type="range" id="b" min="' + st.min2 + '" max="' + st.max2 + '" step="' + st.step2 + '" value="' + v2 + '" aria-label="' + esc(st.label2) + '">' +
         '<div class="ends mono"><span>' + st.min2 + '</span><span>' + st.max2 + '</span></div></div>';
     }
 
-    h += '<button class="go" id="ok">זהו, בדוק</button>';
-    view.innerHTML = shell(st, h);
+    h2 += '<button class="go" id="ok">זהו, בדוק</button>';
+    view.innerHTML = shell(st, h2);
 
     var a = document.getElementById("a"), ra = document.getElementById("ra");
     a.oninput = function () { ra.firstChild.nodeValue = money ? fmt(a.value) : a.value; };
@@ -551,6 +619,23 @@
     document.getElementById("ok").onclick = function () {
       commit(st, parseFloat(a.value), st.type === "dual" ? parseFloat(document.getElementById("b").value) : undefined);
     };
+  }
+
+  var shot = null;
+
+  /* the phone camera gives ~4 MB; the sheet only needs something readable */
+  function shrink(file, done) {
+    var img = new Image(), url = URL.createObjectURL(file);
+    img.onload = function () {
+      var max = 1100, s = Math.min(1, max / Math.max(img.width, img.height));
+      var c = document.createElement("canvas");
+      c.width = Math.round(img.width * s); c.height = Math.round(img.height * s);
+      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(url);
+      done(c.toDataURL("image/jpeg", 0.72));
+    };
+    img.onerror = function () { URL.revokeObjectURL(url); done(""); };
+    img.src = url;
   }
 
   function reveal(st) {
@@ -696,7 +781,11 @@
 
       var answers = {};
       S.forEach(function (st) {
-        if (state.vals[st.key] !== undefined) answers[st.name] = state.vals[st.key];
+        var val = state.vals[st.key];
+        if (val === undefined) return;
+        if (val && typeof val === "object") {
+          Object.keys(val).forEach(function (k) { if (val[k]) answers[k] = val[k]; });
+        } else { answers[st.name] = val; }
       });
 
       btn.disabled = true; btn.textContent = "שולח…";
@@ -706,7 +795,9 @@
         body: JSON.stringify({
           name: nm, phone: ph, email: em, consent: true,
           consentText: "אני מאשר/ת שהמכללה תיצור איתי קשר בנוגע לתוכנית הלימודים.",
-          stationsDone: state.done.length, answers: answers, source: "מסלול יום פתוח"
+          stationsDone: state.done.length, answers: answers,
+          photo: state.vals["compromise_img"] || "",
+          source: "מסלול יום פתוח"
         })
       }).then(function () {
         btn.textContent = "נשלח";
