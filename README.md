@@ -6,7 +6,7 @@
 |---|---|---|
 | `index.html` | [/](https://brerez1-netizen.github.io/open-day/) | המסלול עצמו - 7 תחנות מהכניסה הראשית עד אולם שביט |
 | `shilut.html` | [/shilut](https://brerez1-netizen.github.io/open-day/shilut) | שילוט A4 להדפסה: שלט פתיחה עם הברקוד, שלטי תחנות, ושלטי הכוונה |
-| `hatzaa.html` | [/hatzaa](https://brerez1-netizen.github.io/open-day/hatzaa) | מסמך ההצעה לראש המגמה |
+| `hatzaa.html` | [/hatzaa](https://brerez1-netizen.github.io/open-day/hatzaa) | מסמך ההצעה לראש המגמה. אושר ב-18.8.2026 |
 | `sargel-print.pdf` | - | סרגל הקיר כקובץ אחד לבית דפוס: 400×1700 מ״מ, 1:1 |
 | `sargel.html` | [/sargel](https://brerez1-netizen.github.io/open-day/sargel) | אותו סרגל בשישה דפי A4, לגיבוי אם מדפיסים במשרד |
 | `sayur.html` | [/sayur](https://brerez1-netizen.github.io/open-day/sayur) | דף שטח לקיבוע מיקומי התחנות (שימש בסיור ההכנה) |
@@ -22,7 +22,7 @@
 1. גובה העיניים - הקיר משמאל לעמדת השומר
 2. מסדרון הכניסה
 3. איפה מישהו התפשר - אזור המדרגות והפאטיו
-4. מאיפה מגיע האור - הפתח הפונה לפאטיו
+4. איפה הצפון - במרכז החצר, מול קיר המעליות
 5. המדרגות לפאטיו
 6. לזהות חומר ביד - הארון הצהוב ליד אולם שביט
 7. עבודות הסטודנטים - קיר העבודות באולם שביט
