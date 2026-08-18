@@ -2,14 +2,14 @@
  * קליטת פרטי מתעניינים ממסלול יום הפתוח אל גיליון Google של המכללה.
  *
  * התקנה (פעם אחת, כ-5 דקות):
- *   1. צרו גיליון Google חדש בחשבון של המכללה, למשל "מתעניינים — יום פתוח".
+ *   1. צרו גיליון Google חדש בחשבון של המכללה, למשל "מתעניינים - יום פתוח".
  *   2. בגיליון: תפריט Extensions ← Apps Script.
  *   3. מחקו את מה שיש שם, הדביקו את כל הקובץ הזה, ושמרו.
  *   4. עדכנו את NOTIFY_EMAIL למטה, או השאירו ריק כדי לא לקבל התראות.
  *   5. הריצו פעם אחת את הפונקציה setup (בחרו אותה למעלה ולחצו Run).
  *
  *      כאן גוגל תבקש הרשאות ותציג אזהרה "Google hasn't verified this app".
- *      זה תקין — זה סקריפט שאתם בעצמכם כתבתם, וגוגל מציגה את האזהרה לכל
+ *      זה תקין - זה סקריפט שאתם בעצמכם כתבתם, וגוגל מציגה את האזהרה לכל
  *      סקריפט שלא עבר אימות מסחרי. לחצו Advanced ואז
  *      "Go to <שם הפרויקט> (unsafe)" ואשרו. בלי זה שום דבר לא ירוץ.
  *
@@ -32,7 +32,7 @@
  * ריק = בלי מיילים, רק שורה בגיליון.
  *
  * הערה: המייל יוצא מהחשבון שפרס את הסקריפט. המגבלה היומית היא 100 מיילים
- * בחשבון פרטי ו-1500 בחשבון ארגוני — הרבה מעבר למה שיום פתוח מייצר.
+ * בחשבון פרטי ו-1500 בחשבון ארגוני - הרבה מעבר למה שיום פתוח מייצר.
  *
  * הגיליון נשאר גם אם שולחים מייל, והוא רשת הביטחון: מייל אחד שנמחק בטעות
  * או נופל לספאם הוא ליד שאבד, ושורה בגיליון לא הולכת לשום מקום.
@@ -57,9 +57,9 @@ var HEADERS = [
 function savePhoto(dataUrl, who) {
   if (!dataUrl || dataUrl.indexOf('base64,') < 0) return '';
   try {
-    var folders = DriveApp.getFoldersByName('צילומים — יום פתוח');
+    var folders = DriveApp.getFoldersByName('צילומים - יום פתוח');
     var folder = folders.hasNext() ? folders.next()
-                                   : DriveApp.createFolder('צילומים — יום פתוח');
+                                   : DriveApp.createFolder('צילומים - יום פתוח');
     var bytes = Utilities.base64Decode(dataUrl.split('base64,')[1]);
     var blob = Utilities.newBlob(bytes, 'image/jpeg',
       (who || 'ללא שם') + ' ' + Utilities.formatDate(new Date(), 'Asia/Jerusalem', 'yyyy-MM-dd HH-mm-ss') + '.jpg');
@@ -87,7 +87,7 @@ function doPost(e) {
   try {
     var d = JSON.parse(e.postData.contents);
 
-    // בלי אישור מפורש לא נרשם דבר — דרישת חוק התקשורת (בזק ושידורים)
+    // בלי אישור מפורש לא נרשם דבר - דרישת חוק התקשורת (בזק ושידורים)
     if (!d.consent) {
       return ContentService.createTextOutput('no consent');
     }
@@ -143,7 +143,7 @@ function doPost(e) {
 
     return ContentService.createTextOutput('ok');
   } catch (err) {
-    // לא מפילים את הבקשה — המבקר לא אמור לראות שגיאה
+    // לא מפילים את הבקשה - המבקר לא אמור לראות שגיאה
     console.error(err);
     return ContentService.createTextOutput('error');
   }
